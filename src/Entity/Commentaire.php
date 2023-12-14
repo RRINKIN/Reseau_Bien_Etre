@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CommentaireRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -25,6 +27,14 @@ class Commentaire
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $encodage = null;
+
+    #[ORM\OneToMany(mappedBy: 'commentaire', targetEntity: Abus::class)]
+    private Collection $abuses;
+
+    public function __construct()
+    {
+        $this->abuses = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,6 +85,36 @@ class Commentaire
     public function setEncodage(?\DateTimeInterface $encodage): static
     {
         $this->encodage = $encodage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Abus>
+     */
+    public function getAbuses(): Collection
+    {
+        return $this->abuses;
+    }
+
+    public function addAbuse(Abus $abuse): static
+    {
+        if (!$this->abuses->contains($abuse)) {
+            $this->abuses->add($abuse);
+            $abuse->setCommentaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAbuse(Abus $abuse): static
+    {
+        if ($this->abuses->removeElement($abuse)) {
+            // set the owning side to null (unless already changed)
+            if ($abuse->getCommentaire() === $this) {
+                $abuse->setCommentaire(null);
+            }
+        }
 
         return $this;
     }

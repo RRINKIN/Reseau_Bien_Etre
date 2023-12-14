@@ -35,6 +35,12 @@ class Promotion
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $affichageJusque = null;
 
+    #[ORM\ManyToOne(inversedBy: 'promotions')]
+    private ?Prestataire $prestataire = null;
+
+    #[ORM\ManyToOne(inversedBy: 'promotions')]
+    private ?CategorieDeServices $categorieDeServices = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +126,30 @@ class Promotion
     public function setAffichageJusque(?\DateTimeInterface $affichageJusque): static
     {
         $this->affichageJusque = $affichageJusque;
+
+        return $this;
+    }
+
+    public function getPrestataire(): ?Prestataire
+    {
+        return $this->prestataire;
+    }
+
+    public function setPrestataire(?Prestataire $prestataire): static
+    {
+        $this->prestataire = $prestataire;
+
+        return $this;
+    }
+
+    public function getCategorieDeServices(): ?CategorieDeServices
+    {
+        return $this->categorieDeServices;
+    }
+
+    public function setCategorieDeServices(?CategorieDeServices $categorieDeServices): static
+    {
+        $this->categorieDeServices = $categorieDeServices;
 
         return $this;
     }

@@ -16,6 +16,12 @@ class Position
     #[ORM\Column(nullable: true)]
     private ?int $ordre = null;
 
+    #[ORM\ManyToOne(inversedBy: 'positions')]
+    private ?Bloc $bloc = null;
+
+    #[ORM\ManyToOne(inversedBy: 'positions')]
+    private ?Internaute $internaute = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +35,30 @@ class Position
     public function setOrdre(?int $ordre): static
     {
         $this->ordre = $ordre;
+
+        return $this;
+    }
+
+    public function getBloc(): ?Bloc
+    {
+        return $this->bloc;
+    }
+
+    public function setBloc(?Bloc $bloc): static
+    {
+        $this->bloc = $bloc;
+
+        return $this;
+    }
+
+    public function getInternaute(): ?Internaute
+    {
+        return $this->internaute;
+    }
+
+    public function setInternaute(?Internaute $internaute): static
+    {
+        $this->internaute = $internaute;
 
         return $this;
     }
