@@ -25,10 +25,17 @@ class Internaute extends User
     #[ORM\OneToMany(mappedBy: 'internaute', targetEntity: Abus::class)]
     private Collection $abuses;
 
+    #[ORM\OneToOne(mappedBy: 'internaute', cascade: ['persist', 'remove'])]
+    private ?Images $images = null;
+
+    #[ORM\OneToMany(mappedBy: 'internaute', targetEntity: Commentaire::class)]
+    private Collection $commentaires;
+
     public function __construct()
     {
         $this->positions = new ArrayCollection();
         $this->abuses = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -126,6 +133,58 @@ class Internaute extends User
             // set the owning side to null (unless already changed)
             if ($abuse->getInternaute() === $this) {
                 $abuse->setInternaute(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getImages(): ?Images
+    {
+        return $this->images;
+    }
+
+    public function setImages(?Images $images): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($images === null && $this->images !== null) {
+            $this->images->setInternaute(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($images !== null && $images->getInternaute() !== $this) {
+            $images->setInternaute($this);
+        }
+
+        $this->images = $images;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): static
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires->add($commentaire);
+            $commentaire->setInternaute($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): static
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getInternaute() === $this) {
+                $commentaire->setInternaute(null);
             }
         }
 

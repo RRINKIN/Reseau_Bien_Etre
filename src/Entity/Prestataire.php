@@ -28,10 +28,18 @@ class Prestataire extends User
     #[ORM\OneToMany(mappedBy: 'prestataire', targetEntity: Promotion::class)]
     private Collection $promotions;
 
+    #[ORM\OneToMany(mappedBy: 'prestataire', targetEntity: Images::class)]
+    private Collection $images;
+
+    #[ORM\OneToMany(mappedBy: 'prestataire', targetEntity: Commentaire::class)]
+    private Collection $commentaires;
+
     public function __construct()
     {
         $this->stages = new ArrayCollection();
         $this->promotions = new ArrayCollection();
+        $this->images = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -141,6 +149,66 @@ class Prestataire extends User
             // set the owning side to null (unless already changed)
             if ($promotion->getPrestataire() === $this) {
                 $promotion->setPrestataire(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Images>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Images $image): static
+    {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setPrestataire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Images $image): static
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getPrestataire() === $this) {
+                $image->setPrestataire(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): static
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires->add($commentaire);
+            $commentaire->setPrestataire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): static
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getPrestataire() === $this) {
+                $commentaire->setPrestataire(null);
             }
         }
 

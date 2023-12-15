@@ -31,6 +31,12 @@ class Commentaire
     #[ORM\OneToMany(mappedBy: 'commentaire', targetEntity: Abus::class)]
     private Collection $abuses;
 
+    #[ORM\ManyToOne(inversedBy: 'commentaires')]
+    private ?Prestataire $prestataire = null;
+
+    #[ORM\ManyToOne(inversedBy: 'commentaires')]
+    private ?Internaute $internaute = null;
+
     public function __construct()
     {
         $this->abuses = new ArrayCollection();
@@ -115,6 +121,30 @@ class Commentaire
                 $abuse->setCommentaire(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPrestataire(): ?Prestataire
+    {
+        return $this->prestataire;
+    }
+
+    public function setPrestataire(?Prestataire $prestataire): static
+    {
+        $this->prestataire = $prestataire;
+
+        return $this;
+    }
+
+    public function getInternaute(): ?Internaute
+    {
+        return $this->internaute;
+    }
+
+    public function setInternaute(?Internaute $internaute): static
+    {
+        $this->internaute = $internaute;
 
         return $this;
     }

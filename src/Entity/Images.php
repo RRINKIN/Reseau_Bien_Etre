@@ -19,6 +19,15 @@ class Images
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?CategorieDeServices $categorieDeServices = null;
+
+    #[ORM\OneToOne(inversedBy: 'images', cascade: ['persist', 'remove'])]
+    private ?Internaute $internaute = null;
+
+    #[ORM\ManyToOne(inversedBy: 'images')]
+    private ?Prestataire $prestataire = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +53,42 @@ class Images
     public function setImage(?string $image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getCategorieDeServices(): ?CategorieDeServices
+    {
+        return $this->categorieDeServices;
+    }
+
+    public function setCategorieDeServices(?CategorieDeServices $categorieDeServices): static
+    {
+        $this->categorieDeServices = $categorieDeServices;
+
+        return $this;
+    }
+
+    public function getInternaute(): ?Internaute
+    {
+        return $this->internaute;
+    }
+
+    public function setInternaute(?Internaute $internaute): static
+    {
+        $this->internaute = $internaute;
+
+        return $this;
+    }
+
+    public function getPrestataire(): ?Prestataire
+    {
+        return $this->prestataire;
+    }
+
+    public function setPrestataire(?Prestataire $prestataire): static
+    {
+        $this->prestataire = $prestataire;
 
         return $this;
     }
