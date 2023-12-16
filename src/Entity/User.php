@@ -3,11 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use ApiPlatform\Metadata\ApiResource;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\InheritanceType('JOINED')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -30,9 +32,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     protected ?string $password = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    protected ?string $MotDePasse = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
     protected ?string $adresseNum = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -41,11 +40,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     protected ?\DateTimeInterface $inscription = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    protected ?string $typeUtilisateur = null;
-
     #[ORM\Column(nullable: true)]
-    protected ?int $nbEssaiesInfructueux = null;
+    protected ?int $nbEssaiesInfructueux = 0;
 
     #[ORM\Column(nullable: true)]
     protected ?bool $banni = null;
@@ -132,17 +128,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getMotDePasse(): ?string
-    {
-        return $this->MotDePasse;
-    }
-
-    public function setMotDePasse(?string $MotDePasse): static
-    {
-        $this->MotDePasse = $MotDePasse;
-
-        return $this;
-    }
 
     public function getAdresseNum(): ?string
     {
@@ -176,18 +161,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setInscription(\DateTimeInterface $inscription): static
     {
         $this->inscription = $inscription;
-
-        return $this;
-    }
-
-    public function getTypeUtilisateur(): ?string
-    {
-        return $this->typeUtilisateur;
-    }
-
-    public function setTypeUtilisateur(?string $typeUtilisateur): static
-    {
-        $this->typeUtilisateur = $typeUtilisateur;
 
         return $this;
     }

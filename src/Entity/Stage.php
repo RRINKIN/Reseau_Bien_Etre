@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\StageRepository;
+use ApiPlatform\Metadata\ApiResource;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: StageRepository::class)]
 class Stage
 {
