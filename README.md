@@ -13,5 +13,5 @@ composer install
 ## DB connection via .env file
 DATABASE_URL="mysql://user:password@host:port/DB_name?serverVersion=5.7.39&charset=utf8mb4"
 
-## Populate DB
+## Populate DB using fixtures
 ./bin/console doctrine:fixture:load

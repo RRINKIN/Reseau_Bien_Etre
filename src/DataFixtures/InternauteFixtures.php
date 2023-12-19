@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-
 use App\Entity\Internaute;
 use Faker\Factory;
 use DateTime;
@@ -30,7 +29,7 @@ class InternauteFixtures extends Fixture
             $user->setPrenom($faker->firstname());
             $user->setNewsletter($faker->boolean());
             $manager->persist($user);
-            $this->addReference(Internaute::class . '_' . $i, $user);
+            $this->addReference(InternauteFixtures::class . '_' . $i, $user);
         }
         $manager->flush();
     }

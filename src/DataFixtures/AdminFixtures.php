@@ -26,7 +26,7 @@ class AdminFixtures extends Fixture
         $user->setPassword('test123$');
         $user->setRoles(['ROLE_ADMIN']);
         $manager->persist($user);
-        $this->addReference(User::class . '_0' , $user);
+        $this->addReference(AdminFixtures::class . '_0' , $user);
         $manager->flush();
     }
 }

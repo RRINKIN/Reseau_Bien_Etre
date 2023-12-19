@@ -101,7 +101,7 @@ class Stage
         return $this->debut;
     }
 
-    public function setDebut(?string $debut): static
+    public function setDebut(?\DateTimeInterface $debut): static
     {
         $this->debut = $debut;
 
