@@ -15,3 +15,6 @@ DATABASE_URL="mysql://user:password@host:port/DB_name?serverVersion=5.7.39&chars
 
 ## Populate DB using fixtures
 ./bin/console doctrine:fixture:load
+
+## API
+https://localhost:8000/api

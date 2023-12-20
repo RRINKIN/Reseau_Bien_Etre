@@ -33,11 +33,15 @@ class Internaute extends User
     #[ORM\OneToMany(mappedBy: 'internaute', targetEntity: Commentaire::class)]
     private Collection $commentaires;
 
+    #[ORM\ManyToMany(targetEntity: Prestataire::class, inversedBy: 'favori')]
+    private Collection $favori;
+
     public function __construct()
     {
         $this->positions = new ArrayCollection();
         $this->abuses = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
+        $this->favori = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -189,6 +193,30 @@ class Internaute extends User
                 $commentaire->setInternaute(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Prestataire>
+     */
+    public function getFavori(): Collection
+    {
+        return $this->favori;
+    }
+
+    public function addFavori(Prestataire $favori): static
+    {
+        if (!$this->favori->contains($favori)) {
+            $this->favori->add($favori);
+        }
+
+        return $this;
+    }
+
+    public function removeFavori(Prestataire $favori): static
+    {
+        $this->favori->removeElement($favori);
 
         return $this;
     }
