@@ -25,6 +25,9 @@ class AdminFixtures extends Fixture
         $user->setBanni(False);
         $user->setPassword('test123$');
         $user->setRoles(['ROLE_ADMIN']);
+        //$user->setCodePostal($this->getReference(CodePostalFixtures::class . '_' . 0))
+        //$user->setCommune();
+        //$user->setLocalite();
         $manager->persist($user);
         $this->addReference(AdminFixtures::class . '_0' , $user);
         $manager->flush();

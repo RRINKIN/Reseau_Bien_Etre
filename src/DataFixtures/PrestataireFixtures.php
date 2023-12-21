@@ -32,6 +32,9 @@ class PrestataireFixtures extends Fixture implements DependentFixtureInterface
             $user->setSiteInternet('http://www.selegua.be');
             /* collects "stages" from StageFixtures */
             $user->addStage($this->getReference(StageFixtures::class . '_' . $i));
+            $user->setCodePostal($this->getReference(CodePostalFixtures::class . '_' . $i));
+            $user->setCommune($this->getReference(CommuneFixtures::class . '_' . $i));
+            $user->setLocalite($this->getReference(LocaliteFixtures::class . '_' . $i));
             /* persist data in the DB */
             $manager->persist($user);
             /* Creates a reference for this clas to be consumed by another fixture */
@@ -43,6 +46,9 @@ class PrestataireFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             StageFixtures::class,
+            CodePostalFixtures::class,
+            CommuneFixtures::class,
+            LocaliteFixtures::class,
         ];
     }
 }
