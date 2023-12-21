@@ -30,6 +30,9 @@ class Images
     #[ORM\ManyToOne(inversedBy: 'images')]
     private ?Prestataire $prestataire = null;
 
+    #[ORM\OneToOne(mappedBy: 'image_Logo', cascade: ['persist', 'remove'])]
+    private ?Prestataire $prestataireLogo = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,6 +94,28 @@ class Images
     public function setPrestataire(?Prestataire $prestataire): static
     {
         $this->prestataire = $prestataire;
+
+        return $this;
+    }
+
+    public function getPrestataireLogo(): ?Prestataire
+    {
+        return $this->prestataireLogo;
+    }
+
+    public function setPrestataireLogo(?Prestataire $prestataireLogo): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($prestataireLogo === null && $this->prestataireLogo !== null) {
+            $this->prestataireLogo->setImageLogo(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($prestataireLogo !== null && $prestataireLogo->getImageLogo() !== $this) {
+            $prestataireLogo->setImageLogo($this);
+        }
+
+        $this->prestataireLogo = $prestataireLogo;
 
         return $this;
     }

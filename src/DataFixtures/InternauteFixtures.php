@@ -8,9 +8,17 @@ use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class InternauteFixtures extends Fixture implements DependentFixtureInterface
 {
+    // Constructeur required to implement $hashing library
+    private $userPasswordHasherInterface;
+    public function __construct(UserPasswordHasherInterface $userPasswordHasherInterface)
+    {
+        $this->userPasswordHasherInterface = $userPasswordHasherInterface;
+    }
+
     public function load(ObjectManager $manager): void
     {
         /** @var Generator faker */
@@ -23,7 +31,13 @@ class InternauteFixtures extends Fixture implements DependentFixtureInterface
             $user->setAdresseRue($faker->streetName());
             $user->setInscription($dateTime);
             $user->setBanni(False);
-            $user->setPassword('test123$');
+            // Hashing the password
+            $plainTextPassword = 'test123$';
+            $hashedPassword = $this-> userPasswordHasherInterface->hashPassword(
+                $user,
+                $plainTextPassword
+            ); 
+            $user->setPassword($hashedPassword);
             $user->setRoles(['ROLE_INTER']);
             $user->setNom($faker->name());
             $user->setPrenom($faker->firstname());

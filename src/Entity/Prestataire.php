@@ -36,6 +36,9 @@ class Prestataire extends User
     #[ORM\OneToMany(mappedBy: 'prestataire', targetEntity: Commentaire::class)]
     private Collection $commentaires;
 
+    #[ORM\OneToOne(inversedBy: 'prestataireLogo', cascade: ['persist', 'remove'])]
+    private ?Images $image_Logo = null;
+
     public function __construct()
     {
         $this->stages = new ArrayCollection();
@@ -213,6 +216,18 @@ class Prestataire extends User
                 $commentaire->setPrestataire(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImageLogo(): ?Images
+    {
+        return $this->image_Logo;
+    }
+
+    public function setImageLogo(?Images $image_Logo): static
+    {
+        $this->image_Logo = $image_Logo;
 
         return $this;
     }

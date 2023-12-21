@@ -8,10 +8,18 @@ use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\Constraints\Date;
 
 class PrestataireFixtures extends Fixture implements DependentFixtureInterface
 {
+    // Constructeur required to implement $hashing library
+    private $userPasswordHasherInterface;
+    public function __construct(UserPasswordHasherInterface $userPasswordHasherInterface)
+    {
+        $this->userPasswordHasherInterface = $userPasswordHasherInterface;
+    }
+    
     public function load(ObjectManager $manager): void
     {
         /** @var Generator faker */
@@ -24,7 +32,13 @@ class PrestataireFixtures extends Fixture implements DependentFixtureInterface
             $user->setAdresseRue($faker->streetName());
             $user->setInscription($dateTime);
             $user->setBanni(False);
-            $user->setPassword('test123$');
+            // Hashing the password
+            $plainTextPassword = 'test123$';
+            $hashedPassword = $this-> userPasswordHasherInterface->hashPassword(
+                $user,
+                $plainTextPassword
+            ); 
+            $user->setPassword($hashedPassword);
             $user->setRoles(['ROLE_PREST']);
             $user->setNom($faker->name());
             $user->setNumTVA($faker->randomDigit());
