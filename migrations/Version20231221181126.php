@@ -14,7 +14,7 @@ final class Version20231221181126 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Adding relation for Image_Logo';
     }
 
     public function up(Schema $schema): void

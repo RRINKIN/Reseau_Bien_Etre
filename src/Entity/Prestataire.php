@@ -39,12 +39,16 @@ class Prestataire extends User
     #[ORM\OneToOne(inversedBy: 'prestataireLogo', cascade: ['persist', 'remove'])]
     private ?Images $image_Logo = null;
 
+    #[ORM\ManyToMany(targetEntity: CategorieDeServices::class, inversedBy: 'prestataires')]
+    private Collection $proposer;
+
     public function __construct()
     {
         $this->stages = new ArrayCollection();
         $this->promotions = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
+        $this->proposer = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -228,6 +232,30 @@ class Prestataire extends User
     public function setImageLogo(?Images $image_Logo): static
     {
         $this->image_Logo = $image_Logo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CategorieDeServices>
+     */
+    public function getProposer(): Collection
+    {
+        return $this->proposer;
+    }
+
+    public function addProposer(CategorieDeServices $proposer): static
+    {
+        if (!$this->proposer->contains($proposer)) {
+            $this->proposer->add($proposer);
+        }
+
+        return $this;
+    }
+
+    public function removeProposer(CategorieDeServices $proposer): static
+    {
+        $this->proposer->removeElement($proposer);
 
         return $this;
     }

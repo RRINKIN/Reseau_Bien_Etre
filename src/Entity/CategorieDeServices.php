@@ -32,9 +32,13 @@ class CategorieDeServices
     #[ORM\OneToMany(mappedBy: 'categorieDeServices', targetEntity: Promotion::class)]
     private Collection $promotions;
 
+    #[ORM\ManyToMany(targetEntity: Prestataire::class, mappedBy: 'proposer')]
+    private Collection $prestataires;
+
     public function __construct()
     {
         $this->promotions = new ArrayCollection();
+        $this->prestataires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -115,6 +119,33 @@ class CategorieDeServices
             if ($promotion->getCategorieDeServices() === $this) {
                 $promotion->setCategorieDeServices(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Prestataire>
+     */
+    public function getPrestataires(): Collection
+    {
+        return $this->prestataires;
+    }
+
+    public function addPrestataire(Prestataire $prestataire): static
+    {
+        if (!$this->prestataires->contains($prestataire)) {
+            $this->prestataires->add($prestataire);
+            $prestataire->addProposer($this);
+        }
+
+        return $this;
+    }
+
+    public function removePrestataire(Prestataire $prestataire): static
+    {
+        if ($this->prestataires->removeElement($prestataire)) {
+            $prestataire->removeProposer($this);
         }
 
         return $this;
