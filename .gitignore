@@ -1,20 +1,56 @@
-
+# Symfony
 ###> symfony/framework-bundle ###
-/.env.local
-/.env.local.php
-/.env.*.local
-/config/secrets/prod/prod.decrypt.private.php
-/public/bundles/
-/var/
-/vendor/
+Reseau_Bien_Etre/.env.local
+Reseau_Bien_Etre/.env.local.php
+Reseau_Bien_Etre/.env.*.local
+Reseau_Bien_Etre/config/secrets/prod/prod.decrypt.private.php
+Reseau_Bien_Etre/public/bundles/
+Reseau_Bien_Etre/var/
+Reseau_Bien_Etre/vendor/
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
-/phpunit.xml
-.phpunit.result.cache
+Reseau_Bien_Etre/phpunit.xml
+Reseau_Bien_Etre/.phpunit.result.cache
 ###< phpunit/phpunit ###
 
 ###> symfony/phpunit-bridge ###
-.phpunit.result.cache
-/phpunit.xml
+Reseau_Bien_Etre/.phpunit.result.cache
+Reseau_Bien_Etre/phpunit.xml
 ###< symfony/phpunit-bridge ###
+
+# Next.js
+# dependencies
+reseau_bien_etre_front/node_modules
+reseau_bien_etre_front/.pnp
+reseau_bien_etre_front/.pnp.js
+reseau_bien_etre_front/.yarn/install-state.gz
+
+# testing
+reseau_bien_etre_front/coverage
+
+# next.js
+reseau_bien_etre_front/.next/
+reseau_bien_etre_front/out/
+
+# production
+reseau_bien_etre_front/build
+
+# misc
+reseau_bien_etre_front/.DS_Store
+reseau_bien_etre_front/*.pem
+
+# debug
+reseau_bien_etre_front/npm-debug.log*
+reseau_bien_etre_front/yarn-debug.log*
+reseau_bien_etre_front/yarn-error.log*
+
+# local env files
+reseau_bien_etre_front/.env*.local
+
+# vercel
+reseau_bien_etre_front/.vercel
+
+# typescript
+reseau_bien_etre_front/*.tsbuildinfo
+reseau_bien_etre_front/next-env.d.ts
