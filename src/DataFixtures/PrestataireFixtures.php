@@ -26,6 +26,7 @@ class PrestataireFixtures extends Fixture implements DependentFixtureInterface
         $faker = Factory::create();
         for ($i = 0; $i < 20; $i++){
             $dateTime = new DateTime();
+            $indexCateg = rand(0, 3);
             $user = new Prestataire();
             $user->setEmail($faker->email());
             $user->setAdresseNum($faker->randomDigit());
@@ -49,6 +50,7 @@ class PrestataireFixtures extends Fixture implements DependentFixtureInterface
             $user->setCodePostal($this->getReference(CodePostalFixtures::class . '_' . $i));
             $user->setCommune($this->getReference(CommuneFixtures::class . '_' . $i));
             $user->setLocalite($this->getReference(LocaliteFixtures::class . '_' . $i));
+            $user->addProposer($this->getReference(CategorieDeServiceFixtures::class . '_' . $indexCateg));
             /* persist data in the DB */
             $manager->persist($user);
             /* Creates a reference for this clas to be consumed by another fixture */
@@ -63,6 +65,7 @@ class PrestataireFixtures extends Fixture implements DependentFixtureInterface
             CodePostalFixtures::class,
             CommuneFixtures::class,
             LocaliteFixtures::class,
+            CategorieDeServiceFixtures::class,
         ];
     }
 }

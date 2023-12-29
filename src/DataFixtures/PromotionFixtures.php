@@ -17,6 +17,7 @@ class PromotionFixtures extends Fixture implements DependentFixtureInterface
         /** @var Generator faker */
         $faker = Factory::create();
         for ($i = 0; $i < 20; $i++){
+            $indexCateg = rand(0, 3);
             $promotion = new Promotion();
             $promotion->setNom($faker->name());
             $promotion->setDescription($faker->text(50));
@@ -27,7 +28,7 @@ class PromotionFixtures extends Fixture implements DependentFixtureInterface
             $promotion->setAffichageJusque($faker->dateTime('+3 months'));
             // link to other table
             $promotion->setPrestataire($this->getReference(PrestataireFixtures::class . '_' . $i));
-            $promotion->setCategorieDeServices($this->getReference(CategorieDeServiceFixtures::class . '_' . $i));
+            $promotion->setCategorieDeServices($this->getReference(CategorieDeServiceFixtures::class . '_' . $indexCateg));
             /* persist data in the DB */
             $manager->persist($promotion);
             $this->addReference(PromotionFixtures::class . '_' . $i, $promotion);
