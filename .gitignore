@@ -2,7 +2,7 @@
 ###> symfony/framework-bundle ###
 Reseau_Bien_Etre/.env.local
 Reseau_Bien_Etre/.env.local.php
-Reseau_Bien_Etre/.env.*.local
+Reseau_Bien_Etre/.env
 Reseau_Bien_Etre/config/secrets/prod/prod.decrypt.private.php
 Reseau_Bien_Etre/public/bundles/
 Reseau_Bien_Etre/var/
@@ -46,7 +46,7 @@ reseau_bien_etre_front/yarn-debug.log*
 reseau_bien_etre_front/yarn-error.log*
 
 # local env files
-reseau_bien_etre_front/.env*.local
+reseau_bien_etre_front/.env
 
 # vercel
 reseau_bien_etre_front/.vercel
