@@ -15,8 +15,8 @@ class CategorieDeServiceFixtures extends Fixture implements DependentFixtureInte
     {
         /** @var Generator faker */
         $faker = Factory::create();
-        $categ = ['coiffeur', 'massage', 'epilation', 'manicure'];
-        for ($i = 0; $i < 4; $i++){
+        $categ = ['coiffure', 'massage', 'epilation', 'manicure', 'barbier', 'yoga'];
+        for ($i = 0; $i < 6; $i++){
             $categorie = new CategorieDeServices();
             $categorie->setNom($categ[$i]);
             $categorie->setDescription(($faker->sentence()));
