@@ -1666,3 +1666,5 @@ ec7d55,127.0.0.1,GET,http://127.0.0.1:8000/api/categorie_de_services,1704319031,
 b796b4,127.0.0.1,GET,http://127.0.0.1:8000/api/categorie_de_services,1704319040,,200,request
 29043e,127.0.0.1,GET,http://127.0.0.1:8000/api/code_postals,1704319216,,200,request
 ef6161,127.0.0.1,GET,http://127.0.0.1:8000/api/categorie_de_services,1704319216,,200,request
+8a1b07,127.0.0.1,GET,http://127.0.0.1:8000/api/code_postals,1704400499,,200,request
+b91ee8,127.0.0.1,GET,http://127.0.0.1:8000/api/categorie_de_services,1704400499,,200,request
