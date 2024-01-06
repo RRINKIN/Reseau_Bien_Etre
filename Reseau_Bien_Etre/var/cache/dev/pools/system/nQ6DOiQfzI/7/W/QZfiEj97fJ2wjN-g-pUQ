@@ -218,27 +218,27 @@ return [PHP_INT_MAX, static fn () => \Symfony\Component\VarExporter\Internal\Hyd
             'operations' => [
                 1 => [
                     [
-                        '_api_/images/{id}{._format}_get',
+                        '_api_/imagess/{id}{._format}_get',
                         $o[2],
                     ],
                     [
-                        '_api_/images{._format}_get_collection',
+                        '_api_/imagess{._format}_get_collection',
                         $o[4],
                     ],
                     [
-                        '_api_/images{._format}_post',
+                        '_api_/imagess{._format}_post',
                         $o[5],
                     ],
                     [
-                        '_api_/images/{id}{._format}_put',
+                        '_api_/imagess/{id}{._format}_put',
                         $o[6],
                     ],
                     [
-                        '_api_/images/{id}{._format}_patch',
+                        '_api_/imagess/{id}{._format}_patch',
                         $o[8],
                     ],
                     [
-                        '_api_/images/{id}{._format}_delete',
+                        '_api_/imagess/{id}{._format}_delete',
                         $o[10],
                     ],
                 ],
@@ -590,12 +590,12 @@ return [PHP_INT_MAX, static fn () => \Symfony\Component\VarExporter\Internal\Hyd
                 10 => null,
             ],
             'name' => [
-                2 => '_api_/images/{id}{._format}_get',
-                4 => '_api_/images{._format}_get_collection',
-                '_api_/images{._format}_post',
-                '_api_/images/{id}{._format}_put',
-                8 => '_api_/images/{id}{._format}_patch',
-                10 => '_api_/images/{id}{._format}_delete',
+                2 => '_api_/imagess/{id}{._format}_get',
+                4 => '_api_/imagess{._format}_get_collection',
+                '_api_/imagess{._format}_post',
+                '_api_/imagess/{id}{._format}_put',
+                8 => '_api_/imagess/{id}{._format}_patch',
+                10 => '_api_/imagess/{id}{._format}_delete',
             ],
         ],
         'ApiPlatform\\Metadata\\HttpOperation' => [
@@ -616,12 +616,12 @@ return [PHP_INT_MAX, static fn () => \Symfony\Component\VarExporter\Internal\Hyd
                 10 => 'DELETE',
             ],
             'uriTemplate' => [
-                2 => '/images/{id}{._format}',
-                4 => '/images{._format}',
-                '/images{._format}',
-                '/images/{id}{._format}',
-                8 => '/images/{id}{._format}',
-                10 => '/images/{id}{._format}',
+                2 => '/imagess/{id}{._format}',
+                4 => '/imagess{._format}',
+                '/imagess{._format}',
+                '/imagess/{id}{._format}',
+                8 => '/imagess/{id}{._format}',
+                10 => '/imagess/{id}{._format}',
             ],
             'types' => [
                 2 => null,

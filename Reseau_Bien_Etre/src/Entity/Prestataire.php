@@ -4,14 +4,33 @@ namespace App\Entity;
 
 use App\Repository\PrestataireRepository;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+// this is used to allow the @Groups serialization mecanic
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ApiResource]
+#[ApiResource(
+    // defines read (GET) context on class level. (what properties will be returned in the API)
+    normalizationContext: ['groups' => ['read:prestataireCards']],
+    operations: [
+        new Get(),
+        new Put(),
+        new Delete(),
+        new Get(),
+        new GetCollection(),
+        new Post(),
+    ]
+)]
 #[ORM\Entity(repositoryClass: PrestataireRepository::class)]
 class Prestataire extends User
 {
+    #[Groups(['read:prestataireCards'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $nom = null;
 
@@ -39,6 +58,7 @@ class Prestataire extends User
     #[ORM\OneToOne(inversedBy: 'prestataireLogo', cascade: ['persist', 'remove'])]
     private ?Images $image_Logo = null;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\ManyToMany(targetEntity: CategorieDeServices::class, inversedBy: 'prestataires')]
     private Collection $proposer;
 
