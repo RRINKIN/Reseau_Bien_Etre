@@ -7,6 +7,8 @@ use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+// to be able to use groups serialization
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource]
 #[ORM\Entity(repositoryClass: CategorieDeServicesRepository::class)]
@@ -17,9 +19,11 @@ class CategorieDeServices
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $nom = null;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
