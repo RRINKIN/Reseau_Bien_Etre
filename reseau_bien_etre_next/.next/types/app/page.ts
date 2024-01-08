@@ -1,4 +1,4 @@
-// File: /Applications/ISL_Projet_Reseau/reseau_bien_etre_front/app/page.js
+// File: /Applications/ISL_Projet_Reseau/reseau_bien_etre_next/app/page.js
 import * as entry from '../../../app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

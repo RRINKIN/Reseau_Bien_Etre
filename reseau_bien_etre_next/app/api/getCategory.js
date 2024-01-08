@@ -1,4 +1,5 @@
-export async function GetCategory() {
+export async function GetCategory(enAvant) {
+  const param = enAvant===undefined ? '' : '?enAvant=' + enAvant;
   const res = await fetch(process.env.API_BASE+'/api/categorie_de_servicess')
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
