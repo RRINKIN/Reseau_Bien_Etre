@@ -1,7 +1,7 @@
 import { GetCategory } from '@/app/api/getCategory';
 import React from 'react';
 
-function CategorieDuMois() {
+async function CategorieDuMois() {
 
     // find current month
     const currentDate = new Date(); // Get the actual current date
@@ -9,19 +9,15 @@ function CategorieDuMois() {
     const month = ['janvier', 'fevrier', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'decembre'];
     const monthInLetters = month[currentMonth];
 
-    /* find category of the month
-    /*const categ = GetCategory();
-    const enAvantCateg = categ['hydra:member'].map((x) => (
-        <div key={x}>
-          {x.enAvant}
-        </div>
-    ))*/
+    const categoryData = await GetCategory(1);
+    const categorieEnAvant = categoryData['hydra:member'][0].nom;
+    const categorieEnAvantDescription = categoryData['hydra:member'][0].description;
 
     return (
         <section className='bg-[url("/images/coiffeur.jpg")] h-96 bg-cover bg-center flex flex-row items-center'>
             <div className='w-72 h-72 p-3 bg-zinc-400 text-white rounded-md  ml-7'>
-                <h2 className='py-3'>En {monthInLetters} c'est #CatégorieEnCours#</h2>
-                <p>#categorie catégorie Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione earum explicabo voluptatum quasi doloremque minima ex aliquam pariatur quia ducimus!</p>
+                <h2 className='py-3'>En {monthInLetters} c'est #{categorieEnAvant}</h2>
+                <p>{categorieEnAvantDescription}</p>
             </div>
         </section>
     ) 

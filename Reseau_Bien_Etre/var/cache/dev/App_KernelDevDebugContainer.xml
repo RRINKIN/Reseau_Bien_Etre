@@ -955,7 +955,7 @@
     <service id="container.get_routing_condition_service" class="Closure" public="true">
       <tag name="routing.expression_language_function" function="service"/>
       <argument type="collection">
-        <argument type="service" id="api_platform.filter_locator"/>
+        <argument type="service" id=".service_locator.Xbsa8iG"/>
         <argument>get</argument>
       </argument>
       <factory class="Closure" method="fromCallable"/>
@@ -4052,7 +4052,7 @@
         <argument type="service" id="validator.validator_factory"/>
       </call>
       <call method="setGroupProviderLocator">
-        <argument type="service" id="api_platform.filter_locator"/>
+        <argument type="service" id=".service_locator.Xbsa8iG"/>
       </call>
       <call method="setTranslator">
         <argument type="service" id="translator.data_collector" on-invalid="ignore"/>
@@ -6025,7 +6025,7 @@
       <tag name="twig.extension"/>
     </service>
     <service id="twig.extension.htmlsanitizer" class="Symfony\Bridge\Twig\Extension\HtmlSanitizerExtension">
-      <argument type="service" id="api_platform.filter_locator"/>
+      <argument type="service" id=".service_locator.Xbsa8iG"/>
     </service>
     <service id="twig.extension.httpkernel" class="Symfony\Bridge\Twig\Extension\HttpKernelExtension">
       <tag name="twig.extension"/>
@@ -7325,7 +7325,9 @@
     </service>
     <service id="api_platform.filter_locator" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
-      <argument type="collection"/>
+      <argument type="collection">
+        <argument key="annotated_app_entity_categorie_de_services_api_platform_doctrine_orm_filter_boolean_filter" type="service_closure" id="annotated_app_entity_categorie_de_services_api_platform_doctrine_orm_filter_boolean_filter"/>
+      </argument>
     </service>
     <service id="api_platform.listener.request.add_format" class="ApiPlatform\Symfony\EventListener\AddFormatListener">
       <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" priority="28"/>
@@ -7875,7 +7877,7 @@
       <argument type="service" id="api_platform.metadata.resource.metadata_collection_factory.cached"/>
       <argument type="service" id="doctrine"/>
       <argument type="tagged_iterator" tag="api_platform.doctrine.orm.query_extension.collection"/>
-      <argument type="service" id="api_platform.filter_locator"/>
+      <argument type="service" id=".service_locator.Xbsa8iG"/>
     </service>
     <service id="api_platform.doctrine.orm.state.item_provider" class="ApiPlatform\Doctrine\Orm\State\ItemProvider">
       <tag name="api_platform.state_provider" priority="-100" key="ApiPlatform\Doctrine\Orm\State\ItemProvider"/>
@@ -7883,7 +7885,7 @@
       <argument type="service" id="api_platform.metadata.resource.metadata_collection_factory.cached"/>
       <argument type="service" id="doctrine"/>
       <argument type="tagged_iterator" tag="api_platform.doctrine.orm.query_extension.item"/>
-      <argument type="service" id="api_platform.filter_locator"/>
+      <argument type="service" id=".service_locator.Xbsa8iG"/>
     </service>
     <service id="api_platform.doctrine.orm.search_filter" class="ApiPlatform\Doctrine\Orm\Filter\SearchFilter" abstract="true">
       <argument key="0" type="service" id="doctrine"/>
@@ -7971,7 +7973,7 @@
     </service>
     <service id="api_platform.validator" class="ApiPlatform\Symfony\Validator\Validator">
       <argument type="service" id="debug.validator"/>
-      <argument type="service" id="api_platform.filter_locator"/>
+      <argument type="service" id=".service_locator.Xbsa8iG"/>
     </service>
     <service id="api_platform.validator.query_parameter_validator" class="ApiPlatform\Api\QueryParameterValidator\QueryParameterValidator">
       <argument type="service" id="api_platform.filter_locator"/>
@@ -8147,6 +8149,15 @@
     </service>
     <service id="doctrine.fixtures.purger.orm_purger_factory" class="Doctrine\Bundle\FixturesBundle\Purger\ORMPurgerFactory">
       <tag name="doctrine.fixtures.purger_factory" alias="default"/>
+    </service>
+    <service id="annotated_app_entity_categorie_de_services_api_platform_doctrine_orm_filter_boolean_filter" class="ApiPlatform\Doctrine\Orm\Filter\BooleanFilter" autowire="true">
+      <tag name="api_platform.filter"/>
+      <argument type="service" id="doctrine"/>
+      <argument type="service" id="monolog.logger" on-invalid="ignore"/>
+      <argument type="collection">
+        <argument key="enAvant">null</argument>
+      </argument>
+      <argument type="service" id="serializer.name_converter.metadata_aware" on-invalid="ignore"/>
     </service>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\AbusFixtures" class="App\DataFixtures\AbusFixtures" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\AbusFixtures" class="App\DataFixtures\AbusFixtures" autowire="true" autoconfigure="true" abstract="true"/>
@@ -9364,6 +9375,10 @@
       <argument type="collection">
         <argument key="reverse_container" type="service_closure" id="reverse_container" on-invalid="ignore_uninitialized"/>
       </argument>
+    </service>
+    <service id=".service_locator.Xbsa8iG" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection"/>
     </service>
     <service id=".service_locator.NBUFN6A" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
@@ -11017,6 +11032,7 @@
     <service id=".service_locator.80edgLI" alias="messenger.receiver_locator"/>
     <service id=".service_locator.h8Jkkd2" alias="messenger.retry_strategy_locator"/>
     <service id=".service_locator.bnaLdkn" alias="api_platform.serializer_locator"/>
+    <service id=".service_locator.G7.EJV9" alias="api_platform.filter_locator"/>
     <service id=".service_locator.BFrsqsn" alias=".service_locator.mAgPHiR"/>
     <service id="api_platform.metadata.resource.metadata_collection_factory.deprecations.inner" alias="api_platform.metadata.resource.metadata_collection_factory.attributes"/>
     <service id="api_platform.metadata.resource.metadata_collection_factory.xml.inner" alias="api_platform.metadata.resource.metadata_collection_factory.deprecations"/>
@@ -11087,7 +11103,6 @@
     <service id="api_platform.metadata.property.name_collection_factory.cached.inner" alias="api_platform.metadata.property.name_collection_factory.yaml"/>
     <service id="api_platform.metadata.property.metadata_factory.cached.inner" alias="api_platform.json_schema.metadata.property.metadata_factory.schema"/>
     <service id="api_platform.metadata.resource.metadata_collection_factory.cached.inner" alias="api_platform.doctrine.orm.metadata.resource.metadata_collection_factory"/>
-    <service id=".service_locator.Xbsa8iG" alias="api_platform.filter_locator"/>
     <service id=".service_locator.gFlme_s" alias=".service_locator.y4_Zrx."/>
   </services>
 </container>

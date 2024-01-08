@@ -4,11 +4,11 @@ return [PHP_INT_MAX, static fn () => \Symfony\Component\VarExporter\Internal\Hyd
     $o = [
         clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['ApiPlatform\\Metadata\\ApiResource'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('ApiPlatform\\Metadata\\ApiResource')),
         clone ($p['ApiPlatform\\Metadata\\Operations'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('ApiPlatform\\Metadata\\Operations')),
-        clone ($p['ApiPlatform\\Metadata\\Put'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('ApiPlatform\\Metadata\\Put')),
-        clone ($p['ApiPlatform\\Metadata\\Link'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('ApiPlatform\\Metadata\\Link')),
-        clone ($p['ApiPlatform\\Metadata\\Delete'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('ApiPlatform\\Metadata\\Delete')),
-        clone $p['ApiPlatform\\Metadata\\Link'],
         clone ($p['ApiPlatform\\Metadata\\Get'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('ApiPlatform\\Metadata\\Get')),
+        clone ($p['ApiPlatform\\Metadata\\Link'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('ApiPlatform\\Metadata\\Link')),
+        clone ($p['ApiPlatform\\Metadata\\Put'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('ApiPlatform\\Metadata\\Put')),
+        clone $p['ApiPlatform\\Metadata\\Link'],
+        clone ($p['ApiPlatform\\Metadata\\Delete'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('ApiPlatform\\Metadata\\Delete')),
         clone $p['ApiPlatform\\Metadata\\Link'],
         clone ($p['ApiPlatform\\Metadata\\GetCollection'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('ApiPlatform\\Metadata\\GetCollection')),
         clone ($p['ApiPlatform\\Metadata\\Post'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('ApiPlatform\\Metadata\\Post')),
@@ -220,15 +220,15 @@ return [PHP_INT_MAX, static fn () => \Symfony\Component\VarExporter\Internal\Hyd
             'operations' => [
                 1 => [
                     [
-                        '_api_/prestataires/{id}{._format}_put',
+                        '_api_/prestataires/{id}{._format}_get',
                         $o[2],
                     ],
                     [
-                        '_api_/prestataires/{id}{._format}_delete',
+                        '_api_/prestataires/{id}{._format}_put',
                         $o[4],
                     ],
                     [
-                        '_api_/prestataires/{id}{._format}_get',
+                        '_api_/prestataires/{id}{._format}_delete',
                         $o[6],
                     ],
                     [
@@ -482,8 +482,8 @@ return [PHP_INT_MAX, static fn () => \Symfony\Component\VarExporter\Internal\Hyd
             ],
             'processor' => [
                 2 => 'api_platform.doctrine.orm.state.persist_processor',
-                4 => 'api_platform.doctrine.orm.state.remove_processor',
-                6 => 'api_platform.doctrine.orm.state.persist_processor',
+                4 => 'api_platform.doctrine.orm.state.persist_processor',
+                6 => 'api_platform.doctrine.orm.state.remove_processor',
                 8 => 'api_platform.doctrine.orm.state.persist_processor',
                 'api_platform.doctrine.orm.state.persist_processor',
             ],
@@ -552,16 +552,16 @@ return [PHP_INT_MAX, static fn () => \Symfony\Component\VarExporter\Internal\Hyd
                 null,
             ],
             'priority' => [
-                2 => 1,
-                4 => 2,
-                6 => 3,
-                8 => 4,
-                5,
+                2 => 0,
+                4 => 1,
+                6 => 2,
+                8 => 3,
+                4,
             ],
             'name' => [
-                2 => '_api_/prestataires/{id}{._format}_put',
-                4 => '_api_/prestataires/{id}{._format}_delete',
-                6 => '_api_/prestataires/{id}{._format}_get',
+                2 => '_api_/prestataires/{id}{._format}_get',
+                4 => '_api_/prestataires/{id}{._format}_put',
+                6 => '_api_/prestataires/{id}{._format}_delete',
                 8 => '_api_/prestataires{._format}_get_collection',
                 '_api_/prestataires{._format}_post',
             ],
@@ -575,9 +575,9 @@ return [PHP_INT_MAX, static fn () => \Symfony\Component\VarExporter\Internal\Hyd
                 null,
             ],
             'method' => [
-                2 => 'PUT',
-                4 => 'DELETE',
-                6 => 'GET',
+                2 => 'GET',
+                4 => 'PUT',
+                6 => 'DELETE',
                 8 => 'GET',
                 'POST',
             ],
@@ -825,11 +825,6 @@ return [PHP_INT_MAX, static fn () => \Symfony\Component\VarExporter\Internal\Hyd
                 null,
             ],
         ],
-        'ApiPlatform\\Metadata\\Put' => [
-            'allowCreate' => [
-                2 => null,
-            ],
-        ],
         'ApiPlatform\\Metadata\\Link' => [
             'parameterName' => [
                 3 => 'id',
@@ -886,6 +881,11 @@ return [PHP_INT_MAX, static fn () => \Symfony\Component\VarExporter\Internal\Hyd
                 5 => null,
                 7 => null,
                 10 => null,
+            ],
+        ],
+        'ApiPlatform\\Metadata\\Put' => [
+            'allowCreate' => [
+                4 => null,
             ],
         ],
         'ApiPlatform\\Metadata\\GetCollection' => [

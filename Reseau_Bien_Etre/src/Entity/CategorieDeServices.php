@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use App\Repository\CategorieDeServicesRepository;
 use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -11,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource]
+#[ApiFilter(BooleanFilter::class, properties: ['enAvant'])]
 #[ORM\Entity(repositoryClass: CategorieDeServicesRepository::class)]
 class CategorieDeServices
 {

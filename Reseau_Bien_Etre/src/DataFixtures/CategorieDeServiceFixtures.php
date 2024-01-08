@@ -7,6 +7,7 @@ use Faker\Factory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use phpDocumentor\Reflection\PseudoTypes\False_;
 use Symfony\Component\Validator\Constraints\Date;
 
 class CategorieDeServiceFixtures extends Fixture implements DependentFixtureInterface
@@ -16,12 +17,19 @@ class CategorieDeServiceFixtures extends Fixture implements DependentFixtureInte
         /** @var Generator faker */
         $faker = Factory::create();
         $categ = ['coiffure', 'massage', 'epilation', 'manicure', 'barbier', 'yoga'];
+        $limitEnAvant = true;
         for ($i = 0; $i < 6; $i++){
+            if ($i>0) {
+                $limitEnAvant = false;
+                $valide = $faker->boolean();
+            } else {
+                $valide = true;
+            }
             $categorie = new CategorieDeServices();
             $categorie->setNom($categ[$i]);
             $categorie->setDescription(($faker->sentence()));
-            $categorie->setEnAvant($faker->boolean());
-            $categorie->setValide($faker->boolean());
+            $categorie->setEnAvant($limitEnAvant);
+            $categorie->setValide($valide);
             /* persist data in the DB */
             $manager->persist($categorie);
             /* Creates a reference for this clas to be consumed by another fixture */
