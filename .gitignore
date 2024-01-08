@@ -21,36 +21,36 @@ Reseau_Bien_Etre/phpunit.xml
 
 # Next.js
 # dependencies
-reseau_bien_etre_front/node_modules
-reseau_bien_etre_front/.pnp
-reseau_bien_etre_front/.pnp.js
-reseau_bien_etre_front/.yarn/install-state.gz
+reseau_bien_etre_next/node_modules
+reseau_bien_etre_next/.pnp
+reseau_bien_etre_next/.pnp.js
+reseau_bien_etre_next/.yarn/install-state.gz
 
 # testing
-reseau_bien_etre_front/coverage
+reseau_bien_etre_next/coverage
 
 # next.js
-reseau_bien_etre_front/.next/
-reseau_bien_etre_front/out/
+reseau_bien_etre_next/.next/
+reseau_bien_etre_next/out/
 
 # production
-reseau_bien_etre_front/build
+reseau_bien_etre_next/build
 
 # misc
-reseau_bien_etre_front/.DS_Store
-reseau_bien_etre_front/*.pem
+reseau_bien_etre_next/.DS_Store
+reseau_bien_etre_next/*.pem
 
 # debug
-reseau_bien_etre_front/npm-debug.log*
-reseau_bien_etre_front/yarn-debug.log*
-reseau_bien_etre_front/yarn-error.log*
+reseau_bien_etre_next/npm-debug.log*
+reseau_bien_etre_next/yarn-debug.log*
+reseau_bien_etre_next/yarn-error.log*
 
 # local env files
-reseau_bien_etre_front/.env
+reseau_bien_etre_next/.env
 
 # vercel
-reseau_bien_etre_front/.vercel
+reseau_bien_etre_next/.vercel
 
 # typescript
-reseau_bien_etre_front/*.tsbuildinfo
-reseau_bien_etre_front/next-env.d.ts
+reseau_bien_etre_next/*.tsbuildinfo
+reseau_bien_etre_next/next-env.d.ts
