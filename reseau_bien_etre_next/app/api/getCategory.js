@@ -6,5 +6,4 @@ export async function GetCategory(enAvant) {
     throw new Error('Failed to fetch data')
   }
   return res.json();
-}
-
+};

@@ -3144,3 +3144,10 @@ c6b810,127.0.0.1,GET,http://127.0.0.1:8000/api/categorie_de_servicess,1704751123
 b02330,127.0.0.1,GET,http://127.0.0.1:8000/api,1704751517,,200,request
 faf38d,127.0.0.1,GET,http://127.0.0.1:8000/api/categorie_de_servicess,1704751548,,200,request
 473b73,127.0.0.1,GET,http://127.0.0.1:8000/api/categorie_de_servicess?enAvant=1,1704751560,,200,request
+ce2811,127.0.0.1,GET,http://127.0.0.1:8000/api/categorie_de_servicess,1704753111,,200,request
+941c36,127.0.0.1,GET,http://127.0.0.1:8000/api/categorie_de_servicess,1704753146,,200,request
+d1582e,127.0.0.1,GET,http://127.0.0.1:8000/api,1704789807,,200,request
+7682ac,127.0.0.1,GET,http://127.0.0.1:8000/api/categorie_de_servicess,1704822475,,200,request
+f80af6,127.0.0.1,GET,http://127.0.0.1:8000/api/prestataires,1704822834,,200,request
+fae318,127.0.0.1,GET,http://127.0.0.1:8000/api,1704823664,,200,request
+7401a4,127.0.0.1,GET,http://127.0.0.1:8000/api/categorie_de_servicess,1704826549,,200,request
