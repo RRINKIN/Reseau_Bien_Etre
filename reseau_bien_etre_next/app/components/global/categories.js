@@ -1,11 +1,14 @@
 import React from 'react';
 import { GetCategory } from '../../api/getCategory';
+import Link from "next/link";
 
 async function Categories() {
     const data = await GetCategory();
     const listCategory = data['hydra:member'].map((x) => (
     <li key={x} className='capitalize'>
-      {`${x.nom}`}
+      <Link href={`/service/${encodeURIComponent(x.id)}`}>
+        {`${x.nom}`}
+      </Link>
     </li>
   ))
 

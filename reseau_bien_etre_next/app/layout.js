@@ -6,7 +6,6 @@ import Footer from './components/global/footer';
 //import Navigation from './components/global/navigation/navigation';
 //import BurgerMenu from './components/global/burgerMenu';
 
-  
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
