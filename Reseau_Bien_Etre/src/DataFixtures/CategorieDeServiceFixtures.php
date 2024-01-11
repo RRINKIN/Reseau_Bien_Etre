@@ -17,6 +17,7 @@ class CategorieDeServiceFixtures extends Fixture implements DependentFixtureInte
         /** @var Generator faker */
         $faker = Factory::create();
         $categ = ['coiffure', 'massage', 'epilation', 'manicure', 'barbier', 'yoga'];
+        // A mettre dans le setter de l'Entity
         $limitEnAvant = true;
         for ($i = 0; $i < 6; $i++){
             if ($i>0) {

@@ -6,11 +6,11 @@ async function Categories() {
     const data = await GetCategory();
     const listCategory = data['hydra:member'].map((x) => (
     <li key={x} className='capitalize'>
-      <Link href={`/service/${encodeURIComponent(x.id)}`}>
-        {`${x.nom}`}
+      <Link href={`/service/${x.id}`}>
+        {x.nom}
       </Link>
     </li>
-  ))
+  ));
 
     return (
         <div className='bg-transparent'>

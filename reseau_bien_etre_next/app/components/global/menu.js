@@ -17,7 +17,7 @@ function Menu() {
             <Link href="/apropos" className={pathname === "/apropos" ? "text-violet-900" : "text-white"}><p>A propos</p></Link>
         </li>
         <li className='group mx-4 my-6 md:my-0 hover:text-violet-900 duration-500 relative inline-block'>
-            <Link href="/services" className={pathname === "/services" ? "text-violet-900" : "text-white"}>Services</Link>
+            <Link href="/service" className={pathname === "/service" ? "text-violet-900" : "text-white"}>Services</Link>
             <div className="w-auto capitalize bg-zinc-300 p-2 rounded-lg hidden absolute group-hover:block">
                 <ul className="pt-2 text-white h-fit">
                     <Categories />
