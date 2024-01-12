@@ -1,5 +1,6 @@
+import React from 'react';
 import Categories from '../components/global/categories';
-import {CategoryCards} from '../components/servicePage/categoryCards';
+import CategoryCards from '../components/servicePage/categoryCards';
 
 async function ServicesPage() {
   return (
@@ -8,8 +9,8 @@ async function ServicesPage() {
       <div className="flex bg-zinc-200 rounded-full h-10 md:h-12 md:w-1/3 border-none mt-10 mb-10">
           <input type="search" id="search" name="search" placeholder="Que cherchez-vous?" className="bg-transparent px-4" />
       </div>
-          <Categories />
-          
+          {/* <Categories /> */}
+          <CategoryCards />
       <div className="flex flex-row justify-center bg-zinc-200 rounded-full h-10 md:h-12 w-1/3 border-none mt-10 mb-10">
           <input type="more" id="more" name="more" placeholder="J'en veux plus !" className="text-center bg-transparent px-4" />
       </div>
@@ -17,3 +18,5 @@ async function ServicesPage() {
   );
 }
 export default ServicesPage;
+
+/* le composant <CategoryCards /> fait planter le site. */

@@ -4,7 +4,6 @@ import Image from 'next/image';
 
 async function CategoryCards() {
     const data = await GetCategory();
-    console.log(data);
     const listCategories = data['hydra:member'].map((x) => (
       <div key={x} className="max-w-sm rounded overflow-hidden shadow-lg m-2 hover:shadow-2xl">
         <Image src="/images/coiffeur.jpg" width="900" height="700" alt="Categorie" className="w-full" />
