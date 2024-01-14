@@ -1,8 +1,9 @@
-import Categories from "./components/global/categories";
+//import Categories from "./components/global/categories";
 import PrestaireCards from "./components/homePage/prestataireCards";
 import Image from 'next/image';
 import Reinsurance from "./components/homePage/Reinsurance";
 import CategorieDuMois from "./components/homePage/categorieDuMois";
+import Slider_2 from "./components/homePage/slider_2";
  
 async function HomePage() {
   return (
@@ -18,18 +19,10 @@ async function HomePage() {
           <Image src="/images/reseau_bien_etre_girl.png" width="900" height="700" alt="fille-bien-etre" />
         </div>
       </section>
-      <section className="p-4 bg-zinc-100 flex flex-row justify-between">
-        <div>
-          Insert Carouselle here
-        </div>
-        <div className="w-52 capitalize bg-zinc-300 rounded-lg p-4 mr-7">
-          <h2 className="font-bold">Que cherchez-vous?</h2>
-          <ul className="pl-2 pt-2 text-white overflow-auto h-28">
-            <Categories />
-          </ul>
-        </div>
+      <section className="p-4 bg-zinc-100">
+        <Slider_2 />
       </section>
-      <section className="flex flex-col items-center justify-center max-w-screen-xl mx-auto">
+      <section className="flex flex-col items-center justify-start max-w-screen-xl mx-auto">
         <h2 className=" text-2xl md:text-4xl font-extrabold pt-7">Votre bien-être commence ici</h2>
         <div className="flex bg-zinc-200 rounded-full h-10 md:h-12 md:w-1/3 border-none mt-10 mb-10">
             <input type="search" id="search" name="search" placeholder="Que cherchez-vous?" className="bg-transparent px-4" />
