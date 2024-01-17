@@ -2,7 +2,6 @@ import { GetCategory } from '@/app/api/getCategory';
 import React from 'react';
 
 async function CategorieDuMois() {
-
     // find current month
     const currentDate = new Date(); // Get the actual current date
     const currentMonth = currentDate.getMonth(); // Get the current month from the current date

@@ -1,3 +1,5 @@
+"use client"
+import React, { useState } from 'react';
 //import Categories from "./components/global/categories";
 import PrestaireCards from "./components/homePage/prestataireCards";
 import Image from 'next/image';
@@ -12,24 +14,24 @@ async function HomePage() {
         <div>
           <h1 className="text-4xl md:text-7xl text-white md:max-w-4xl font-extrabold">Prenez soin de vous Près de chez vous</h1>
           <div className="flex bg-white rounded-full h-10 md:h-12 w-2/3 border-none mt-10 mb-10">
-            <input type="search" id="search" name="search" placeholder="Que cherchez-vous?" className="bg-transparent px-4" />
+            <input type="search" id="search" name="search" placeholder="Que cherchez-vous?" className="bg-transparent px-4 outline-none" />
           </div>
         </div>
         <div className="hidden md:block">
           <Image src="/images/reseau_bien_etre_girl.png" width="900" height="700" alt="fille-bien-etre" />
         </div>
       </section>
-      <section className="p-4 bg-zinc-100">
+      <section className="p-4 bg-zinc-100 md:flex md:flex-row md:justify-between">
         <Slider_2 />
+        <h2 className=" text-2xl text-center md:text-4xl font-extrabold pt-4 md:pt-[120px] md:pr-20">Votre bien-être commence ici</h2>
       </section>
       <section className="flex flex-col items-center justify-start max-w-screen-xl mx-auto">
-        <h2 className=" text-2xl md:text-4xl font-extrabold pt-7">Votre bien-être commence ici</h2>
         <div className="flex bg-zinc-200 rounded-full h-10 md:h-12 md:w-1/3 border-none mt-10 mb-10">
-            <input type="search" id="search" name="search" placeholder="Que cherchez-vous?" className="bg-transparent px-4" />
+            <input type="search" id="search" name="search" placeholder="Que cherchez-vous?" className="bg-transparent px-4 outline-none" />
         </div>
           <PrestaireCards />
-        <div className="flex flex-row justify-center bg-zinc-200 rounded-full h-10 md:h-12 w-1/3 border-none mt-10 mb-10">
-            <input type="more" id="more" name="more" placeholder="J'en veux plus !" className="text-center bg-transparent px-4" />
+        <div className="flex flex-row justify-center bg-zinc-200 md:hover:bg-zinc-600 rounded-full h-10 md:h-12 w-1/3 border-none mt-10 mb-10">
+            <input type="more" id="more" name="more" placeholder="J'en veux plus !" className="text-center bg-transparent px-4 outline-none" />
         </div>
       </section>
       <CategorieDuMois />

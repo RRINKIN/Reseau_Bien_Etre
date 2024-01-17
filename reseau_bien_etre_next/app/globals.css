@@ -36,3 +36,7 @@ h2 {
   line-height: 2rem;
   font-weight: bold;
 }
+
+.menu-wrapper.open {
+  display: block;
+}

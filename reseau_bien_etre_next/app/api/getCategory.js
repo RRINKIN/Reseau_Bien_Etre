@@ -1,4 +1,3 @@
-
 export async function GetCategory(enAvant) {
   const param = enAvant===undefined ? '' : '?enAvant=' + enAvant;
   const res = await fetch('http://localhost:8000'+'/api/categorie_de_servicess')

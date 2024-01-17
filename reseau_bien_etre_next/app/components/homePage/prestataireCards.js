@@ -5,12 +5,12 @@ import Image from 'next/image';
 async function PrestataireCards() {
     const data = await GetPrestataire();
     const listPrestataires = data['hydra:member'].map((x) => (
-      <div key={x} className="max-w-xs rounded overflow-hidden shadow-lg m-2 hover:shadow-2xl">
+      <div key={x['@id']} className="max-w-xs rounded overflow-hidden shadow-lg m-2 hover:shadow-2xl">
         <Image src="/images/coiffeur.jpg" width="900" height="700" alt="Coiffure" className="w-full" />
         <div className="px-6 py-4">
           <div className="font-bold text-2xl mb-2">{x.nom}</div>
           <div className="font-bold text-lg mb-2 capitalize">{x.proposer[0].nom}</div>
-          <div>Inscription: {x.inscription}</div>
+          <div>Inscription:{x.inscription}</div>
           <p className="text-gray-700 text-base max-w-72">
           {x.proposer[0].description}
           </p>

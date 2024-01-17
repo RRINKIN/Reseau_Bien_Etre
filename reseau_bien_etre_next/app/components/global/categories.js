@@ -1,23 +1,34 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
 import { GetCategory } from '../../api/getCategory';
 import Link from "next/link";
 
-async function Categories() {
-    const data = await GetCategory();
-    const listCategory = data['hydra:member'].map((x) => (
-    <li key={x} className='capitalize'>
-      <Link href={`/service/${x.id}`}>
-        {x.nom}
-      </Link>
-    </li>
-  ));
+function Categories() {
+    const [subMenu, setSubMenu] = useState();
+    useEffect(() => {
+      // get promise
+      const data = GetCategory();
+      // what to do with the promise
+      data.then (
+        res => {
+          const listCategory = res['hydra:member'].map((x) => (
+            <li key={x.id} className='capitalize'>
+              <Link href={`/service/${x.id}`}>
+                {x.nom}
+              </Link>
+            </li>
+          ));
+          setSubMenu(listCategory);
+        }  
+      );
+      // function used when component unmount
+      return () => {};
+    },[setSubMenu])
 
     return (
-        <div className='bg-transparent'>
-            <ul>
-                {listCategory}
-            </ul>    
-        </div>
+      <ul className="pt-2 text-white h-fit bg-transparent">
+          {subMenu}
+      </ul>    
     )
 }
 export default Categories;
