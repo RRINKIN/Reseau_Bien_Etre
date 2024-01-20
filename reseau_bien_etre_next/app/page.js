@@ -1,7 +1,6 @@
 "use client"
-import React, { useState } from 'react';
 //import Categories from "./components/global/categories";
-import PrestaireCards from "./components/homePage/prestataireCards";
+import PrestataireCards from "./components/homePage/prestataireCards";
 import Image from 'next/image';
 import Reinsurance from "./components/homePage/Reinsurance";
 import CategorieDuMois from "./components/homePage/categorieDuMois";
@@ -29,7 +28,7 @@ async function HomePage() {
         <div className="flex bg-zinc-200 rounded-full h-10 md:h-12 md:w-1/3 border-none mt-10 mb-10">
             <input type="search" id="search" name="search" placeholder="Que cherchez-vous?" className="bg-transparent px-4 outline-none" />
         </div>
-          <PrestaireCards />
+          <PrestataireCards />
         <div className="flex flex-row justify-center bg-zinc-200 md:hover:bg-zinc-600 rounded-full h-10 md:h-12 w-1/3 border-none mt-10 mb-10">
             <input type="more" id="more" name="more" placeholder="J'en veux plus !" className="text-center bg-transparent px-4 outline-none" />
         </div>

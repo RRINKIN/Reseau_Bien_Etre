@@ -10,8 +10,7 @@ async function ServicesPage() {
         <input type="search" id="search" name="search" placeholder="Que cherchez-vous?" className="bg-transparent px-4 outline-none" />
       </div>
         <CategoryCards />
-      <div className="flex flex-row justify-center bg-zinc-200 rounded-full h-10 md:h-12 w-1/3 border-none mt-10 mb-10">
-        <input type="more" id="more" name="more" placeholder="J'en veux plus !" className="text-center bg-transparent px-4 outline-none" />
+      <div className="mt-10 mb-10">
       </div>  
     </section>
   );
