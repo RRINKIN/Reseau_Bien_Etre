@@ -48,6 +48,7 @@ class CategorieDeServices
         $this->prestataires = new ArrayCollection();
     }
 
+    #[Groups(['read:prestataireCards'])]
     public function getId(): ?int
     {
         return $this->id;

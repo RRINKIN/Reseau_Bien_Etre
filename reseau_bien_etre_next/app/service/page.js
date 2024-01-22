@@ -16,5 +16,3 @@ async function ServicesPage() {
   );
 }
 export default ServicesPage;
-
-/* le composant <CategoryCards /> fait planter le site. */

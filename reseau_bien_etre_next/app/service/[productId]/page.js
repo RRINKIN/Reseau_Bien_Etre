@@ -1,8 +1,11 @@
-function ProductDetails({params}) {
+import React from 'react'
+import CategoryInfo from '../../components/global/categoryDetails'
+
+function ServiceDetails({params}) {
   return (
-    <main>
-        <h1 className="text-2xl">Hello page service details {params.productId}</h1>
+    <main className='p-7'>
+      <CategoryInfo categoryId={params.productId}/>
     </main>
   );
 }
-export default ProductDetails;
+export default ServiceDetails;

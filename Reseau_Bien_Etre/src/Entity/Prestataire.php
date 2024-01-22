@@ -33,9 +33,11 @@ class Prestataire extends User
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $nom = null;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $siteInternet = null;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $numTel = null;
 
@@ -70,6 +72,7 @@ class Prestataire extends User
         $this->proposer = new ArrayCollection();
     }
 
+    #[Groups(['read:prestataireCards'])]
     public function getId(): ?int
     {
         return $this->id;
