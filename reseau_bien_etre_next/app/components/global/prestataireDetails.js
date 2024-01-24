@@ -40,7 +40,6 @@ function PrestataireInfo({prestataireId}) {
               <span className='text-sm'>Site internet: </span>
               <span className='text-sm'>{prestataireInfo && prestataireInfo.siteInternet}</span>
             </Link>
-            
             <p className='text-sm'>Téléphone: {prestataireInfo && prestataireInfo.numTel}</p>
           </div>
           <div>

@@ -7,4 +7,3 @@ export async function GetPrestataire() {
   }
   return res.json();
 }
-

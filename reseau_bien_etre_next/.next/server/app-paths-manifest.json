@@ -2,6 +2,7 @@
   "/not-found": "app/not-found.js",
   "/service/page": "app/service/page.js",
   "/service/[productId]/page": "app/service/[productId]/page.js",
+  "/page": "app/page.js",
   "/prestataires/[prestataireId]/page": "app/prestataires/[prestataireId]/page.js",
-  "/page": "app/page.js"
+  "/favicon.ico/route": "app/favicon.ico/route.js"
 }
