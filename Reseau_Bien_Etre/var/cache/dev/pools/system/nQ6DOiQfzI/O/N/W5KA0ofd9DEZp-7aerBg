@@ -55,7 +55,9 @@ return [PHP_INT_MAX, static fn () => \Symfony\Component\VarExporter\Internal\Hyd
                 null,
             ],
             'order' => [
-                null,
+                [
+                    'id' => 'DESC',
+                ],
             ],
             'fetchPartial' => [
                 null,
@@ -70,7 +72,7 @@ return [PHP_INT_MAX, static fn () => \Symfony\Component\VarExporter\Internal\Hyd
                 null,
             ],
             'paginationItemsPerPage' => [
-                null,
+                9,
             ],
             'paginationMaximumItemsPerPage' => [
                 null,
@@ -341,11 +343,21 @@ return [PHP_INT_MAX, static fn () => \Symfony\Component\VarExporter\Internal\Hyd
                 null,
             ],
             'order' => [
-                2 => null,
-                4 => null,
-                6 => null,
-                8 => null,
-                null,
+                2 => [
+                    'id' => 'DESC',
+                ],
+                4 => [
+                    'id' => 'DESC',
+                ],
+                6 => [
+                    'id' => 'DESC',
+                ],
+                8 => [
+                    'id' => 'DESC',
+                ],
+                [
+                    'id' => 'DESC',
+                ],
             ],
             'fetchPartial' => [
                 2 => null,
@@ -376,11 +388,11 @@ return [PHP_INT_MAX, static fn () => \Symfony\Component\VarExporter\Internal\Hyd
                 null,
             ],
             'paginationItemsPerPage' => [
-                2 => null,
-                4 => null,
-                6 => null,
-                8 => null,
-                null,
+                2 => 9,
+                4 => 9,
+                6 => 9,
+                8 => 9,
+                9,
             ],
             'paginationMaximumItemsPerPage' => [
                 2 => null,

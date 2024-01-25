@@ -18,6 +18,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     // defines read (GET) context on class level. (what properties will be returned in the API)
     normalizationContext: ['groups' => ['read:prestataireCards']],
+    // limit the export of the items in the Json returned by the API
+    paginationItemsPerPage: 9,
+    order: ['id' => 'DESC'],
     operations: [
         new Get(),
         new Put(),
