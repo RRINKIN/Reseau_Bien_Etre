@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use App\Repository\CategorieDeServicesRepository;
 use ApiPlatform\Metadata\ApiResource;
@@ -14,6 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource]
 #[ApiFilter(BooleanFilter::class, properties: ['enAvant'])]
+#[ApiFilter(SearchFilter::class, properties: ['nom' => 'partial'])]
 #[ORM\Entity(repositoryClass: CategorieDeServicesRepository::class)]
 class CategorieDeServices
 {

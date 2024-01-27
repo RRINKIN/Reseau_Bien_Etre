@@ -320,21 +320,27 @@ return [PHP_INT_MAX, static fn () => \Symfony\Component\VarExporter\Internal\Hyd
             'filters' => [
                 2 => [
                     'annotated_app_entity_categorie_de_services_api_platform_doctrine_orm_filter_boolean_filter',
+                    'annotated_app_entity_categorie_de_services_api_platform_doctrine_orm_filter_search_filter',
                 ],
                 4 => [
                     'annotated_app_entity_categorie_de_services_api_platform_doctrine_orm_filter_boolean_filter',
+                    'annotated_app_entity_categorie_de_services_api_platform_doctrine_orm_filter_search_filter',
                 ],
                 [
                     'annotated_app_entity_categorie_de_services_api_platform_doctrine_orm_filter_boolean_filter',
+                    'annotated_app_entity_categorie_de_services_api_platform_doctrine_orm_filter_search_filter',
                 ],
                 [
                     'annotated_app_entity_categorie_de_services_api_platform_doctrine_orm_filter_boolean_filter',
+                    'annotated_app_entity_categorie_de_services_api_platform_doctrine_orm_filter_search_filter',
                 ],
                 8 => [
                     'annotated_app_entity_categorie_de_services_api_platform_doctrine_orm_filter_boolean_filter',
+                    'annotated_app_entity_categorie_de_services_api_platform_doctrine_orm_filter_search_filter',
                 ],
                 10 => [
                     'annotated_app_entity_categorie_de_services_api_platform_doctrine_orm_filter_boolean_filter',
+                    'annotated_app_entity_categorie_de_services_api_platform_doctrine_orm_filter_search_filter',
                 ],
             ],
             'elasticsearch' => [
