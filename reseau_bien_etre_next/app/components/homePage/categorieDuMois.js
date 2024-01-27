@@ -8,7 +8,7 @@ async function CategorieDuMois() {
     const month = ['janvier', 'fevrier', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'decembre'];
     const monthInLetters = month[currentMonth];
 
-    const categoryData = await GetCategory(1);
+    const categoryData = await GetCategory('/api/categorie_de_servicess', 1);
     const categorieEnAvant = categoryData['hydra:member'][0].nom;
     const categorieEnAvantDescription = categoryData['hydra:member'][0].description;
 

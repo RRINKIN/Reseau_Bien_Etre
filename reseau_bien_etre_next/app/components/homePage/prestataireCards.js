@@ -4,12 +4,21 @@ import { useEffect, useState } from 'react';
 import { GetPrestataire } from '../../api/getPrestataire';
 import Cards from '../global/cardPrestataire';
 import CardsWithNew from '../global/cardPrestataire_with_new';
+import PaginationNext from "./paginationNext";
 
-function PrestataireCards(url) {
+function PrestataireCards() {
   const [prestataireCard, setPrestataireCard] = useState();
-  useEffect(() => {
+
+  // collect the URL
+  const [urlPrestataire, setUrlPrestataire] = useState('/api/prestataires');
+  const prestataireUrlToUseforNext = (e) => {
+    setUrlPrestataire('/api/prestataires?page=2');
+  }
+
+  // fonction d'appel de l'API services
+  const callPrestataireData = () => {
     // get promise
-    const data = GetPrestataire(url.url);
+    const data = GetPrestataire(urlPrestataire);
     // what to do with the promise
     data.then(
       res => {
@@ -26,15 +35,22 @@ function PrestataireCards(url) {
           }
         }
         setPrestataireCard(prestataireCards);
-      }, [GetPrestataire]);
+      })
+    }
+
+  useEffect(() => {
+    callPrestataireData();
     // function used when component unmount
     return() => {};
-  }, [setPrestataireCard]) 
+  },[urlPrestataire]) 
 
   return(
-    <ul className="flex flex-col md:flex-row items-center flex-wrap max-w-screen-lg">
-      {prestataireCard}
-    </ul>   
+    <>
+      <ul className="flex flex-col md:flex-row items-center flex-wrap max-w-screen-lg">
+        {prestataireCard}
+      </ul>
+      <PaginationNext onPaginationNextClick={prestataireUrlToUseforNext} />
+    </>
   )
 }
 export default PrestataireCards;

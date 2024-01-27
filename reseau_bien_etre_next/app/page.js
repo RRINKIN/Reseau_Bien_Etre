@@ -1,20 +1,10 @@
-"use client"
-//import Categories from "./components/global/categories";
 import PrestataireCards from "./components/homePage/prestataireCards";
 import Image from 'next/image';
 import Reinsurance from "./components/homePage/Reinsurance";
 import CategorieDuMois from "./components/homePage/categorieDuMois";
 import Slider_2 from "./components/homePage/slider_2";
-import PaginationNext from "./components/homePage/paginationNext";
  
 async function HomePage() {
-  let urlToUse = '/api/prestataires';
-  let prestataireUrl = urlToUse;
-
-  function Next() {
-    console.log('A finir');
-  }
-
   return (
     <section>
       <section className="flex bg-gradient-to-b from-[#c3bef0] to-zinc-300 justify-content px-7 md:pl-20 pt-20 items-center">
@@ -36,8 +26,7 @@ async function HomePage() {
         <div className="flex bg-zinc-200 rounded-full h-10 md:h-12 md:w-1/3 border-none mt-10 mb-10">
             <input type="search" id="search" name="search" placeholder="Que cherchez-vous?" className="bg-transparent px-4 outline-none" />
         </div>
-          <PrestataireCards url={prestataireUrl}/>
-          <PaginationNext onPaginationNextClick={Next} />
+          <PrestataireCards/>
       </section>
       <CategorieDuMois />
       <Reinsurance />

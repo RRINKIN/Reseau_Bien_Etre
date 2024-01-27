@@ -7,7 +7,7 @@ function Categories() {
     const [subMenu, setSubMenu] = useState();
     useEffect(() => {
       // get promise
-      const data = GetCategory();
+      const data = GetCategory('/api/categorie_de_servicess');
       // what to do with the promise
       data.then (
         res => {

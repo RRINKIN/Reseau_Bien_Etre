@@ -18,6 +18,9 @@ function CategoryCards() {
   // fonction d'appel de l'API services
   const callData = () => {
     // get promise
+    if(urlService === undefined) {
+      return;
+    }
     const data = GetCategory(urlService);
     // what to do with the promise
     data.then(
