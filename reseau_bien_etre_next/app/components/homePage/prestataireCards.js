@@ -4,26 +4,28 @@ import { useEffect, useState } from 'react';
 import { GetPrestataire } from '../../api/getPrestataire';
 import Cards from '../global/cardPrestataire';
 import CardsWithNew from '../global/cardPrestataire_with_new';
-import PaginationNext from "./paginationNext";
+import Pagination from "./pagination";
 
 function PrestataireCards() {
   const [prestataireCard, setPrestataireCard] = useState();
 
   // collect the URL
   const [urlPrestataire, setUrlPrestataire] = useState('/api/prestataires');
+  const [nextUrlPrestataire, setNextUrlPrestataire] = useState('');
   const prestataireUrlToUseforNext = (e) => {
-    setUrlPrestataire('/api/prestataires?page=2');
+    setUrlPrestataire(`${nextUrlPrestataire.toString()}`);
   }
 
   // fonction d'appel de l'API services
   const callPrestataireData = () => {
     // get promise
+    console.log(urlPrestataire, 'test');
     const data = GetPrestataire(urlPrestataire);
     // what to do with the promise
     data.then(
       res => {
         const prestataireCards = [];
-        //let nextApiUrl = res['hydra:view']['hydra:next'];
+        let nextApiUrl = res['hydra:view']['hydra:next'];
         //let previousApiUrl = res['hydra:view']['hydra:previous'];
         let counter = 0;
         for (const cardsData of res['hydra:member']) {
@@ -35,6 +37,7 @@ function PrestataireCards() {
           }
         }
         setPrestataireCard(prestataireCards);
+        setNextUrlPrestataire(nextApiUrl);
       })
     }
 
@@ -49,7 +52,7 @@ function PrestataireCards() {
       <ul className="flex flex-col md:flex-row items-center flex-wrap max-w-screen-lg">
         {prestataireCard}
       </ul>
-      <PaginationNext onPaginationNextClick={prestataireUrlToUseforNext} />
+      <Pagination onPaginationNextClick={prestataireUrlToUseforNext} />
     </>
   )
 }

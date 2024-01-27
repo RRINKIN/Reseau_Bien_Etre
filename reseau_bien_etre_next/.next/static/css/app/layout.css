@@ -1283,6 +1283,11 @@ h2 {
     line-height: 1.75rem;
   }
 
+  .md\:text-white {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+  }
+
   .md\:hover\:bg-zinc-600:hover {
     --tw-bg-opacity: 1;
     background-color: rgb(82 82 91 / var(--tw-bg-opacity));
