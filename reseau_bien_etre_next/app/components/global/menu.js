@@ -30,7 +30,7 @@ function Menu() {
                 <Link href="/contact" className={pathname === "/contact" ? "text-violet-900" : "text-white"}>Contact</Link>
                 <p className='border md:border-0'></p>
             </li>
-            <li className="mx-4">
+            <li className="mx-4 py-4">
                 <LoginButton />
             </li>
         </ul>    

@@ -7328,6 +7328,7 @@
       <argument type="collection">
         <argument key="annotated_app_entity_categorie_de_services_api_platform_doctrine_orm_filter_boolean_filter" type="service_closure" id="annotated_app_entity_categorie_de_services_api_platform_doctrine_orm_filter_boolean_filter"/>
         <argument key="annotated_app_entity_categorie_de_services_api_platform_doctrine_orm_filter_search_filter" type="service_closure" id="annotated_app_entity_categorie_de_services_api_platform_doctrine_orm_filter_search_filter"/>
+        <argument key="annotated_app_entity_prestataire_api_platform_doctrine_orm_filter_search_filter" type="service_closure" id="annotated_app_entity_prestataire_api_platform_doctrine_orm_filter_search_filter"/>
       </argument>
     </service>
     <service id="api_platform.listener.request.add_format" class="ApiPlatform\Symfony\EventListener\AddFormatListener">
@@ -8161,6 +8162,18 @@
       <argument type="service" id="serializer.name_converter.metadata_aware" on-invalid="ignore"/>
     </service>
     <service id="annotated_app_entity_categorie_de_services_api_platform_doctrine_orm_filter_search_filter" class="ApiPlatform\Doctrine\Orm\Filter\SearchFilter" autowire="true">
+      <tag name="api_platform.filter"/>
+      <argument type="service" id="doctrine"/>
+      <argument type="service" id="api_platform.symfony.iri_converter"/>
+      <argument type="service" id="property_accessor"/>
+      <argument type="service" id="monolog.logger" on-invalid="ignore"/>
+      <argument type="collection">
+        <argument key="nom">partial</argument>
+      </argument>
+      <argument type="service" id="api_platform.api.identifiers_extractor" on-invalid="ignore"/>
+      <argument type="service" id="serializer.name_converter.metadata_aware" on-invalid="ignore"/>
+    </service>
+    <service id="annotated_app_entity_prestataire_api_platform_doctrine_orm_filter_search_filter" class="ApiPlatform\Doctrine\Orm\Filter\SearchFilter" autowire="true">
       <tag name="api_platform.filter"/>
       <argument type="service" id="doctrine"/>
       <argument type="service" id="api_platform.symfony.iri_converter"/>
@@ -11045,7 +11058,7 @@
     <service id=".service_locator.80edgLI" alias="messenger.receiver_locator"/>
     <service id=".service_locator.h8Jkkd2" alias="messenger.retry_strategy_locator"/>
     <service id=".service_locator.bnaLdkn" alias="api_platform.serializer_locator"/>
-    <service id=".service_locator.sHSk1S6" alias="api_platform.filter_locator"/>
+    <service id=".service_locator.DBc3qm8" alias="api_platform.filter_locator"/>
     <service id=".service_locator.BFrsqsn" alias=".service_locator.mAgPHiR"/>
     <service id="api_platform.metadata.resource.metadata_collection_factory.deprecations.inner" alias="api_platform.metadata.resource.metadata_collection_factory.attributes"/>
     <service id="api_platform.metadata.resource.metadata_collection_factory.xml.inner" alias="api_platform.metadata.resource.metadata_collection_factory.deprecations"/>

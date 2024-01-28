@@ -5,6 +5,9 @@ import CategorieDuMois from "./components/homePage/categorieDuMois";
 import Slider_2 from "./components/homePage/slider_2";
  
 async function HomePage() {
+
+
+
   return (
     <section>
       <section className="flex bg-gradient-to-b from-[#c3bef0] to-zinc-300 justify-content px-7 md:pl-20 pt-20 items-center">
@@ -23,9 +26,6 @@ async function HomePage() {
         <h2 className=" text-2xl text-center md:text-4xl font-extrabold pt-4 md:pt-[120px] md:pr-20">Votre bien-être commence ici</h2>
       </section>
       <section className="flex flex-col items-center justify-start max-w-screen-xl mx-auto">
-        <div className="flex bg-zinc-200 rounded-full h-10 md:h-12 md:w-1/3 border-none mt-10 mb-10">
-            <input type="search" id="search" name="search" placeholder="Que cherchez-vous?" className="bg-transparent px-4 outline-none" />
-        </div>
           <PrestataireCards/>
       </section>
       <CategorieDuMois />

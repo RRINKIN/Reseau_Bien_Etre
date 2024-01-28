@@ -14,6 +14,8 @@ use Doctrine\Common\Collections\Collection;
 // this is used to allow the @Groups serialization mecanic
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 
 #[ApiResource(
     // defines read (GET) context on class level. (what properties will be returned in the API)
@@ -29,6 +31,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Post(),
     ]
 )]
+#[ApiFilter(SearchFilter::class, properties: ['nom' => 'partial'])]
 #[ORM\Entity(repositoryClass: PrestataireRepository::class)]
 class Prestataire extends User
 {
