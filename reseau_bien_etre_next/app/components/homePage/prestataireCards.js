@@ -84,7 +84,7 @@ function PrestataireCards() {
     <>
       <div className="flex flex-row items-center justify-center md:w-2/3">
         {/*<input type="search" id="search" name="search" placeholder="Que cherchez-vous?" className="bg-transparent px-4 outline-none" />*/}
-        <div className='m-5 cursor-pointer'>
+        <div className='m-5'>
           <PrestataireFilter />
         </div>
         <div>
