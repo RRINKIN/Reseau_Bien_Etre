@@ -17,7 +17,7 @@ function PrestataireCards() {
   const prestataireUrlToUse = (value) => {
     setUrlPrestataire(`/api/prestataires?nom=${value}`);
     // re-render prestataire cards
-    callPrestataireData();
+    //callPrestataireData();
   }
   const [nextUrlPrestataire, setNextUrlPrestataire] = useState('');
   const [previousUrlPrestataire, setPreviousUrlPrestataire] = useState('');
