@@ -11,9 +11,14 @@ function CategoryCards() {
   const [urlService, setUrlService] = useState(`/api/categorie_de_servicess`);
   const categoryUrlToUse = (value) => {
     setUrlService(`/api/categorie_de_servicess?nom=${value}`);
-    // re-render service cards
-    callData();
   }
+
+  // re-render service cards
+  useEffect(() => {
+    callData();
+    // function used when component unmount
+    return() => {};
+  }, [urlService]) 
 
   // fonction d'appel de l'API services
   const callData = () => {
@@ -33,11 +38,7 @@ function CategoryCards() {
     );
   }
 
-  useEffect(() => {
-    callData();
-    // function used when component unmount
-    return() => {};
-  }, [setCategoryCard]) 
+
 
   return(
     <>
