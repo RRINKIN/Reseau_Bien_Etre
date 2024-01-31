@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 // use to determine the path which is used below in the ternary function
 function HeaderMenu() {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
     const toggleBurger = () => {
         setIsOpen(!isOpen);
     };

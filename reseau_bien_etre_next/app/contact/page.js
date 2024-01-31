@@ -8,13 +8,13 @@ function Contact() {
           <p className="py-6 md:w-1/2 text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam neque recusandae iusto cupiditate ad expedita pariatur, temporibus dolorum quia explicabo exercitationem distinctio accusantium inventore sequi, molestias maiores optio iste nesciunt consequuntur. Nihil repudiandae asperiores aut? Consequatur aliquam quibusdam dolores voluptates ducimus vitae soluta eos nesciunt aspernatur recusandae nihil doloribus, sapiente, exercitationem dolorum amet natus nobis veritatis minus fugit maxime perferendis delectus velit quasi. Ab iste quo assumenda veniam vitae sunt aperiam magni id? Minima quidem repudiandae aperiam iure molestiae dolor vel, perferendis laudantium est esse aliquid, quo facilis iste blanditiis ea libero molestias delectus, aspernatur nam quod quaerat in reiciendis rem numquam! Ratione a doloremque molestiae, ducimus quasi delectus cupiditate ullam perferendis obcaecati eius nobis, nesciunt ea iure, sed omnis earum eligendi rem harum! Vitae ducimus harum, similique molestiae dolorem adipisci illum blanditiis est voluptatibus quas magnam nulla praesentium accusantium, perspiciatis veniam itaque placeat distinctio voluptate laborum? Fugit odio provident aperiam iure culpa dicta nobis eveniet, quibusdam, quas, veniam nostrum ducimus doloribus voluptatem tenetur cumque illo natus error eaque praesentium minus. Amet repudiandae assumenda voluptatem commodi repellat, voluptate velit deserunt, veniam soluta, molestias odit ab at quam dolore quasi beatae sequi blanditiis earum ipsam nisi. Voluptatibus ipsa id eius aut!</p>
           <div className="bg-gradient-to-b from-[#c3bef0] to-zinc-300 md:w-1/2 h-auto rounded p-7 mb-7 md:ml-7">
             <form className="flex flex-col">
-              <label for="fname">Prénom *</label>
+              <label htmlFor="fname">Prénom *</label>
               <input type="text" id="fname" name="fname" className="rounded px-4 outline-none"/>
-              <label for="name">Nom *</label>
+              <label htmlFor="name">Nom *</label>
               <input type="text" id="name" name="name" className="rounded px-4 outline-none"/>
-              <label for="phone">Téléphone *</label>
+              <label htmlFor="phone">Téléphone *</label>
               <input type="text" id="phone" name="phone" className="rounded px-4 outline-none"/>
-              <label for="subject">Message</label>
+              <label htmlFor="subject">Message</label>
               <textarea id="subject" name="subject" className="rounded px-4 outline-none h-80"></textarea>
               <button 
               type="submit"
