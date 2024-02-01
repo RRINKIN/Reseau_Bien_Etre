@@ -13,10 +13,18 @@ function PrestataireCards() {
   const [prestataireCard, setPrestataireCard] = useState();
 
   // collect the URL
+  // function for single search
   const [urlPrestataire, setUrlPrestataire] = useState('/api/prestataires');
   const prestataireUrlToUse = (value) => {
     setUrlPrestataire(`/api/prestataires?nom=${value}`);
   }
+
+  // function for multiple search
+  const dataForUrlToUse = (filteredSearchData) => {
+    let url = `/api/prestataires?nom=${filteredSearchData.namePrestataire}&proposer.nom=${filteredSearchData.catPrestataire}&localite=${filteredSearchData.villePrestataire}&commune=${filteredSearchData.communePrestataire}&codePostal=${filteredSearchData.cpPrestataire}`;
+    setUrlPrestataire(url);
+  }
+
   const [nextUrlPrestataire, setNextUrlPrestataire] = useState('');
   const [previousUrlPrestataire, setPreviousUrlPrestataire] = useState('');
 
@@ -72,18 +80,18 @@ function PrestataireCards() {
       displayNextButton = <PaginationNext onPaginationNextClick={prestataireUrlToUseforNext}/>;
     }
 
-  useEffect(() => {
-    callPrestataireData();
-    // function used when component unmount
-    return() => {};
-  },[urlPrestataire]) 
+    useEffect(() => {
+      callPrestataireData();
+      // function used when component unmount
+      return() => {};
+    },[urlPrestataire]) 
 
   return(
     <>
       <div className="flex flex-row items-center justify-center md:w-2/3">
-        {/*<input type="search" id="search" name="search" placeholder="Que cherchez-vous?" className="bg-transparent px-4 outline-none" />*/}
+        {/*<input type="search" id="search" name="search" placeholder="Qui cherchez-vous?" className="bg-transparent px-4 outline-none" />*/}
         <div className='m-5'>
-          <PrestataireFilter />
+          <PrestataireFilter onFilterChange={dataForUrlToUse}/>
         </div>
         <div>
           <PrestataireSearchBar onSearchChange={prestataireUrlToUse}/>

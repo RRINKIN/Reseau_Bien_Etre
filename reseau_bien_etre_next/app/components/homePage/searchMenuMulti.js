@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function SearchMenuMulti() {
+function SearchMenuMulti(props) {
   // Declare the getters and setters of the state
   const [namePrestataire, setNamePrestataire] = useState('');
   const [catPrestataire, setCatPrestataire] = useState('');
@@ -34,14 +34,8 @@ function SearchMenuMulti() {
       communePrestataire,
       villePrestataire,
     };
-    return filteredSearchData;
+    props.btnFilterHandler(filteredSearchData);
   };
-  
-  // use state change to render at every state change
-  useEffect(() => {
-    const filteredSearchData = handleFilterMenuClick(); // Wait for SearchMenuMulti to be rendered
-    console.log(filteredSearchData); // Once rendered, log the filterSearchData
-}, [handleFilterMenuClick]);
 
   return (
     <form className="flex flex-col bg-zinc-300 m-7">

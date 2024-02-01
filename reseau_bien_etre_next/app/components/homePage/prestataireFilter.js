@@ -2,7 +2,7 @@
 import { useState } from "react";
 import SearchMenuMulti from "./searchMenuMulti";
 
-function PrestataireFilter() {
+function PrestataireFilter(props) {
     const [isOpen, setIsOpen] = useState(true);
     const onFilterClick = () => {
         setIsOpen(!isOpen);
@@ -10,8 +10,8 @@ function PrestataireFilter() {
     const baseFilterClass = 'hidden w-full md:w-auto menu-wrapper';
     
     const onFilterMenuClick = (filteredSearchData) => {
-        console.log(filteredSearchData);
-    }
+      props.onFilterChange(filteredSearchData);
+    };
 
     return(
         <>
@@ -25,7 +25,7 @@ function PrestataireFilter() {
                 </svg>
             </button>
             <div className={`${isOpen ? baseFilterClass : baseFilterClass + ' open'} text-white bg-zinc-300 rounded w-full md:w-96 h-auto shadow-lg my-4 md:m-7 absolute`}>
-                <SearchMenuMulti handleFilterMenuClick={onFilterMenuClick}/>
+                <SearchMenuMulti btnFilterHandler={onFilterMenuClick}/>
             </div>
         </>
     )

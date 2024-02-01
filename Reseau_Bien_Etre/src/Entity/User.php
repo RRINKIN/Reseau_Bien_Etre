@@ -51,12 +51,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     protected ?bool $inscritpionConfirmation = null;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Localite $localite = null;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?CodePostal $codePostal = null;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Commune $commune = null;
 

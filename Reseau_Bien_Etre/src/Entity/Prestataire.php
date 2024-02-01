@@ -31,7 +31,7 @@ use ApiPlatform\Metadata\ApiFilter;
         new Post(),
     ]
 )]
-#[ApiFilter(SearchFilter::class, properties: ['nom' => 'partial'])]
+#[ApiFilter(SearchFilter::class, properties: ['nom' => 'partial', 'proposer.nom' => 'partial', 'localite' => 'partial', 'commune' => 'partial', 'codePostal' => 'partial'])]
 #[ORM\Entity(repositoryClass: PrestataireRepository::class)]
 class Prestataire extends User
 {

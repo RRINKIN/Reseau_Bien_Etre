@@ -8181,6 +8181,10 @@
       <argument type="service" id="monolog.logger" on-invalid="ignore"/>
       <argument type="collection">
         <argument key="nom">partial</argument>
+        <argument key="proposer.nom">partial</argument>
+        <argument key="localite">partial</argument>
+        <argument key="commune">partial</argument>
+        <argument key="codePostal">partial</argument>
       </argument>
       <argument type="service" id="api_platform.api.identifiers_extractor" on-invalid="ignore"/>
       <argument type="service" id="serializer.name_converter.metadata_aware" on-invalid="ignore"/>
