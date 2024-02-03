@@ -46,18 +46,23 @@ function PrestataireInfo({prestataireId}) {
             {prestataireInfo && prestataireInfo.description}
           </div>
           <div className='border-dotted border py-2 border-t-black'></div>
-          <div className='w-1/4 rounded-lg bg-zinc-100'>
-            <Link href={`/service/${prestataireInfo && prestataireInfo.proposer[0].id}`}>
-              <Image 
-                src={`/images/${prestataireInfo && prestataireInfo.proposer[0].nom}.jpg`}
-                width="900" 
-                height="700" 
-                alt={prestataireInfo && prestataireInfo.proposer[0].nom} 
-                className="rounded-lg" 
-              />
-              <p className='capitalize text-center'>{prestataireInfo && prestataireInfo.proposer[0].nom}</p>
-            </Link>
-          </div>    
+          <div className='flex flex-row w-1/3'>
+            {/* Map over proposer array to render multiple images and links */}
+            {prestataireInfo && prestataireInfo.proposer.map((proposer, index) => (
+              <div key={index} className='rounded-lg bg-zinc-100 mr-4'>
+                <Link href={`/service/${proposer.id}`}>
+                  <Image
+                    src={`/images/${proposer.nom}.jpg`} // Use proposer.nom dynamically
+                    width="900"
+                    height="700"
+                    alt={proposer.nom}
+                    className="rounded-lg"
+                  />
+                  <p className='capitalize text-center'>{proposer.nom}</p>
+                </Link>
+              </div>
+            ))}
+          </div>      
         </div>
       </div>
     )

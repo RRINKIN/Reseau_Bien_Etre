@@ -1,5 +1,6 @@
 import { GetCategory } from '@/app/api/getCategory';
 import React from 'react';
+import Link from 'next/link';
 
 async function CategorieDuMois() {
     // find current month
@@ -17,6 +18,9 @@ async function CategorieDuMois() {
             <div className='w-72 h-72 p-3 bg-zinc-400 text-white rounded-md  ml-7'>
                 <h2 className='py-3'>En {monthInLetters} c'est #{categorieEnAvant}</h2>
                 <p>{categorieEnAvantDescription}</p>
+                <Link href={`/service/${categoryData['hydra:member'][0].id}`} className="font-bold text-2xl white mt-0 text-center capitalize">
+                    <p className='bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-600 mr-2 my-4 hover:text-white hover:fill-white hover:bg-zinc-500 duration-500'>Montre moi !</p>
+                </Link>
             </div>
         </section>
     ) 

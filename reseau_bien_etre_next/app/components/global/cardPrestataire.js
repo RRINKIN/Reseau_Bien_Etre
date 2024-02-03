@@ -9,7 +9,12 @@ const Cards = ({cardsData}) => {
         <div className="px-6 py-4">
           {/*display name and limit to 20 characters*/}
           <div className="font-bold text-2xl mb-2">{cardsData.nom.slice(0, 20)}</div>
-          <div className="font-bold text-lg mb-2 capitalize">{cardsData.proposer[0].nom}</div>
+          {/* Generate multiple proposer names based on numberCategories */}
+          {cardsData.proposer.map((proposer, index) => (
+            <span key={index} className="font-bold text-lg mb-2 capitalize">
+              {proposer.nom} |  
+            </span>
+          ))}
           <p className="text-gray-700 text-base max-w-72">
             {/*display description and limit to 150 characters*/}
             {cardsData.proposer[0].description.slice(0, 150)}

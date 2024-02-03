@@ -57,7 +57,7 @@ function PrestataireCards() {
         let previousApiUrl = res['hydra:view']['hydra:previous'];
         let counter = 0;
         for (const cardsData of res['hydra:member']) {
-          if (counter < 4) {
+          if (counter < 4 && nextApiUrl === '/api/prestataires?page=2') {
             prestataireCards.push(<CardsWithNew cardsData={cardsData} key={cardsData['@id']}/>); 
             counter++;
           } else {
@@ -89,12 +89,11 @@ function PrestataireCards() {
   return(
     <>
       <div className="flex flex-row items-center justify-center md:w-2/3">
-        {/*<input type="search" id="search" name="search" placeholder="Qui cherchez-vous?" className="bg-transparent px-4 outline-none" />*/}
-        <div className='m-5'>
-          <PrestataireFilter onFilterChange={dataForUrlToUse}/>
-        </div>
         <div>
           <PrestataireSearchBar onSearchChange={prestataireUrlToUse}/>
+        </div>
+        <div className='m-5'>
+          <PrestataireFilter onFilterChange={dataForUrlToUse}/>
         </div>
       </div>
       <ul className="flex flex-col md:flex-row items-center flex-wrap max-w-screen-lg">

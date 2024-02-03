@@ -8,7 +8,12 @@ const CardsWithNew = ({cardsData}) => {
         <Image src="/images/coiffeur.jpg" width="900" height="700" alt={`${cardsData.nom} - ${cardsData.proposer[0].nom}`} className="w-full" />
         <div className="px-6 py-4">
           <div className="font-bold text-2xl mb-2">{cardsData.nom}</div>
-          <div className="font-bold text-lg mb-2 capitalize">{cardsData.proposer[0].nom}</div>
+          {/* Generate multiple proposer names based on numberCategories */}
+          {cardsData.proposer.map((proposer, index) => (
+            <span key={index} className="font-bold text-lg mb-2 capitalize">
+              {proposer.nom} |  
+            </span>
+          ))}
           <p className="text-gray-700 text-base max-w-72">
             {cardsData.proposer[0].description}
           </p>
