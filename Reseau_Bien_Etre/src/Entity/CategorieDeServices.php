@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 // to be able to use groups serialization
 use Symfony\Component\Serializer\Annotation\Groups;
 
+//#[ApiResource]
 #[ApiResource]
 #[ApiFilter(BooleanFilter::class, properties: ['enAvant'])]
 #[ApiFilter(SearchFilter::class, properties: ['nom' => 'partial'])]
@@ -23,7 +24,7 @@ class CategorieDeServices
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
+    
     #[Groups(['read:prestataireCards'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $nom = null;

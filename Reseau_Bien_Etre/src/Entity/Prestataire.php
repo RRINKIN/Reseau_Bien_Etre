@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Entity;
 
 use App\Repository\PrestataireRepository;
@@ -11,12 +10,19 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-// this is used to allow the @Groups serialization mecanic
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\Link;
 
+#[ApiResource(
+    uriTemplate: '/service/{serviceId}/prestataire',
+    uriVariables: [
+        'serviceId' => new Link(fromClass: CategorieDeServices::class, toProperty: 'proposer'),
+    ],
+    operations: [ new GetCollection(normalizationContext:['groups' => ['read:prestataireCards']], ) ]
+)]
 #[ApiResource(
     // defines read (GET) context on class level. (what properties will be returned in the API)
     normalizationContext: ['groups' => ['read:prestataireCards']],
