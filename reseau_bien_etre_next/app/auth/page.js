@@ -2,11 +2,14 @@
 import PostLoginCheck from '../api/postLoginCheck';
 import {useState} from 'react';
 import Cookies from 'universal-cookie';
+import removeCookie from './removeCookie';
 
 function EspacePrive() {
+  // define states to collect inputed values
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState(''); 
 
+  // Handle the changes and update the state
   const handleEmailChange = (e) => {
     setEmail(e.target.value)
   };
@@ -14,10 +17,10 @@ function EspacePrive() {
     setPassword(e.target.value)
   };
  
-  const cookie = new Cookies(null, {
-    path: '/'
-  });
+  // Create cookie object
+  const cookie = new Cookies(null, {path: '/'});
 
+  // call login post function & store answer into cookie
   const doLogin = (e) => {
     e.preventDefault();
     const resPostLoginCheck = PostLoginCheck(email, password);
@@ -32,12 +35,17 @@ function EspacePrive() {
       } 
     )
   };
+  
+  // Manage disconnection by removing the cookie
+  const handleLogout = () => {
+    removeCookie();
+  };
 
   return (
     <section className='max-w-screen-lg mx-auto py-7 px-3 md:px-0'>
         <div className="md:flex md:flex-row">
           <div className="bg-[#c3bef0] md:w-1/2 h-auto rounded p-7 mb-7 md:ml-7">
-            <h2>Se connecter</h2>
+            <h2>Me connecter</h2>
             <form className="flex flex-col">
               <label htmlFor="fname">Identifiant *</label>
               <input onChange={(e)=>{handleEmailChange(e)}} type="text" id="fname" name="fname" className="rounded px-4 outline-none"/>
@@ -57,9 +65,12 @@ function EspacePrive() {
                 Envoyer
               </button>
             </form>
+            {/*<div>
+              <readCookie />
+            </div>*/}
           </div>
           <div className="bg-zinc-300 md:w-1/2 h-auto rounded p-7 mb-7 md:ml-7">
-            <h2>S'inscrire</h2>
+            <h2>M'inscrire</h2>
             <form className="flex flex-col">
               <label htmlFor="fname">Prénom *</label>
               <input type="text" id="fname" name="fname" className="rounded px-4 outline-none"/>
@@ -69,7 +80,7 @@ function EspacePrive() {
               <input type="password" id="mdp" name="mdp" className="rounded px-4 outline-none"/>
               <label htmlFor="mdp">Mot de passe *</label>
               <input type="text" id="phone" name="phone" className="rounded px-4 outline-none"/>
-              <label for="pet-select">Que voulez-vous faire?</label>
+              <label htmlFor="pet-select">Que voulez-vous faire?</label>
               <select name="role">
                 <option value="">--choisissez--</option>
                 <option value="dog">Utilisateur</option>

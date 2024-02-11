@@ -5,9 +5,6 @@ import CategorieDuMois from "./components/homePage/categorieDuMois";
 import Slider_2 from "./components/homePage/slider_2";
  
 async function HomePage() {
-
-
-
   return (
     <section>
       <section className="flex bg-gradient-to-b from-[#c3bef0] to-zinc-300 justify-content px-7 md:pl-20 pt-20 items-center">

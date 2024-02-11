@@ -2,11 +2,30 @@
 import React from 'react';
 import Link from "next/link";
 import LoginButton from "./login";
+import LogoutButton from "./logout";
 import { usePathname } from "next/navigation";
 import Categories from './categories';
+import UserIsLogged from '../../auth/userIsLogged';
+import { useEffect, useState } from 'react';
+import Cookies from 'universal-cookie';
 
 function Menu() {
     const pathname = usePathname();
+
+    // manage login button
+    const cookie = new Cookies();
+    const [logButton, setLogButton] = useState(<LoginButton />);
+    useEffect(()=>{
+        const logButtonCheck = UserIsLogged() ? <LogoutButton /> : <LoginButton />;
+        setLogButton(logButtonCheck);
+    }, []);
+
+    cookie.addChangeListener((myCookie)=>{
+        if(myCookie.name === 'token') {
+            const logButtonCheck = UserIsLogged() ? <LogoutButton /> : <LoginButton />;
+            setLogButton(logButtonCheck);
+        }
+    })
 
     return (
     <nav className='pl-2 md:pl-0'>
@@ -31,7 +50,7 @@ function Menu() {
                 <p className='border md:border-0'></p>
             </li>
             <li className="mx-4 py-4">
-                <LoginButton />
+                {logButton}
             </li>
         </ul>    
     </nav>    

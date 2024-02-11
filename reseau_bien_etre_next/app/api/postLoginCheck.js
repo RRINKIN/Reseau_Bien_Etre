@@ -1,3 +1,4 @@
+// function to request a cookie when login in into the system
 async function PostLoginCheck(email, password) {
     const res = await fetch(
         `http://localhost:8000/api/login_check`,
