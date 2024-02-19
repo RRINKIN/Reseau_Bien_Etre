@@ -14,6 +14,8 @@ return [
         '/_profiler/phpinfo' => [[['_route' => '_profiler_phpinfo', '_controller' => 'web_profiler.controller.profiler::phpinfoAction'], null, null, null, false, false, null]],
         '/_profiler/xdebug' => [[['_route' => '_profiler_xdebug', '_controller' => 'web_profiler.controller.profiler::xdebugAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
+        '/mail' => [[['_route' => 'app_mail', '_controller' => 'App\\Controller\\MailController::index'], null, null, null, false, false, null]],
+        '/verify_email' => [[['_route' => 'app_verify_email', '_controller' => 'App\\Controller\\RegistrationController::emailVerification'], null, null, null, false, false, null]],
         '/api/login_check' => [[['_route' => 'api_login_check'], null, null, null, false, false, null]],
     ],
     [ // $regexpList
@@ -172,30 +174,26 @@ return [
                         .')'
                         .'|users(?'
                             .'|/([^/\\.]++)(?:\\.([^/]++))?(*:1874)'
-                            .'|(?:\\.([^/]++))?(?'
-                                .'|(*:1901)'
-                            .')'
-                            .'|/([^/\\.]++)(?:\\.([^/]++))?(?'
-                                .'|(*:1940)'
-                            .')'
+                            .'|(?:\\.([^/]++))?(*:1898)'
+                            .'|(*:1907)'
                         .')'
                     .')'
                 .')'
                 .'|/_(?'
-                    .'|error/(\\d+)(?:\\.([^/]++))?(*:1984)'
-                    .'|wdt/([^/]++)(*:2005)'
+                    .'|error/(\\d+)(?:\\.([^/]++))?(*:1950)'
+                    .'|wdt/([^/]++)(*:1971)'
                     .'|profiler/(?'
-                        .'|font/([^/\\.]++)\\.woff2(*:2048)'
+                        .'|font/([^/\\.]++)\\.woff2(*:2014)'
                         .'|([^/]++)(?'
                             .'|/(?'
-                                .'|search/results(*:2086)'
-                                .'|router(*:2101)'
+                                .'|search/results(*:2052)'
+                                .'|router(*:2067)'
                                 .'|exception(?'
-                                    .'|(*:2122)'
-                                    .'|\\.css(*:2136)'
+                                    .'|(*:2088)'
+                                    .'|\\.css(*:2102)'
                                 .')'
                             .')'
-                            .'|(*:2147)'
+                            .'|(*:2113)'
                         .')'
                     .')'
                 .')'
@@ -357,23 +355,16 @@ return [
             [['_route' => '_api_/stages/{id}{._format}_delete', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Stage', '_api_operation_name' => '_api_/stages/{id}{._format}_delete'], ['id', '_format'], ['DELETE' => 0], null, false, true, null],
         ],
         1874 => [[['_route' => '_api_/users/{id}{._format}_get', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\User', '_api_operation_name' => '_api_/users/{id}{._format}_get'], ['id', '_format'], ['GET' => 0], null, false, true, null]],
-        1901 => [
-            [['_route' => '_api_/users{._format}_get_collection', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\User', '_api_operation_name' => '_api_/users{._format}_get_collection'], ['_format'], ['GET' => 0], null, false, true, null],
-            [['_route' => '_api_/users{._format}_post', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\User', '_api_operation_name' => '_api_/users{._format}_post'], ['_format'], ['POST' => 0], null, false, true, null],
-        ],
-        1940 => [
-            [['_route' => '_api_/users/{id}{._format}_put', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\User', '_api_operation_name' => '_api_/users/{id}{._format}_put'], ['id', '_format'], ['PUT' => 0], null, false, true, null],
-            [['_route' => '_api_/users/{id}{._format}_patch', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\User', '_api_operation_name' => '_api_/users/{id}{._format}_patch'], ['id', '_format'], ['PATCH' => 0], null, false, true, null],
-            [['_route' => '_api_/users/{id}{._format}_delete', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\User', '_api_operation_name' => '_api_/users/{id}{._format}_delete'], ['id', '_format'], ['DELETE' => 0], null, false, true, null],
-        ],
-        1984 => [[['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null]],
-        2005 => [[['_route' => '_wdt', '_controller' => 'web_profiler.controller.profiler::toolbarAction'], ['token'], null, null, false, true, null]],
-        2048 => [[['_route' => '_profiler_font', '_controller' => 'web_profiler.controller.profiler::fontAction'], ['fontName'], null, null, false, false, null]],
-        2086 => [[['_route' => '_profiler_search_results', '_controller' => 'web_profiler.controller.profiler::searchResultsAction'], ['token'], null, null, false, false, null]],
-        2101 => [[['_route' => '_profiler_router', '_controller' => 'web_profiler.controller.router::panelAction'], ['token'], null, null, false, false, null]],
-        2122 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
-        2136 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
-        2147 => [
+        1898 => [[['_route' => '_api_/users{._format}_get_collection', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\User', '_api_operation_name' => '_api_/users{._format}_get_collection'], ['_format'], ['GET' => 0], null, false, true, null]],
+        1907 => [[['_route' => 'publication', '_controller' => 'App\\Controller\\RegistrationController', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\User', '_api_operation_name' => 'publication'], [], ['POST' => 0], null, false, false, null]],
+        1950 => [[['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null]],
+        1971 => [[['_route' => '_wdt', '_controller' => 'web_profiler.controller.profiler::toolbarAction'], ['token'], null, null, false, true, null]],
+        2014 => [[['_route' => '_profiler_font', '_controller' => 'web_profiler.controller.profiler::fontAction'], ['fontName'], null, null, false, false, null]],
+        2052 => [[['_route' => '_profiler_search_results', '_controller' => 'web_profiler.controller.profiler::searchResultsAction'], ['token'], null, null, false, false, null]],
+        2067 => [[['_route' => '_profiler_router', '_controller' => 'web_profiler.controller.router::panelAction'], ['token'], null, null, false, false, null]],
+        2088 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
+        2102 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
+        2113 => [
             [['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

@@ -9,8 +9,20 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use App\Controller\RegistrationController;
 
-#[ApiResource]
+#[ApiResource(operations: [
+    new Get(),
+    new GetCollection(),
+    new Post(
+        name: 'publication', 
+        uriTemplate: '/users', 
+        controller: RegistrationController::class
+    )
+])]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\InheritanceType('JOINED')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -49,7 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     protected ?bool $banni = null;
 
     #[ORM\Column(nullable: true)]
-    protected ?bool $inscritpionConfirmation = null;
+    protected ?bool $inscritpionConfirmation = false;
 
     #[Groups(['read:prestataireCards'])]
     #[ORM\ManyToOne(inversedBy: 'users')]

@@ -3,6 +3,7 @@ import PostLoginCheck from '../api/postLoginCheck';
 import {useState} from 'react';
 import Cookies from 'universal-cookie';
 import removeCookie from './removeCookie';
+import PostCreateUser from '../api/postCreateUser';
 
 function EspacePrive() {
   // define states to collect inputed values
@@ -35,6 +36,34 @@ function EspacePrive() {
       } 
     )
   };
+
+  // registration handler
+  const [regEmail, setRegEmail] = useState('');
+  const [regPassword, setRegPassword] = useState('');
+
+  // Handle the changes and update the state
+  const handleChangeRegistration = (e) => {
+    switch (e.target.name) {
+      case 'email':
+        setRegEmail(e.target.value);
+        break;
+      case 'mdp':
+        setRegPassword(e.target.value);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleRegistration = (e) => {
+    e.preventDefault();
+    const resPostCreateUser = PostCreateUser(regEmail, '', regPassword, '', '', '', '', '');
+    resPostCreateUser.then(
+      (res) => {
+        console.log(res);
+      }
+    )
+  }
   
   // Manage disconnection by removing the cookie
   const handleLogout = () => {
@@ -72,27 +101,16 @@ function EspacePrive() {
           <div className="bg-zinc-300 md:w-1/2 h-auto rounded p-7 mb-7 md:ml-7">
             <h2>M'inscrire</h2>
             <form className="flex flex-col">
-              <label htmlFor="fname">Prénom *</label>
-              <input type="text" id="fname" name="fname" className="rounded px-4 outline-none"/>
-              <label htmlFor="name">Nom *</label>
-              <input type="text" id="mail" name="mail" className="rounded px-4 outline-none"/>
               <label htmlFor="email">E-mail *</label>
-              <input type="password" id="mdp" name="mdp" className="rounded px-4 outline-none"/>
+              <input onChange={(e)=>{handleChangeRegistration(e)}} type="email" id="email" name="email" className="rounded px-4 outline-none"/>
               <label htmlFor="mdp">Mot de passe *</label>
-              <input type="text" id="phone" name="phone" className="rounded px-4 outline-none"/>
-              <label htmlFor="pet-select">Que voulez-vous faire?</label>
-              <select name="role">
-                <option value="">--choisissez--</option>
-                <option value="dog">Utilisateur</option>
-                <option value="cat">Prestataire</option>
-              </select>
-              <span className="pt-4">
-                <input type="checkbox" id="scales" name="scales" className="mx-2" />
-                <label htmlFor="scales">Je souhaite être tenu au courant des stages, promotions et nouveaux prestataires</label>
-              </span>
+              <input onChange={(e)=>{handleChangeRegistration(e)}} type="password" id="mdp" name="mdp" className="rounded px-4 outline-none"/>
               <button 
               type="submit"
               className="text-center h-7 mt-7 px-4 outline-none hover:bg-violet-400 bg-zinc-500 md:w-1/3 rounded text-white flex flex-row items-center"
+              onClick={(e) => {
+                handleRegistration(e);
+              }}
               >
                 <svg 
                   xmlns="http://www.w3.org/2000/svg"

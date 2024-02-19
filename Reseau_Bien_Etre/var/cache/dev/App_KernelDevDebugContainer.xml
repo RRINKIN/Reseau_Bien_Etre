@@ -27,6 +27,7 @@
       <parameter key="ApiPlatformBundle">ApiPlatform\Symfony\Bundle\ApiPlatformBundle</parameter>
       <parameter key="DoctrineFixturesBundle">Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle</parameter>
       <parameter key="LexikJWTAuthenticationBundle">Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle</parameter>
+      <parameter key="SymfonyCastsVerifyEmailBundle">SymfonyCasts\Bundle\VerifyEmail\SymfonyCastsVerifyEmailBundle</parameter>
     </parameter>
     <parameter key="kernel.bundles_metadata" type="collection">
       <parameter key="FrameworkBundle" type="collection">
@@ -84,6 +85,10 @@
       <parameter key="LexikJWTAuthenticationBundle" type="collection">
         <parameter key="path">/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/lexik/jwt-authentication-bundle</parameter>
         <parameter key="namespace">Lexik\Bundle\JWTAuthenticationBundle</parameter>
+      </parameter>
+      <parameter key="SymfonyCastsVerifyEmailBundle" type="collection">
+        <parameter key="path">/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src</parameter>
+        <parameter key="namespace">SymfonyCasts\Bundle\VerifyEmail</parameter>
       </parameter>
     </parameter>
     <parameter key="kernel.charset">UTF-8</parameter>
@@ -555,6 +560,21 @@
     <service id="App\Entity" class="App\Entity" abstract="true">
       <tag name="container.excluded" source="in &quot;config/services.yaml&quot;"/>
     </service>
+    <service id="App\Controller\MailController" class="App\Controller\MailController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.jUv.zyj.App\Controller\MailController"/>
+      </call>
+    </service>
+    <service id="App\Controller\RegistrationController" class="App\Controller\RegistrationController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <argument type="service" id="security.user_password_hasher"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.jUv.zyj.App\Controller\RegistrationController"/>
+      </call>
+    </service>
     <service id="App\DataFixtures\AbusFixtures" class="App\DataFixtures\AbusFixtures" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
     </service>
@@ -657,6 +677,11 @@
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
+    <service id="App\Security\EmailVerifier" class="App\Security\EmailVerifier" autowire="true" autoconfigure="true">
+      <argument type="service" id="symfonycasts.verify_email.helper"/>
+      <argument type="service" id="mailer.mailer"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
+    </service>
     <service id="argument_metadata_factory" class="Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory"/>
     <service id="argument_resolver.backed_enum_resolver" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\BackedEnumValueResolver">
       <tag priority="100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\BackedEnumValueResolver">controller.argument_value_resolver</tag>
@@ -684,7 +709,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.L.EDYUC"/>
+      <argument type="service" id=".service_locator.a.rN2c_"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -979,7 +1004,7 @@
     <service id="container.get_routing_condition_service" class="Closure" public="true">
       <tag name="routing.expression_language_function" function="service"/>
       <argument type="collection">
-        <argument type="service" id=".service_locator.Xbsa8iG"/>
+        <argument type="service" id="messenger.retry_strategy_locator"/>
         <argument>get</argument>
       </argument>
       <factory class="Closure" method="fromCallable"/>
@@ -1288,10 +1313,7 @@
       <argument type="service" id="messenger.receiver_locator"/>
       <argument type="service" id="debug.event_dispatcher"/>
       <argument type="service" id="monolog.logger.messenger" on-invalid="null"/>
-      <argument type="collection">
-        <argument>async</argument>
-        <argument>failed</argument>
-      </argument>
+      <argument type="collection"/>
       <argument type="service" id="messenger.listener.reset_services" on-invalid="null"/>
       <argument type="collection">
         <argument>messenger.bus.default</argument>
@@ -1309,10 +1331,7 @@
       <tag name="console.command"/>
       <tag name="container.no_preload"/>
       <argument type="service" id="messenger.receiver_locator"/>
-      <argument type="collection">
-        <argument>async</argument>
-        <argument>failed</argument>
-      </argument>
+      <argument type="collection"/>
       <call method="setName">
         <argument>messenger:setup-transports</argument>
       </call>
@@ -1393,58 +1412,11 @@
         <argument>Stop workers after their current message</argument>
       </call>
     </service>
-    <service id="console.command.messenger_failed_messages_retry" class="Symfony\Component\Messenger\Command\FailedMessagesRetryCommand">
-      <tag name="console.command"/>
-      <tag name="monolog.logger" channel="messenger"/>
-      <tag name="container.no_preload"/>
-      <argument>failed</argument>
-      <argument type="service" id=".service_locator.Y4J.A.e"/>
-      <argument type="service" id="messenger.routable_message_bus"/>
-      <argument type="service" id="debug.event_dispatcher"/>
-      <argument type="service" id="monolog.logger.messenger" on-invalid="null"/>
-      <argument type="service" id="messenger.transport.native_php_serializer" on-invalid="null"/>
-      <argument>null</argument>
-      <call method="setName">
-        <argument>messenger:failed:retry</argument>
-      </call>
-      <call method="setDescription">
-        <argument>Retry one or more messages from the failure transport</argument>
-      </call>
-    </service>
-    <service id="console.command.messenger_failed_messages_show" class="Symfony\Component\Messenger\Command\FailedMessagesShowCommand">
-      <tag name="console.command"/>
-      <tag name="container.no_preload"/>
-      <argument>failed</argument>
-      <argument type="service" id=".service_locator.Y4J.A.e"/>
-      <argument type="service" id="messenger.transport.native_php_serializer" on-invalid="null"/>
-      <call method="setName">
-        <argument>messenger:failed:show</argument>
-      </call>
-      <call method="setDescription">
-        <argument>Show one or more messages from the failure transport</argument>
-      </call>
-    </service>
-    <service id="console.command.messenger_failed_messages_remove" class="Symfony\Component\Messenger\Command\FailedMessagesRemoveCommand">
-      <tag name="console.command"/>
-      <tag name="container.no_preload"/>
-      <argument>failed</argument>
-      <argument type="service" id=".service_locator.Y4J.A.e"/>
-      <argument type="service" id="messenger.transport.native_php_serializer" on-invalid="null"/>
-      <call method="setName">
-        <argument>messenger:failed:remove</argument>
-      </call>
-      <call method="setDescription">
-        <argument>Remove given messages from the failure transport</argument>
-      </call>
-    </service>
     <service id="console.command.messenger_stats" class="Symfony\Component\Messenger\Command\StatsCommand">
       <tag name="console.command"/>
       <tag name="container.no_preload"/>
       <argument type="service" id="messenger.receiver_locator"/>
-      <argument type="collection">
-        <argument>async</argument>
-        <argument>failed</argument>
-      </argument>
+      <argument type="collection"/>
       <call method="setName">
         <argument>messenger:stats</argument>
       </call>
@@ -2122,6 +2094,7 @@
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.ar.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations/validators.ar.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations/security.ar.xlf</argument>
+            <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.ar.xlf</argument>
           </argument>
           <argument key="az" type="collection">
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.az.xlf</argument>
@@ -2147,11 +2120,13 @@
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.ca.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations/validators.ca.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations/security.ca.xlf</argument>
+            <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.ca.xlf</argument>
           </argument>
           <argument key="cs" type="collection">
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.cs.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations/validators.cs.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations/security.cs.xlf</argument>
+            <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.cs.xlf</argument>
           </argument>
           <argument key="cy" type="collection">
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.cy.xlf</argument>
@@ -2165,21 +2140,25 @@
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.de.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations/validators.de.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations/security.de.xlf</argument>
+            <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.de.xlf</argument>
           </argument>
           <argument key="el" type="collection">
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.el.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations/validators.el.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations/security.el.xlf</argument>
+            <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.el.xlf</argument>
           </argument>
           <argument key="en" type="collection">
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.en.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations/validators.en.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations/security.en.xlf</argument>
+            <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.en.xlf</argument>
           </argument>
           <argument key="es" type="collection">
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.es.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations/validators.es.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations/security.es.xlf</argument>
+            <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.es.xlf</argument>
           </argument>
           <argument key="et" type="collection">
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.et.xlf</argument>
@@ -2195,16 +2174,19 @@
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.fa.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations/validators.fa.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations/security.fa.xlf</argument>
+            <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.fa.xlf</argument>
           </argument>
           <argument key="fi" type="collection">
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.fi.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations/validators.fi.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations/security.fi.xlf</argument>
+            <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.fi.xlf</argument>
           </argument>
           <argument key="fr" type="collection">
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.fr.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations/validators.fr.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations/security.fr.xlf</argument>
+            <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.fr.xlf</argument>
           </argument>
           <argument key="gl" type="collection">
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.gl.xlf</argument>
@@ -2225,6 +2207,7 @@
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.hu.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations/validators.hu.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations/security.hu.xlf</argument>
+            <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.hu.xlf</argument>
           </argument>
           <argument key="hy" type="collection">
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.hy.xlf</argument>
@@ -2235,16 +2218,19 @@
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.id.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations/validators.id.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations/security.id.xlf</argument>
+            <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.id.xlf</argument>
           </argument>
           <argument key="it" type="collection">
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.it.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations/validators.it.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations/security.it.xlf</argument>
+            <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.it.xlf</argument>
           </argument>
           <argument key="ja" type="collection">
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.ja.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations/validators.ja.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations/security.ja.xlf</argument>
+            <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.ja.xlf</argument>
           </argument>
           <argument key="lb" type="collection">
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.lb.xlf</argument>
@@ -2265,11 +2251,13 @@
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.mk.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations/validators.mk.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations/security.mk.xlf</argument>
+            <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.mk.xlf</argument>
           </argument>
           <argument key="mn" type="collection">
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.mn.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations/validators.mn.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations/security.mn.xlf</argument>
+            <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.mn.xlf</argument>
           </argument>
           <argument key="my" type="collection">
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.my.xlf</argument>
@@ -2285,6 +2273,7 @@
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.nl.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations/validators.nl.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations/security.nl.xlf</argument>
+            <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle+intl-icu.nl.xlf</argument>
           </argument>
           <argument key="nn" type="collection">
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.nn.xlf</argument>
@@ -2300,11 +2289,13 @@
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.pl.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations/validators.pl.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations/security.pl.xlf</argument>
+            <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.pl.xlf</argument>
           </argument>
           <argument key="pt" type="collection">
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.pt.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations/validators.pt.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations/security.pt.xlf</argument>
+            <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.pt.xlf</argument>
           </argument>
           <argument key="pt_BR" type="collection">
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.pt_BR.xlf</argument>
@@ -2315,16 +2306,19 @@
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.ro.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations/validators.ro.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations/security.ro.xlf</argument>
+            <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.ro.xlf</argument>
           </argument>
           <argument key="ru" type="collection">
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.ru.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations/validators.ru.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations/security.ru.xlf</argument>
+            <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.ru.xlf</argument>
           </argument>
           <argument key="sk" type="collection">
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.sk.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations/validators.sk.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations/security.sk.xlf</argument>
+            <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.sk.xlf</argument>
           </argument>
           <argument key="sl" type="collection">
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.sl.xlf</argument>
@@ -2365,11 +2359,13 @@
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.tr.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations/validators.tr.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations/security.tr.xlf</argument>
+            <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.tr.xlf</argument>
           </argument>
           <argument key="uk" type="collection">
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.uk.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations/validators.uk.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations/security.uk.xlf</argument>
+            <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.uk.xlf</argument>
           </argument>
           <argument key="ur" type="collection">
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations/validators.ur.xlf</argument>
@@ -2396,11 +2392,15 @@
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations/validators.zh_TW.xlf</argument>
             <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations/security.zh_TW.xlf</argument>
           </argument>
+          <argument key="sr" type="collection">
+            <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.sr.xlf</argument>
+          </argument>
         </argument>
         <argument key="scanned_directories" type="collection">
           <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/validator/Resources/translations</argument>
           <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/form/Resources/translations</argument>
           <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-core/Resources/translations</argument>
+          <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfonycasts/verify-email-bundle/src/Resources/translations</argument>
           <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/translations</argument>
           <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/framework-bundle/translations</argument>
           <argument>/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/doctrine/doctrine-bundle/translations</argument>
@@ -2422,6 +2422,7 @@
             <argument>vendor/symfony/validator/Resources/translations</argument>
             <argument>vendor/symfony/form/Resources/translations</argument>
             <argument>vendor/symfony/security-core/Resources/translations</argument>
+            <argument>vendor/symfonycasts/verify-email-bundle/src/Resources/translations</argument>
             <argument>translations</argument>
             <argument>vendor/symfony/framework-bundle/translations</argument>
             <argument>vendor/doctrine/doctrine-bundle/translations</argument>
@@ -3201,14 +3202,6 @@
         <argument>200</argument>
       </call>
       <call method="addListener">
-        <argument>Symfony\Component\Messenger\Event\WorkerMessageFailedEvent</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="messenger.failure.send_failed_message_to_failure_transport_listener"/>
-          <argument>onMessageFailed</argument>
-        </argument>
-        <argument>-100</argument>
-      </call>
-      <call method="addListener">
         <argument>Symfony\Component\Messenger\Event\WorkerRunningEvent</argument>
         <argument type="collection">
           <argument type="service_closure" id="messenger.listener.dispatch_pcntl_signal_listener"/>
@@ -3486,7 +3479,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.L.EDYUC"/>
+      <argument type="service" id=".service_locator.a.rN2c_"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -3589,7 +3582,7 @@
     <service id="router.default" class="Symfony\Bundle\FrameworkBundle\Routing\Router">
       <tag name="monolog.logger" channel="router"/>
       <tag name="container.service_subscriber" id="routing.loader"/>
-      <argument type="service" id=".service_locator.otfny_1.router.default"/>
+      <argument type="service" id=".service_locator.ybClHma.router.default"/>
       <argument>kernel::loadRoutes</argument>
       <argument type="collection">
         <argument key="cache_dir">/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/var/cache/dev</argument>
@@ -4070,7 +4063,7 @@
         <argument type="service" id="validator.validator_factory"/>
       </call>
       <call method="setGroupProviderLocator">
-        <argument type="service" id=".service_locator.Xbsa8iG"/>
+        <argument type="service" id="messenger.retry_strategy_locator"/>
       </call>
       <call method="setTranslator">
         <argument type="service" id="translator.data_collector" on-invalid="ignore"/>
@@ -4399,18 +4392,8 @@
       <argument>null</argument>
     </service>
     <service id="messenger.senders_locator" class="Symfony\Component\Messenger\Transport\Sender\SendersLocator">
-      <argument type="collection">
-        <argument key="Symfony\Component\Mailer\Messenger\SendEmailMessage" type="collection">
-          <argument>async</argument>
-        </argument>
-        <argument key="Symfony\Component\Notifier\Message\ChatMessage" type="collection">
-          <argument>async</argument>
-        </argument>
-        <argument key="Symfony\Component\Notifier\Message\SmsMessage" type="collection">
-          <argument>async</argument>
-        </argument>
-      </argument>
-      <argument type="service" id=".service_locator.c7f47p7"/>
+      <argument type="collection"/>
+      <argument type="service" id="messenger.retry_strategy_locator"/>
     </service>
     <service id="messenger.middleware.send_message" class="Symfony\Component\Messenger\Middleware\SendMessageMiddleware" abstract="true">
       <tag name="monolog.logger" channel="messenger"/>
@@ -4419,11 +4402,6 @@
       <call method="setLogger">
         <argument type="service" id="monolog.logger.messenger" on-invalid="ignore"/>
       </call>
-    </service>
-    <service id="messenger.transport.symfony_serializer" class="Symfony\Component\Messenger\Transport\Serialization\Serializer">
-      <argument type="service" id="debug.serializer"/>
-      <argument>json</argument>
-      <argument type="collection"/>
     </service>
     <service id="serializer.normalizer.flatten_exception" class="Symfony\Component\Messenger\Transport\Serialization\Normalizer\FlattenExceptionNormalizer">
       <tag name="serializer.normalizer" priority="-880"/>
@@ -4451,18 +4429,11 @@
     </service>
     <service id="messenger.receiver_locator" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="async" type="service_closure" id="messenger.transport.async"/>
-        <argument key="failed" type="service_closure" id="messenger.transport.failed"/>
-        <argument key="messenger.transport.async" type="service_closure" id="messenger.transport.async"/>
-        <argument key="messenger.transport.failed" type="service_closure" id="messenger.transport.failed"/>
-      </argument>
+      <argument type="collection"/>
     </service>
     <service id="messenger.transport_factory" class="Symfony\Component\Messenger\Transport\TransportFactory">
       <argument type="tagged_iterator" tag="messenger.transport_factory"/>
     </service>
-    <service id="messenger.transport.amqp.factory" class="Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpTransportFactory"/>
-    <service id="messenger.transport.redis.factory" class="Symfony\Component\Messenger\Bridge\Redis\Transport\RedisTransportFactory"/>
     <service id="messenger.transport.sync.factory" class="Symfony\Component\Messenger\Transport\Sync\SyncTransportFactory">
       <tag name="messenger.transport_factory"/>
       <argument type="service" id="messenger.routable_message_bus"/>
@@ -4471,18 +4442,9 @@
       <tag name="messenger.transport_factory"/>
       <tag name="kernel.reset" method="reset"/>
     </service>
-    <service id="messenger.transport.sqs.factory" class="Symfony\Component\Messenger\Bridge\AmazonSqs\Transport\AmazonSqsTransportFactory">
-      <tag name="monolog.logger" channel="messenger"/>
-      <tag name="container.error" message="Invalid service &quot;messenger.transport.sqs.factory&quot;: class &quot;Symfony\Component\Messenger\Bridge\AmazonSqs\Transport\AmazonSqsTransportFactory&quot; does not exist."/>
-      <argument type="service" id="monolog.logger.messenger" on-invalid="ignore"/>
-    </service>
-    <service id="messenger.transport.beanstalkd.factory" class="Symfony\Component\Messenger\Bridge\Beanstalkd\Transport\BeanstalkdTransportFactory"/>
     <service id="messenger.retry_strategy_locator" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="async" type="service_closure" id="messenger.retry.multiplier_retry_strategy.async"/>
-        <argument key="failed" type="service_closure" id="messenger.retry.multiplier_retry_strategy.failed"/>
-      </argument>
+      <argument type="collection"/>
     </service>
     <service id="messenger.retry.abstract_multiplier_retry_strategy" class="Symfony\Component\Messenger\Retry\MultiplierRetryStrategy" abstract="true">
       <argument type="abstract">max retries</argument>
@@ -4493,19 +4455,13 @@
     <service id="messenger.retry.send_failed_message_for_retry_listener" class="Symfony\Component\Messenger\EventListener\SendFailedMessageForRetryListener">
       <tag name="monolog.logger" channel="messenger"/>
       <tag name="kernel.event_subscriber"/>
-      <argument type="service" id=".service_locator.c7f47p7"/>
+      <argument type="service" id="messenger.retry_strategy_locator"/>
       <argument type="service" id="messenger.retry_strategy_locator"/>
       <argument type="service" id="monolog.logger.messenger" on-invalid="ignore"/>
       <argument type="service" id="debug.event_dispatcher"/>
     </service>
     <service id="messenger.failure.add_error_details_stamp_listener" class="Symfony\Component\Messenger\EventListener\AddErrorDetailsStampListener">
       <tag name="kernel.event_subscriber"/>
-    </service>
-    <service id="messenger.failure.send_failed_message_to_failure_transport_listener" class="Symfony\Component\Messenger\EventListener\SendFailedMessageToFailureTransportListener">
-      <tag name="monolog.logger" channel="messenger"/>
-      <tag name="kernel.event_subscriber"/>
-      <argument type="service" id=".service_locator._wyX1Dp"/>
-      <argument type="service" id="monolog.logger.messenger" on-invalid="ignore"/>
     </service>
     <service id="messenger.listener.dispatch_pcntl_signal_listener" class="Symfony\Component\Messenger\EventListener\DispatchPcntlSignalListener">
       <tag name="kernel.event_subscriber"/>
@@ -4529,54 +4485,6 @@
     <service id="messenger.redispatch_message_handler" class="Symfony\Component\Messenger\Handler\RedispatchMessageHandler">
       <tag name="messenger.message_handler"/>
       <argument type="service" id="debug.traced.messenger.bus.default"/>
-    </service>
-    <service id="messenger.transport.async" class="Symfony\Component\Messenger\Transport\TransportInterface">
-      <tag name="messenger.receiver" alias="async" is_failure_transport=""/>
-      <argument>%env(MESSENGER_TRANSPORT_DSN)%</argument>
-      <argument type="collection">
-        <argument key="use_notify">true</argument>
-        <argument key="check_delayed_interval">60000</argument>
-        <argument key="transport_name">async</argument>
-      </argument>
-      <argument type="service" id="messenger.transport.native_php_serializer"/>
-      <factory service="messenger.transport_factory" method="createTransport"/>
-    </service>
-    <service id="messenger.retry.multiplier_retry_strategy.async" class="Symfony\Component\Messenger\Retry\MultiplierRetryStrategy">
-      <argument>3</argument>
-      <argument>1000</argument>
-      <argument>2</argument>
-      <argument>0</argument>
-    </service>
-    <service id="messenger.transport.failed" class="Symfony\Component\Messenger\Transport\TransportInterface">
-      <tag name="messenger.receiver" alias="failed" is_failure_transport="1"/>
-      <argument>doctrine://default?queue_name=failed</argument>
-      <argument type="collection">
-        <argument key="transport_name">failed</argument>
-      </argument>
-      <argument type="service" id="messenger.transport.native_php_serializer"/>
-      <factory service="messenger.transport_factory" method="createTransport"/>
-    </service>
-    <service id="messenger.retry.multiplier_retry_strategy.failed" class="Symfony\Component\Messenger\Retry\MultiplierRetryStrategy">
-      <argument>3</argument>
-      <argument>1000</argument>
-      <argument>2</argument>
-      <argument>0</argument>
-    </service>
-    <service id=".service_locator.c7f47p7" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="async" type="service_closure" id="messenger.transport.async"/>
-        <argument key="failed" type="service_closure" id="messenger.transport.failed"/>
-        <argument key="messenger.transport.async" type="service_closure" id="messenger.transport.async"/>
-        <argument key="messenger.transport.failed" type="service_closure" id="messenger.transport.failed"/>
-      </argument>
-    </service>
-    <service id=".service_locator._wyX1Dp" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="async" type="service_closure" id="messenger.transport.failed"/>
-        <argument key="failed" type="service_closure" id="messenger.transport.failed"/>
-      </argument>
     </service>
     <service id="notifier" class="Symfony\Component\Notifier\Notifier">
       <argument type="service" id=".service_locator.hnz5ZNh"/>
@@ -6043,7 +5951,7 @@
       <tag name="twig.extension"/>
     </service>
     <service id="twig.extension.htmlsanitizer" class="Symfony\Bridge\Twig\Extension\HtmlSanitizerExtension">
-      <argument type="service" id=".service_locator.Xbsa8iG"/>
+      <argument type="service" id="messenger.retry_strategy_locator"/>
     </service>
     <service id="twig.extension.httpkernel" class="Symfony\Bridge\Twig\Extension\HttpKernelExtension">
       <tag name="twig.extension"/>
@@ -8021,7 +7929,7 @@
       <argument type="service" id="api_platform.metadata.resource.metadata_collection_factory.cached"/>
       <argument type="service" id="doctrine"/>
       <argument type="tagged_iterator" tag="api_platform.doctrine.orm.query_extension.collection"/>
-      <argument type="service" id=".service_locator.Xbsa8iG"/>
+      <argument type="service" id="messenger.retry_strategy_locator"/>
     </service>
     <service id="api_platform.doctrine.orm.state.item_provider" class="ApiPlatform\Doctrine\Orm\State\ItemProvider">
       <tag name="api_platform.state_provider" priority="-100" key="ApiPlatform\Doctrine\Orm\State\ItemProvider"/>
@@ -8029,7 +7937,7 @@
       <argument type="service" id="api_platform.metadata.resource.metadata_collection_factory.cached"/>
       <argument type="service" id="doctrine"/>
       <argument type="tagged_iterator" tag="api_platform.doctrine.orm.query_extension.item"/>
-      <argument type="service" id=".service_locator.Xbsa8iG"/>
+      <argument type="service" id="messenger.retry_strategy_locator"/>
     </service>
     <service id="api_platform.doctrine.orm.search_filter" class="ApiPlatform\Doctrine\Orm\Filter\SearchFilter" abstract="true">
       <argument key="0" type="service" id="doctrine"/>
@@ -8117,7 +8025,7 @@
     </service>
     <service id="api_platform.validator" class="ApiPlatform\Symfony\Validator\Validator">
       <argument type="service" id="debug.validator"/>
-      <argument type="service" id=".service_locator.Xbsa8iG"/>
+      <argument type="service" id="messenger.retry_strategy_locator"/>
     </service>
     <service id="api_platform.validator.query_parameter_validator" class="ApiPlatform\Api\QueryParameterValidator\QueryParameterValidator">
       <argument type="service" id="api_platform.filter_locator"/>
@@ -8487,6 +8395,24 @@
       <argument>email</argument>
       <argument>security.credentials.password</argument>
     </service>
+    <service id="symfonycasts.verify_email.token_generator" class="SymfonyCasts\Bundle\VerifyEmail\Generator\VerifyEmailTokenGenerator">
+      <argument>%env(APP_SECRET)%</argument>
+    </service>
+    <service id="symfonycasts.verify_email.query_utility" class="SymfonyCasts\Bundle\VerifyEmail\Util\VerifyEmailQueryUtility"/>
+    <service id="symfonycasts.verify_email.uri_signer_factory" class="SymfonyCasts\Bundle\VerifyEmail\Factory\UriSignerFactory">
+      <argument>%env(APP_SECRET)%</argument>
+      <argument>signature</argument>
+    </service>
+    <service id="symfonycasts.verify_email.uri_signer" class="Symfony\Component\HttpFoundation\UriSigner">
+      <factory service="symfonycasts.verify_email.uri_signer_factory" method="createUriSigner"/>
+    </service>
+    <service id="symfonycasts.verify_email.helper" class="SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelper">
+      <argument type="service" id="router.default"/>
+      <argument type="service" id="symfonycasts.verify_email.uri_signer"/>
+      <argument type="service" id="symfonycasts.verify_email.query_utility"/>
+      <argument type="service" id="symfonycasts.verify_email.token_generator"/>
+      <argument>3600</argument>
+    </service>
     <service id="annotated_app_entity_categorie_de_services_api_platform_doctrine_orm_filter_boolean_filter" class="ApiPlatform\Doctrine\Orm\Filter\BooleanFilter" autowire="true">
       <tag name="api_platform.filter"/>
       <argument type="service" id="doctrine"/>
@@ -8524,6 +8450,13 @@
       <argument type="service" id="api_platform.api.identifiers_extractor" on-invalid="ignore"/>
       <argument type="service" id="serializer.name_converter.metadata_aware" on-invalid="ignore"/>
     </service>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\MailController" class="App\Controller\MailController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\MailController" class="App\Controller\MailController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\MailController" class="App\Controller\MailController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\RegistrationController" class="App\Controller\RegistrationController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\RegistrationController" class="App\Controller\RegistrationController" autowire="true" abstract="true"/>
+    <service id=".instanceof.App\Controller\RegistrationController.0.App\Controller\RegistrationController" class="App\Controller\RegistrationController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\RegistrationController" class="App\Controller\RegistrationController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\AbusFixtures" class="App\DataFixtures\AbusFixtures" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\AbusFixtures" class="App\DataFixtures\AbusFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\AdminFixtures" class="App\DataFixtures\AdminFixtures" autowire="true" abstract="true"/>
@@ -8989,13 +8922,33 @@
         <argument key="loader" type="service_closure" id=".errored..service_locator.y4_Zrx..Symfony\Component\Config\Loader\LoaderInterface"/>
       </argument>
     </service>
-    <service id=".service_locator.L.EDYUC" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.HKBrolL" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="emailVerifier" type="service_closure" id="App\Security\EmailVerifier"/>
+      </argument>
+    </service>
+    <service id=".service_locator.Hz5btge" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="user" type="service_closure" id=".errored..service_locator.Hz5btge.App\Entity\User"/>
+      </argument>
+    </service>
+    <service id=".service_locator.a.rN2c_" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="App\Controller\MailController::index" type="service_closure" id=".service_locator.HKBrolL"/>
+        <argument key="App\Controller\RegistrationController::__invoke" type="service_closure" id=".service_locator.Hz5btge"/>
+        <argument key="App\Controller\RegistrationController::emailVerification" type="service_closure" id=".service_locator.HKBrolL"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="App\Kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="kernel::loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
+        <argument key="App\Controller\MailController:index" type="service_closure" id=".service_locator.HKBrolL"/>
+        <argument key="App\Controller\RegistrationController:__invoke" type="service_closure" id=".service_locator.Hz5btge"/>
+        <argument key="App\Controller\RegistrationController" type="service_closure" id=".service_locator.Hz5btge"/>
+        <argument key="App\Controller\RegistrationController:emailVerification" type="service_closure" id=".service_locator.HKBrolL"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
       </argument>
@@ -9278,12 +9231,6 @@
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="messenger.bus.default" type="service_closure" id="debug.traced.messenger.bus.default"/>
-      </argument>
-    </service>
-    <service id=".service_locator.Y4J.A.e" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="failed" type="service_closure" id="messenger.transport.failed"/>
       </argument>
     </service>
     <service id=".messenger.handler_descriptor.QXXNQ9d" class="Symfony\Component\Messenger\Handler\HandlerDescriptor">
@@ -9715,6 +9662,34 @@
         <argument>0</argument>
       </call>
     </service>
+    <service id=".service_locator.jUv.zyj" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="form.factory" type="service_closure" id="form.factory" on-invalid="ignore"/>
+        <argument key="http_kernel" type="service_closure" id="http_kernel" on-invalid="ignore"/>
+        <argument key="parameter_bag" type="service_closure" id="parameter_bag" on-invalid="ignore"/>
+        <argument key="request_stack" type="service_closure" id="request_stack" on-invalid="ignore"/>
+        <argument key="router" type="service_closure" id="router.default" on-invalid="ignore"/>
+        <argument key="security.authorization_checker" type="service_closure" id="security.authorization_checker" on-invalid="ignore"/>
+        <argument key="security.csrf.token_manager" type="service_closure" id="security.csrf.token_manager" on-invalid="ignore"/>
+        <argument key="security.token_storage" type="service_closure" id="security.token_storage" on-invalid="ignore"/>
+        <argument key="serializer" type="service_closure" id="debug.serializer" on-invalid="ignore"/>
+        <argument key="twig" type="service_closure" id="twig" on-invalid="ignore"/>
+        <argument key="web_link.http_header_serializer" type="service_closure" id="web_link.http_header_serializer" on-invalid="ignore"/>
+      </argument>
+    </service>
+    <service id=".service_locator.jUv.zyj.App\Controller\MailController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\MailController"/>
+      <argument>App\Controller\MailController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.jUv.zyj" method="withContext"/>
+    </service>
+    <service id=".service_locator.jUv.zyj.App\Controller\RegistrationController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\RegistrationController"/>
+      <argument>App\Controller\RegistrationController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.jUv.zyj" method="withContext"/>
+    </service>
     <service id=".service_locator.fuYM_Z." class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -9727,17 +9702,17 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.fuYM_Z." method="withContext"/>
     </service>
-    <service id=".service_locator.otfny_1" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.ybClHma" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="routing.loader" type="service_closure" id="routing.loader"/>
       </argument>
     </service>
-    <service id=".service_locator.otfny_1.router.default" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.ybClHma.router.default" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="router.default"/>
       <argument>router.default</argument>
       <argument type="service" id="service_container"/>
-      <factory service=".service_locator.otfny_1" method="withContext"/>
+      <factory service=".service_locator.ybClHma" method="withContext"/>
     </service>
     <service id=".service_locator.cUcW89y" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
@@ -9788,10 +9763,6 @@
       <argument type="collection">
         <argument key="reverse_container" type="service_closure" id="reverse_container" on-invalid="ignore_uninitialized"/>
       </argument>
-    </service>
-    <service id=".service_locator.Xbsa8iG" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator"/>
-      <argument type="collection"/>
     </service>
     <service id=".service_locator.NBUFN6A" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
@@ -10274,6 +10245,9 @@
     <service id=".errored..service_locator.y4_Zrx..Symfony\Component\Config\Loader\LoaderInterface" class="Symfony\Component\Config\Loader\LoaderInterface">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.y4_Zrx.&quot;: it needs an instance of &quot;Symfony\Component\Config\Loader\LoaderInterface&quot; but this type has been excluded from autowiring."/>
     </service>
+    <service id=".errored..service_locator.Hz5btge.App\Entity\User" class="App\Entity\User">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.Hz5btge&quot;: it needs an instance of &quot;App\Entity\User&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
     <service id=".console.command.about.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>about</argument>
       <argument type="collection"/>
@@ -10413,27 +10387,6 @@
       <argument>Stop workers after their current message</argument>
       <argument>false</argument>
       <argument type="service_closure" id="console.command.messenger_stop_workers"/>
-    </service>
-    <service id=".console.command.messenger_failed_messages_retry.lazy" class="Symfony\Component\Console\Command\LazyCommand">
-      <argument>messenger:failed:retry</argument>
-      <argument type="collection"/>
-      <argument>Retry one or more messages from the failure transport</argument>
-      <argument>false</argument>
-      <argument type="service_closure" id="console.command.messenger_failed_messages_retry"/>
-    </service>
-    <service id=".console.command.messenger_failed_messages_show.lazy" class="Symfony\Component\Console\Command\LazyCommand">
-      <argument>messenger:failed:show</argument>
-      <argument type="collection"/>
-      <argument>Show one or more messages from the failure transport</argument>
-      <argument>false</argument>
-      <argument type="service_closure" id="console.command.messenger_failed_messages_show"/>
-    </service>
-    <service id=".console.command.messenger_failed_messages_remove.lazy" class="Symfony\Component\Console\Command\LazyCommand">
-      <argument>messenger:failed:remove</argument>
-      <argument type="collection"/>
-      <argument>Remove given messages from the failure transport</argument>
-      <argument>false</argument>
-      <argument type="service_closure" id="console.command.messenger_failed_messages_remove"/>
     </service>
     <service id=".console.command.messenger_stats.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>messenger:stats</argument>
@@ -10925,7 +10878,7 @@
     </service>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <tag name="container.no_preload"/>
-      <argument type="service" id=".service_locator.ymxUpYq"/>
+      <argument type="service" id=".service_locator.Gas3Wah"/>
       <argument type="collection">
         <argument key="about">console.command.about</argument>
         <argument key="assets:install">console.command.assets_install</argument>
@@ -10947,9 +10900,6 @@
         <argument key="messenger:setup-transports">console.command.messenger_setup_transports</argument>
         <argument key="debug:messenger">console.command.messenger_debug</argument>
         <argument key="messenger:stop-workers">console.command.messenger_stop_workers</argument>
-        <argument key="messenger:failed:retry">console.command.messenger_failed_messages_retry</argument>
-        <argument key="messenger:failed:show">console.command.messenger_failed_messages_show</argument>
-        <argument key="messenger:failed:remove">console.command.messenger_failed_messages_remove</argument>
         <argument key="messenger:stats">console.command.messenger_stats</argument>
         <argument key="debug:router">console.command.router_debug</argument>
         <argument key="router:match">console.command.router_match</argument>
@@ -11047,7 +10997,7 @@
         <argument key="make:state-provider">maker.auto_command.make_state_provider</argument>
       </argument>
     </service>
-    <service id=".service_locator.ymxUpYq" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.Gas3Wah" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="Doctrine\DBAL\Tools\Console\Command\RunSqlCommand" type="service_closure" id="Doctrine\DBAL\Tools\Console\Command\RunSqlCommand"/>
@@ -11073,9 +11023,6 @@
         <argument key="console.command.mailer_test" type="service_closure" id=".console.command.mailer_test.lazy"/>
         <argument key="console.command.messenger_consume_messages" type="service_closure" id=".console.command.messenger_consume_messages.lazy"/>
         <argument key="console.command.messenger_debug" type="service_closure" id=".console.command.messenger_debug.lazy"/>
-        <argument key="console.command.messenger_failed_messages_remove" type="service_closure" id=".console.command.messenger_failed_messages_remove.lazy"/>
-        <argument key="console.command.messenger_failed_messages_retry" type="service_closure" id=".console.command.messenger_failed_messages_retry.lazy"/>
-        <argument key="console.command.messenger_failed_messages_show" type="service_closure" id=".console.command.messenger_failed_messages_show.lazy"/>
         <argument key="console.command.messenger_setup_transports" type="service_closure" id=".console.command.messenger_setup_transports.lazy"/>
         <argument key="console.command.messenger_stats" type="service_closure" id=".console.command.messenger_stats.lazy"/>
         <argument key="console.command.messenger_stop_workers" type="service_closure" id=".console.command.messenger_stop_workers.lazy"/>
@@ -11367,11 +11314,9 @@
     <service id="form.choice_list_factory" alias="form.choice_list_factory.cached"/>
     <service id="Symfony\Component\Validator\Validator\ValidatorInterface" alias="debug.validator"/>
     <service id="validator.mapping.class_metadata_factory" alias="debug.validator"/>
-    <service id="Symfony\Component\Messenger\Transport\Serialization\SerializerInterface" alias="messenger.transport.native_php_serializer"/>
     <service id="messenger.default_serializer" alias="messenger.transport.native_php_serializer"/>
     <service id="messenger.default_bus" alias="debug.traced.messenger.bus.default" public="true"/>
     <service id="Symfony\Component\Messenger\MessageBusInterface" alias="debug.traced.messenger.bus.default"/>
-    <service id="messenger.failure_transports.default" alias="messenger.transport.failed"/>
     <service id="Symfony\Component\Notifier\NotifierInterface" alias="notifier"/>
     <service id="Symfony\Component\Mime\MimeTypesInterface" alias="mime_types"/>
     <service id="Symfony\Component\Mime\MimeTypeGuesserInterface" alias="mime_types"/>
@@ -11495,9 +11440,10 @@
     <service id="lexik_jwt_authentication.encoder" alias="lexik_jwt_authentication.encoder.lcobucci" public="true"/>
     <service id="Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface" alias="lexik_jwt_authentication.encoder.lcobucci"/>
     <service id="lexik_jwt_authentication.key_loader" alias="lexik_jwt_authentication.key_loader.raw" public="true"/>
+    <service id="SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface" alias="symfonycasts.verify_email.helper"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.bJ.4HC5" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.L.EDYUC"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.a.rN2c_"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
@@ -11517,8 +11463,6 @@
     <service id="Psr\Log\LoggerInterface $securityLogger" alias="monolog.logger.security"/>
     <service id="Psr\Log\LoggerInterface $deprecationLogger" alias="monolog.logger.deprecation"/>
     <service id="api_platform.name_converter" alias="serializer.name_converter.metadata_aware"/>
-    <service id=".service_locator.80edgLI" alias="messenger.receiver_locator"/>
-    <service id=".service_locator.h8Jkkd2" alias="messenger.retry_strategy_locator"/>
     <service id=".service_locator.bnaLdkn" alias="api_platform.serializer_locator"/>
     <service id=".service_locator.DBc3qm8" alias="api_platform.filter_locator"/>
     <service id=".service_locator.BFrsqsn" alias=".service_locator.mAgPHiR"/>
@@ -11594,6 +11538,10 @@
     <service id="api_platform.metadata.property.name_collection_factory.cached.inner" alias="api_platform.metadata.property.name_collection_factory.yaml"/>
     <service id="api_platform.metadata.property.metadata_factory.cached.inner" alias="api_platform.json_schema.metadata.property.metadata_factory.schema"/>
     <service id="api_platform.metadata.resource.metadata_collection_factory.cached.inner" alias="api_platform.doctrine.orm.metadata.resource.metadata_collection_factory"/>
+    <service id=".service_locator.Xbsa8iG" alias="messenger.retry_strategy_locator"/>
     <service id=".service_locator.gFlme_s" alias=".service_locator.y4_Zrx."/>
+    <service id=".service_locator.MJT87yl" alias=".service_locator.HKBrolL"/>
+    <service id=".service_locator.EmZ4cZI" alias=".service_locator.Hz5btge"/>
+    <service id=".service_locator.Q1z.f9O" alias=".service_locator.jUv.zyj"/>
   </services>
 </container>
