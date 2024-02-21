@@ -1715,6 +1715,6 @@ $context["voter_detail"], "vote", [], "array", false, false, false, 483) == twig
         </div>
     {% endif %}
 {% endblock %}
-", "@Security/Collector/security.html.twig", "/Applications/Symfony/Reseau_Bien_Etre/vendor/symfony/security-bundle/Resources/views/Collector/security.html.twig");
+", "@Security/Collector/security.html.twig", "/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/security-bundle/Resources/views/Collector/security.html.twig");
     }
 }

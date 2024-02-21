@@ -520,6 +520,6 @@ class __TwigTemplate_c625ca922cee2a25f251a606d79fb6e6 extends Template
         {% endfor %}
     </table>
 {% endmacro %}
-", "@WebProfiler/Collector/events.html.twig", "/Applications/Symfony/Reseau_Bien_Etre/vendor/symfony/web-profiler-bundle/Resources/views/Collector/events.html.twig");
+", "@WebProfiler/Collector/events.html.twig", "/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/web-profiler-bundle/Resources/views/Collector/events.html.twig");
     }
 }

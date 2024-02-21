@@ -415,6 +415,6 @@ class __TwigTemplate_fa805f08cf70133289bb1e716b971680 extends Template
 {% endblock body_javascript %}
 </body>
 </html>
-", "@ApiPlatform/GraphQlPlayground/index.html.twig", "/Applications/Symfony/Reseau_Bien_Etre/vendor/api-platform/core/src/Symfony/Bundle/Resources/views/GraphQlPlayground/index.html.twig");
+", "@ApiPlatform/GraphQlPlayground/index.html.twig", "/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/api-platform/core/src/Symfony/Bundle/Resources/views/GraphQlPlayground/index.html.twig");
     }
 }

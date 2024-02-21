@@ -252,6 +252,6 @@ class __TwigTemplate_f758a6c0424de01091220c50062940df extends Template
         </div>
     {% endif %}
 {% endblock %}
-", "@WebProfiler/Collector/exception.html.twig", "/Applications/Symfony/Reseau_Bien_Etre/vendor/symfony/web-profiler-bundle/Resources/views/Collector/exception.html.twig");
+", "@WebProfiler/Collector/exception.html.twig", "/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/web-profiler-bundle/Resources/views/Collector/exception.html.twig");
     }
 }

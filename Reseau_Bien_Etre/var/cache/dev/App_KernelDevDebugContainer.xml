@@ -570,7 +570,6 @@
     <service id="App\Controller\RegistrationController" class="App\Controller\RegistrationController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
-      <argument type="service" id="security.user_password_hasher"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.jUv.zyj.App\Controller\RegistrationController"/>
       </call>
@@ -616,6 +615,10 @@
     </service>
     <service id="App\DataFixtures\StageFixtures" class="App\DataFixtures\StageFixtures" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
+    </service>
+    <service id="App\EventListener\UserMailRegistrationListener" class="App\EventListener\UserMailRegistrationListener" autowire="true" autoconfigure="true">
+      <tag name="kernel.event_subscriber"/>
+      <argument type="service" id="App\Security\EmailVerifier"/>
     </service>
     <service id="App\Repository\AbusRepository" class="App\Repository\AbusRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
@@ -678,9 +681,15 @@
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Security\EmailVerifier" class="App\Security\EmailVerifier" autowire="true" autoconfigure="true">
-      <argument type="service" id="symfonycasts.verify_email.helper"/>
+      <argument type="service" id="App\Security\VerifyEmailHelper"/>
       <argument type="service" id="mailer.mailer"/>
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
+    </service>
+    <service id="App\Security\VerifyEmailHelper" class="App\Security\VerifyEmailHelper" autowire="true" autoconfigure="true">
+      <argument type="service" id="router.default"/>
+      <argument type="service" id="uri_signer"/>
+      <argument type="service" id="symfonycasts.verify_email.query_utility"/>
+      <argument type="service" id="symfonycasts.verify_email.token_generator"/>
     </service>
     <service id="argument_metadata_factory" class="Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory"/>
     <service id="argument_resolver.backed_enum_resolver" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\BackedEnumValueResolver">
@@ -709,7 +718,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.a.rN2c_"/>
+      <argument type="service" id=".service_locator.jRfDOId"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -2954,6 +2963,14 @@
         <argument>63</argument>
       </call>
       <call method="addListener">
+        <argument>kernel.view</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="App\EventListener\UserMailRegistrationListener"/>
+          <argument>sendMail</argument>
+        </argument>
+        <argument>31</argument>
+      </call>
+      <call method="addListener">
         <argument>kernel.controller_arguments</argument>
         <argument type="collection">
           <argument type="service_closure" id="argument_resolver.request_payload"/>
@@ -3479,7 +3496,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.a.rN2c_"/>
+      <argument type="service" id=".service_locator.jRfDOId"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -8483,6 +8500,8 @@
     <service id=".abstract.instanceof.App\DataFixtures\PromotionFixtures" class="App\DataFixtures\PromotionFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\StageFixtures" class="App\DataFixtures\StageFixtures" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\StageFixtures" class="App\DataFixtures\StageFixtures" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\EventDispatcher\EventSubscriberInterface.0.App\EventListener\UserMailRegistrationListener" class="App\EventListener\UserMailRegistrationListener" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\EventListener\UserMailRegistrationListener" class="App\EventListener\UserMailRegistrationListener" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\AbusRepository" class="App\Repository\AbusRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\AbusRepository" class="App\Repository\AbusRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\BlocRepository" class="App\Repository\BlocRepository" autowire="true" abstract="true"/>
@@ -8929,25 +8948,26 @@
         <argument key="emailVerifier" type="service_closure" id="App\Security\EmailVerifier"/>
       </argument>
     </service>
-    <service id=".service_locator.Hz5btge" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.x9KefTk" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="user" type="service_closure" id=".errored..service_locator.Hz5btge.App\Entity\User"/>
+        <argument key="user" type="service_closure" id=".errored..service_locator.x9KefTk.App\Entity\User"/>
+        <argument key="userPasswordHasherInterface" type="service_closure" id="security.user_password_hasher"/>
       </argument>
     </service>
-    <service id=".service_locator.a.rN2c_" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.jRfDOId" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\MailController::index" type="service_closure" id=".service_locator.HKBrolL"/>
-        <argument key="App\Controller\RegistrationController::__invoke" type="service_closure" id=".service_locator.Hz5btge"/>
+        <argument key="App\Controller\RegistrationController::__invoke" type="service_closure" id=".service_locator.x9KefTk"/>
         <argument key="App\Controller\RegistrationController::emailVerification" type="service_closure" id=".service_locator.HKBrolL"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="App\Kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="kernel::loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="App\Controller\MailController:index" type="service_closure" id=".service_locator.HKBrolL"/>
-        <argument key="App\Controller\RegistrationController:__invoke" type="service_closure" id=".service_locator.Hz5btge"/>
-        <argument key="App\Controller\RegistrationController" type="service_closure" id=".service_locator.Hz5btge"/>
+        <argument key="App\Controller\RegistrationController:__invoke" type="service_closure" id=".service_locator.x9KefTk"/>
+        <argument key="App\Controller\RegistrationController" type="service_closure" id=".service_locator.x9KefTk"/>
         <argument key="App\Controller\RegistrationController:emailVerification" type="service_closure" id=".service_locator.HKBrolL"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
@@ -10245,8 +10265,8 @@
     <service id=".errored..service_locator.y4_Zrx..Symfony\Component\Config\Loader\LoaderInterface" class="Symfony\Component\Config\Loader\LoaderInterface">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.y4_Zrx.&quot;: it needs an instance of &quot;Symfony\Component\Config\Loader\LoaderInterface&quot; but this type has been excluded from autowiring."/>
     </service>
-    <service id=".errored..service_locator.Hz5btge.App\Entity\User" class="App\Entity\User">
-      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.Hz5btge&quot;: it needs an instance of &quot;App\Entity\User&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    <service id=".errored..service_locator.x9KefTk.App\Entity\User" class="App\Entity\User">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.x9KefTk&quot;: it needs an instance of &quot;App\Entity\User&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
     </service>
     <service id=".console.command.about.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>about</argument>
@@ -11443,7 +11463,7 @@
     <service id="SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface" alias="symfonycasts.verify_email.helper"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.bJ.4HC5" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.a.rN2c_"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.jRfDOId"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
@@ -11541,7 +11561,7 @@
     <service id=".service_locator.Xbsa8iG" alias="messenger.retry_strategy_locator"/>
     <service id=".service_locator.gFlme_s" alias=".service_locator.y4_Zrx."/>
     <service id=".service_locator.MJT87yl" alias=".service_locator.HKBrolL"/>
-    <service id=".service_locator.EmZ4cZI" alias=".service_locator.Hz5btge"/>
+    <service id=".service_locator.TEPuQQ_" alias=".service_locator.x9KefTk"/>
     <service id=".service_locator.Q1z.f9O" alias=".service_locator.jUv.zyj"/>
   </services>
 </container>

@@ -1611,6 +1611,6 @@ class __TwigTemplate_9b5bdc9fa2a29e2fb9a1b3d9b8ceb7bc extends Template
 {% macro render_time_cell(item) %}
     <span class=\"nowrap\">{{ '%.2f'|format(item.time * 1000) }} ms</span>
 {% endmacro %}
-", "@WebProfiler/Collector/serializer.html.twig", "/Applications/Symfony/Reseau_Bien_Etre/vendor/symfony/web-profiler-bundle/Resources/views/Collector/serializer.html.twig");
+", "@WebProfiler/Collector/serializer.html.twig", "/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/web-profiler-bundle/Resources/views/Collector/serializer.html.twig");
     }
 }

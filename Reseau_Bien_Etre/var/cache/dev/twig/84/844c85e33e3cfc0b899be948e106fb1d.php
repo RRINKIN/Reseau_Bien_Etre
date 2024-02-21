@@ -526,6 +526,6 @@ class __TwigTemplate_cfc91705912398284ee0293f152fa80d extends Template
 
 </body>
 </html>
-", "@ApiPlatform/SwaggerUi/index.html.twig", "/Applications/Symfony/Reseau_Bien_Etre/vendor/api-platform/core/src/Symfony/Bundle/Resources/views/SwaggerUi/index.html.twig");
+", "@ApiPlatform/SwaggerUi/index.html.twig", "/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/api-platform/core/src/Symfony/Bundle/Resources/views/SwaggerUi/index.html.twig");
     }
 }

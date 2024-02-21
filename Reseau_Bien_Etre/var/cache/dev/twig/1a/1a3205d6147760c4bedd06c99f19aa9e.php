@@ -81,6 +81,6 @@ class __TwigTemplate_2cc0677ac379c0c4f28b87b94658e516 extends Template
     <line x1=\"4\" y1=\"12\" x2=\"20\" y2=\"12\"></line>
     <line x1=\"4\" y1=\"18\" x2=\"20\" y2=\"18\"></line>
 </svg>
-", "@WebProfiler/Icon/menu.svg", "/Applications/Symfony/Reseau_Bien_Etre/vendor/symfony/web-profiler-bundle/Resources/views/Icon/menu.svg");
+", "@WebProfiler/Icon/menu.svg", "/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/web-profiler-bundle/Resources/views/Icon/menu.svg");
     }
 }

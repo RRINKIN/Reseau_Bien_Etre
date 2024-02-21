@@ -274,6 +274,6 @@ class __TwigTemplate_910c1da01d0f51a085064f143faadae7 extends Template
 
 </body>
 </html>
-", "@ApiPlatform/Graphiql/index.html.twig", "/Applications/Symfony/Reseau_Bien_Etre/vendor/api-platform/core/src/Symfony/Bundle/Resources/views/Graphiql/index.html.twig");
+", "@ApiPlatform/Graphiql/index.html.twig", "/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/api-platform/core/src/Symfony/Bundle/Resources/views/Graphiql/index.html.twig");
     }
 }

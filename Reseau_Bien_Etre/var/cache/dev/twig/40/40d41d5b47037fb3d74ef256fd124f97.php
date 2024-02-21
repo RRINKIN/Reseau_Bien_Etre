@@ -105,6 +105,6 @@ class __TwigTemplate_ac32f9a33c1fc64729ffd2ac04880bd6 extends Template
 .container.body_default {
     border-top: 8px solid #aaaaaa;
 }
-", "@email/zurb_2/notification/local.css", "/Applications/Symfony/Reseau_Bien_Etre/vendor/symfony/twig-bridge/Resources/views/Email/zurb_2/notification/local.css");
+", "@email/zurb_2/notification/local.css", "/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/twig-bridge/Resources/views/Email/zurb_2/notification/local.css");
     }
 }

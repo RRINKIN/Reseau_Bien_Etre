@@ -1526,6 +1526,6 @@ class __TwigTemplate_dcec8c49b60f348190c96a60464ecb10 extends Template
         {%- endif -%}
     {% endmacro %}
 {% endblock %}
-", "@WebProfiler/Collector/mailer.html.twig", "/Applications/Symfony/Reseau_Bien_Etre/vendor/symfony/web-profiler-bundle/Resources/views/Collector/mailer.html.twig");
+", "@WebProfiler/Collector/mailer.html.twig", "/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/web-profiler-bundle/Resources/views/Collector/mailer.html.twig");
     }
 }

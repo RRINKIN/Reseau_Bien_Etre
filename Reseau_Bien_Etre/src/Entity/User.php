@@ -18,7 +18,7 @@ use App\Controller\RegistrationController;
     new Get(),
     new GetCollection(),
     new Post(
-        name: 'publication', 
+        name: 'user', 
         uriTemplate: '/users', 
         controller: RegistrationController::class
     )

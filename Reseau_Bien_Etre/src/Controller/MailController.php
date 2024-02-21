@@ -17,10 +17,10 @@ class MailController extends AbstractController
     public function index(EmailVerifier $emailVerifier, EntityManagerInterface $em): Response
     {
         // generate a signed url and email it to the user
-        $user=$em->getRepository(User::class)->find(1288);
-        $emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+        $user=$em->getRepository(User::class)->find(1294);
+        $emailVerifier->sendEmailConfirmation('api_app_verify_email', $user,
         (new TemplatedEmail())
-            ->from(new Address('mailer@example.com', 'AcmeMailBot'))
+            ->from(new Address('mailer@example.com', 'Reseau Bien-être'))
             ->to($user->getEmail())
             ->subject('Please Confirm your Email')
             ->htmlTemplate('registration/confirmation_email.html.twig')

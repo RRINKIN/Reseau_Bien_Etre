@@ -83,6 +83,6 @@ class __TwigTemplate_46c0e8fc398f636387c73332499fe271 extends Template
    <path d=\"M7 8v2a2 2 0 0 0 2 2h6a2 2 0 0 0 2 -2v-2\"></path>
    <path d=\"M12 12l0 4\"></path>
 </svg>
-", "@WebProfiler/Icon/workflow.svg", "/Applications/Symfony/Reseau_Bien_Etre/vendor/symfony/web-profiler-bundle/Resources/views/Icon/workflow.svg");
+", "@WebProfiler/Icon/workflow.svg", "/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/web-profiler-bundle/Resources/views/Icon/workflow.svg");
     }
 }

@@ -40,6 +40,7 @@ function EspacePrive() {
   // registration handler
   const [regEmail, setRegEmail] = useState('');
   const [regPassword, setRegPassword] = useState('');
+  const [regRole, setRegRole] = useState('');
 
   // Handle the changes and update the state
   const handleChangeRegistration = (e) => {
@@ -50,6 +51,9 @@ function EspacePrive() {
       case 'mdp':
         setRegPassword(e.target.value);
         break;
+      case 'role':
+        setRegRole(e.target.value);
+        break;
       default:
         break;
     }
@@ -57,7 +61,7 @@ function EspacePrive() {
 
   const handleRegistration = (e) => {
     e.preventDefault();
-    const resPostCreateUser = PostCreateUser(regEmail, '', regPassword, '', '', '', '', '');
+    const resPostCreateUser = PostCreateUser(regEmail, regRole, regPassword, '', '', '', '', '');
     resPostCreateUser.then(
       (res) => {
         console.log(res);
@@ -79,7 +83,7 @@ function EspacePrive() {
               <label htmlFor="fname">Identifiant *</label>
               <input onChange={(e)=>{handleEmailChange(e)}} type="text" id="fname" name="fname" className="rounded px-4 outline-none"/>
               <label htmlFor="name">Mot de passe *</label>
-              <input onChange={(e)=>{handlePasswordChange(e)}} type="text" id="name" name="name" className="rounded px-4 outline-none"/>
+              <input onChange={(e)=>{handlePasswordChange(e)}} type="password" id="name" name="name" className="rounded px-4 outline-none"/>
               <button 
               type="submit"
               className="text-center h-7 mt-7 px-4 outline-none hover:bg-violet-400 bg-zinc-500 md:w-1/3 rounded text-white flex flex-row items-center"
@@ -105,6 +109,12 @@ function EspacePrive() {
               <input onChange={(e)=>{handleChangeRegistration(e)}} type="email" id="email" name="email" className="rounded px-4 outline-none"/>
               <label htmlFor="mdp">Mot de passe *</label>
               <input onChange={(e)=>{handleChangeRegistration(e)}} type="password" id="mdp" name="mdp" className="rounded px-4 outline-none"/>
+              <label htmlFor="role">Qui êtes-vous?</label>
+              <select onChange={(e)=>{handleChangeRegistration(e)}} name="role" id="role">
+                <option value="">--faites un choix--</option>
+                <option value="prestataire">Je suis un prestataire de bien-être</option>
+                <option value="Utilisateur">Je suis à la recherche de bien-être</option>
+              </select>
               <button 
               type="submit"
               className="text-center h-7 mt-7 px-4 outline-none hover:bg-violet-400 bg-zinc-500 md:w-1/3 rounded text-white flex flex-row items-center"

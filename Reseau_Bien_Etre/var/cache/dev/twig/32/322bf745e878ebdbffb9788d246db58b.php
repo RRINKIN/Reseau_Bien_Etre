@@ -3401,6 +3401,6 @@ body.outlook p {
         min-width: 0;
     }
 }
-", "@email/zurb_2/main.css", "/Applications/Symfony/Reseau_Bien_Etre/vendor/symfony/twig-bridge/Resources/views/Email/zurb_2/main.css");
+", "@email/zurb_2/main.css", "/Applications/ISL_Projet_Reseau/Reseau_Bien_Etre/vendor/symfony/twig-bridge/Resources/views/Email/zurb_2/main.css");
     }
 }
