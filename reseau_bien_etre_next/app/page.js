@@ -10,9 +10,6 @@ async function HomePage() {
       <section className="flex bg-gradient-to-b from-[#c3bef0] to-zinc-300 justify-content px-7 md:pl-20 pt-20 items-center">
         <div>
           <h1 className="text-4xl md:text-7xl text-white md:max-w-4xl font-extrabold">Prenez soin de vous Près de chez vous</h1>
-          <div className="flex bg-white rounded-full h-10 md:h-12 w-2/3 border-none mt-10 mb-10">
-            <input type="search" id="search" name="search" placeholder="Que cherchez-vous?" className="bg-transparent px-4 outline-none" />
-          </div>
         </div>
         <div className="hidden md:block">
           <Image src="/images/reseau_bien_etre_girl.png" width="900" height="700" alt="fille-bien-etre" />

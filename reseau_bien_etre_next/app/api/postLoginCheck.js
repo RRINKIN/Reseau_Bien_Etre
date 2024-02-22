@@ -11,11 +11,16 @@ async function PostLoginCheck(email, password) {
             })
         }
     );
+    // alert on error login or password
+    const result = await res.json();
+    if (result.code === 401) {
+        alert('Le login ou password est éronné ;-)')
+    }
+
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      //throw new Error('Failed to fetch data')
       return {'status' : 'error' , 'message': res.statusText};
     }
-    return res.json();
+    return result;
 } 
 export default PostLoginCheck

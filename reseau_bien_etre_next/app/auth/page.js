@@ -40,7 +40,7 @@ function EspacePrive() {
   // registration handler
   const [regEmail, setRegEmail] = useState('');
   const [regPassword, setRegPassword] = useState('');
-  const [regRole, setRegRole] = useState('');
+  const [regRole, setRegRole] = useState(['ROLE_USER']);
 
   // Handle the changes and update the state
   const handleChangeRegistration = (e) => {
@@ -52,7 +52,7 @@ function EspacePrive() {
         setRegPassword(e.target.value);
         break;
       case 'role':
-        setRegRole(e.target.value);
+        setRegRole([...regRole, e.target.value]);
         break;
       default:
         break;
@@ -112,8 +112,8 @@ function EspacePrive() {
               <label htmlFor="role">Qui êtes-vous?</label>
               <select onChange={(e)=>{handleChangeRegistration(e)}} name="role" id="role">
                 <option value="">--faites un choix--</option>
-                <option value="prestataire">Je suis un prestataire de bien-être</option>
-                <option value="Utilisateur">Je suis à la recherche de bien-être</option>
+                <option value="ROLE_PRESTATAIRE">Je suis un prestataire de bien-être</option>
+                <option value="ROLE_INTERNAUTE">Je suis à la recherche de bien-être</option>
               </select>
               <button 
               type="submit"

@@ -8,15 +8,17 @@ async function PostCreateUser(email, role, password, addresseNum, adresseRue, lo
                 headers: {'Content-Type': 'application/ld+json'},
                 body: JSON.stringify({
                     "email": email,
+                    "roles": role,
                     "password": password,
-                    "role": [role],
                 })
             }
         );
         const result = await res.json();
         console.log(result);
         if (result.status) {
-            alert(result.detail);
+            if (result.status === 500) {
+                alert("Cet e-mail existe déjà ;-)");   
+            }
             throw new Error('Failed to fetch data: ' + result.status);
           }
           return result;
