@@ -17,9 +17,20 @@ function EspacePrive() {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value)
   };
+
+  // check password validity
+  console.log(password);
+  const regex = /^(?=.*[0-9])(?=.*[a-zA-Z]).{7,}$/;
+  const isPasswordValid = password.match(regex);
  
   // Create cookie object
   const cookie = new Cookies(null, {path: '/'});
+
+  // reveal password
+  const revealPassword = (e) => {
+    e.preventDefault();
+          alert(password);
+        };
 
   // call login post function & store answer into cookie
   const doLogin = (e) => {
@@ -83,7 +94,19 @@ function EspacePrive() {
               <label htmlFor="fname">Identifiant *</label>
               <input onChange={(e)=>{handleEmailChange(e)}} type="text" id="fname" name="fname" className="rounded px-4 outline-none"/>
               <label htmlFor="name">Mot de passe *</label>
-              <input onChange={(e)=>{handlePasswordChange(e)}} type="password" id="name" name="name" className="rounded px-4 outline-none"/>
+              <div className="flex flex-row">
+                <input onChange={(e)=>{handlePasswordChange(e)}} type="password" id="name" name="name" className="rounded px-4 w-11/12 outline-none"/>
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    viewBox="0 0 576 512" 
+                    className='h-6 w-1/12 mx-1 fill-zinc-500'
+                    onClick={(e)=>{revealPassword(e)}}>
+                    <path d="M572.5 241.4C518.3 135.6 410.9 64 288 64S57.7 135.6 3.5 241.4a32.4 32.4 0 0 0 0 29.2C57.7 376.4 165.1 448 288 448s230.3-71.6 284.5-177.4a32.4 32.4 0 0 0 0-29.2zM288 400a144 144 0 1 1 144-144 143.9 143.9 0 0 1 -144 144zm0-240a95.3 95.3 0 0 0 -25.3 3.8 47.9 47.9 0 0 1 -66.9 66.9A95.8 95.8 0 1 0 288 160z"/>
+                  </svg>
+              </div>
+              <div className={`${isPasswordValid ? 'text-emerald-600' : 'text-red-600'}`}>
+                {isPasswordValid ? 'Password valide' : 'Min 5 caractères, 1 chiffre et 1 lettre'}
+              </div>
               <button 
               type="submit"
               className="text-center h-7 mt-7 px-4 outline-none hover:bg-violet-400 bg-zinc-500 md:w-1/3 rounded text-white flex flex-row items-center"
