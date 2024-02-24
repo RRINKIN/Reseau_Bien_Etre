@@ -115,9 +115,9 @@ return [
     '_profiler_exception' => [['token'], ['_controller' => 'web_profiler.controller.exception_panel::body'], [], [['text', '/exception'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], [], []],
     '_profiler_exception_css' => [['token'], ['_controller' => 'web_profiler.controller.exception_panel::stylesheet'], [], [['text', '/exception.css'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], [], []],
     'app_mail' => [[], ['_controller' => 'App\\Controller\\MailController::index'], [], [['text', '/mail']], [], [], []],
-    'app_verify_email' => [[], ['_controller' => 'App\\Controller\\RegistrationController::emailVerification'], [], [['text', '/verify_email']], [], [], []],
+    'app_verify_email' => [[], ['_controller' => 'App\\Controller\\RegistrationController::emailVerification'], [], [['text', '/auth/confirmation']], [], [], []],
     'api_login_check' => [[], [], [], [['text', '/api/login_check']], [], [], []],
     'api_app_verify_email' => [[], [], [], [['text', '/auth/confirmation']], [], [], []],
     'App\Controller\MailController::index' => [[], ['_controller' => 'App\\Controller\\MailController::index'], [], [['text', '/mail']], [], [], []],
-    'App\Controller\RegistrationController::emailVerification' => [[], ['_controller' => 'App\\Controller\\RegistrationController::emailVerification'], [], [['text', '/verify_email']], [], [], []],
+    'App\Controller\RegistrationController::emailVerification' => [[], ['_controller' => 'App\\Controller\\RegistrationController::emailVerification'], [], [['text', '/auth/confirmation']], [], [], []],
 ];

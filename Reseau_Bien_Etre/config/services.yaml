@@ -23,12 +23,12 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    # App\Security\UriSigner:
-    #    - env.APP_SECRET
+    App\Security\UriSigner:
+      - env.APP_SECRET
 
     App\Security\VerifyEmailHelper:
         arguments:
             - '@Symfony\Component\Routing\Generator\UrlGeneratorInterface'
-            - '@Symfony\Component\HttpFoundation\UriSigner'
+            - '@App\Security\UriSigner'
             - '@symfonycasts.verify_email.query_utility'
             - '@symfonycasts.verify_email.token_generator'

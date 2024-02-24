@@ -685,9 +685,12 @@
       <argument type="service" id="mailer.mailer"/>
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
     </service>
+    <service id="App\Security\UriSigner" class="App\Security\UriSigner" autowire="true" autoconfigure="true">
+      <argument>env.APP_SECRET</argument>
+    </service>
     <service id="App\Security\VerifyEmailHelper" class="App\Security\VerifyEmailHelper" autowire="true" autoconfigure="true">
       <argument type="service" id="router.default"/>
-      <argument type="service" id="uri_signer"/>
+      <argument type="service" id="App\Security\UriSigner"/>
       <argument type="service" id="symfonycasts.verify_email.query_utility"/>
       <argument type="service" id="symfonycasts.verify_email.token_generator"/>
     </service>
@@ -8460,9 +8463,9 @@
       <argument type="collection">
         <argument key="nom">partial</argument>
         <argument key="proposer.nom">partial</argument>
-        <argument key="localite">partial</argument>
-        <argument key="commune">partial</argument>
-        <argument key="codePostal">partial</argument>
+        <argument key="localite.localite">partial</argument>
+        <argument key="commune.commune">partial</argument>
+        <argument key="codePostal.codePostal">partial</argument>
       </argument>
       <argument type="service" id="api_platform.api.identifiers_extractor" on-invalid="ignore"/>
       <argument type="service" id="serializer.name_converter.metadata_aware" on-invalid="ignore"/>

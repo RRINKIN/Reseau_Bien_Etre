@@ -21,7 +21,7 @@ function PrestataireCards() {
 
   // function for multiple search
   const dataForUrlToUse = (filteredSearchData) => {
-    let url = `/api/prestataires?nom=${filteredSearchData.namePrestataire}&proposer.nom=${filteredSearchData.catPrestataire}&localite=${filteredSearchData.villePrestataire}&commune=${filteredSearchData.communePrestataire}&codePostal=${filteredSearchData.cpPrestataire}`;
+    let url = `/api/prestataires?nom=${filteredSearchData.namePrestataire}&proposer.nom=${filteredSearchData.catPrestataire}&localite.localite=${filteredSearchData.villePrestataire}&commune.commune=${filteredSearchData.communePrestataire}&codePostal.codePostal=${filteredSearchData.cpPrestataire}`;
     setUrlPrestataire(url);
   }
 

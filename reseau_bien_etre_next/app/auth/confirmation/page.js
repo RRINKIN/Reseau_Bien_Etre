@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 function Confirmation() {
 
-  const confirmationUrl = "http://localhost:8000/verify_email";
+  const confirmationUrl = "http://localhost:8000/auth/confirmation";
 
   useEffect(()=>{
     const location = window.location;

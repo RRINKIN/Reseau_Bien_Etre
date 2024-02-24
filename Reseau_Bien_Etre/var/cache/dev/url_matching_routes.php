@@ -15,9 +15,11 @@ return [
         '/_profiler/xdebug' => [[['_route' => '_profiler_xdebug', '_controller' => 'web_profiler.controller.profiler::xdebugAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
         '/mail' => [[['_route' => 'app_mail', '_controller' => 'App\\Controller\\MailController::index'], null, null, null, false, false, null]],
-        '/verify_email' => [[['_route' => 'app_verify_email', '_controller' => 'App\\Controller\\RegistrationController::emailVerification'], null, null, null, false, false, null]],
+        '/auth/confirmation' => [
+            [['_route' => 'app_verify_email', '_controller' => 'App\\Controller\\RegistrationController::emailVerification'], null, null, null, false, false, null],
+            [['_route' => 'api_app_verify_email'], null, null, null, false, false, null],
+        ],
         '/api/login_check' => [[['_route' => 'api_login_check'], null, null, null, false, false, null]],
-        '/auth/confirmation' => [[['_route' => 'api_app_verify_email'], null, null, null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'

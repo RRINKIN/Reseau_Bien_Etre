@@ -35,7 +35,7 @@ class RegistrationController extends AbstractController
         return $user;
     }
 
-    #[Route('/verify_email', name: 'app_verify_email')]
+    #[Route('/auth/confirmation', name: 'app_verify_email')]
     public function emailVerification(EmailVerifier $emailVerifier, EntityManagerInterface $em, Request $request){
         // validate email confirmation link, sets User::isVerified=true and persists
         try {

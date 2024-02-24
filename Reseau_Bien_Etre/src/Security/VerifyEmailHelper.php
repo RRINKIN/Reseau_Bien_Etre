@@ -9,7 +9,7 @@
 
  namespace App\Security;
 
-use Symfony\Component\HttpFoundation\UriSigner;
+use App\Security\UriSigner;
 use Symfony\Component\HttpKernel\UriSigner as LegacyUriSigner;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\ExpiredSignatureException;
@@ -57,7 +57,6 @@ final class VerifyEmailHelper implements VerifyEmailHelperInterface
         $extraParams['expires'] = $expiryTimestamp;
 
         $uri = $this->router->generate($routeName, $extraParams, UrlGeneratorInterface::ABSOLUTE_URL);
-        $uri = str_replace('http://localhost:8000', 'http://localhost:3000', $uri);
 
         $signature = $this->uriSigner->sign($uri);
 
