@@ -49,4 +49,18 @@ class RegistrationController extends AbstractController
             return new JsonResponse(["error"=>true, "message"=>$exception->getReason()]);
         }
     }
+
+    // resend mailif expired
+    #[Route('/registration/resend', name: 'app_resend_email')]
+    public function resendEmail(Request $request,EntityManagerInterface $em, EmailVerifier $emailVerifier):JsonResponse
+    {
+        $userid = $request->query->get('id');
+        if (null === $userid) {
+            return new JsonResponse(['error' => true , 'errorKey' => 'userid_missing' , 'message' => 'User id is messing']);
+        }
+        
+        $user = $em->getRepository(User::class)->find($userid);
+        if( !$user){
+        }
+    }
 }

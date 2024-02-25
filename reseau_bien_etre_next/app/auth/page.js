@@ -4,6 +4,7 @@ import {useState} from 'react';
 import Cookies from 'universal-cookie';
 import removeCookie from './removeCookie';
 import PostCreateUser from '../api/postCreateUser';
+import { type } from 'os';
 
 function EspacePrive() {
   // define states to collect inputed values
@@ -17,20 +18,20 @@ function EspacePrive() {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value)
   };
-
-  // check password validity
-  console.log(password);
-  const regex = /^(?=.*[0-9])(?=.*[a-zA-Z]).{7,}$/;
-  const isPasswordValid = password.match(regex);
  
   // Create cookie object
   const cookie = new Cookies(null, {path: '/'});
 
   // reveal password
-  const revealPassword = (e) => {
-    e.preventDefault();
-          alert(password);
-        };
+  const revealPassword = ( typePassword) => {
+    if(typePassword=='regPassword'){
+      alert(regPassword);
+    }
+    else{
+      alert(password);
+    }
+      
+  };
 
   // call login post function & store answer into cookie
   const doLogin = (e) => {
@@ -52,6 +53,11 @@ function EspacePrive() {
   const [regEmail, setRegEmail] = useState('');
   const [regPassword, setRegPassword] = useState('');
   const [regRole, setRegRole] = useState(['ROLE_USER']);
+
+  // check password validity
+  console.log(regPassword);
+  const regex = /^(?=.*[0-9])(?=.*[a-zA-Z]).{7,}$/;
+  const isPasswordValid = regPassword.match(regex);
 
   // Handle the changes and update the state
   const handleChangeRegistration = (e) => {
@@ -100,12 +106,9 @@ function EspacePrive() {
                     xmlns="http://www.w3.org/2000/svg" 
                     viewBox="0 0 576 512" 
                     className='h-6 w-1/12 mx-1 fill-zinc-500'
-                    onClick={(e)=>{revealPassword(e)}}>
+                    onClick={(e)=>{revealPassword('password')}}>
                     <path d="M572.5 241.4C518.3 135.6 410.9 64 288 64S57.7 135.6 3.5 241.4a32.4 32.4 0 0 0 0 29.2C57.7 376.4 165.1 448 288 448s230.3-71.6 284.5-177.4a32.4 32.4 0 0 0 0-29.2zM288 400a144 144 0 1 1 144-144 143.9 143.9 0 0 1 -144 144zm0-240a95.3 95.3 0 0 0 -25.3 3.8 47.9 47.9 0 0 1 -66.9 66.9A95.8 95.8 0 1 0 288 160z"/>
                   </svg>
-              </div>
-              <div className={`${isPasswordValid ? 'text-emerald-600' : 'text-red-600'}`}>
-                {isPasswordValid ? 'Password valide' : 'Min 5 caractères, 1 chiffre et 1 lettre'}
               </div>
               <button 
               type="submit"
@@ -131,7 +134,19 @@ function EspacePrive() {
               <label htmlFor="email">E-mail *</label>
               <input onChange={(e)=>{handleChangeRegistration(e)}} type="email" id="email" name="email" className="rounded px-4 outline-none"/>
               <label htmlFor="mdp">Mot de passe *</label>
-              <input onChange={(e)=>{handleChangeRegistration(e)}} type="password" id="mdp" name="mdp" className="rounded px-4 outline-none"/>
+              <div className="flex flex-row">
+                <input onChange={(e)=>{handleChangeRegistration(e)}} type="password" id="mdp" name="mdp" className="rounded px-4 outline-none w-11/12"/>
+                <svg 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      viewBox="0 0 576 512" 
+                      className='h-6 w-1/12 mx-1 fill-zinc-500'
+                      onClick={(e)=>{revealPassword('regPassword')}}>
+                      <path d="M572.5 241.4C518.3 135.6 410.9 64 288 64S57.7 135.6 3.5 241.4a32.4 32.4 0 0 0 0 29.2C57.7 376.4 165.1 448 288 448s230.3-71.6 284.5-177.4a32.4 32.4 0 0 0 0-29.2zM288 400a144 144 0 1 1 144-144 143.9 143.9 0 0 1 -144 144zm0-240a95.3 95.3 0 0 0 -25.3 3.8 47.9 47.9 0 0 1 -66.9 66.9A95.8 95.8 0 1 0 288 160z"/>
+                    </svg>
+              </div>
+              <div className={`${isPasswordValid ? 'text-emerald-600' : 'text-red-600'}`}>
+                  {isPasswordValid ? 'Password valide' : 'Min 5 caractères, 1 chiffre et 1 lettre'}
+              </div>
               <label htmlFor="role">Qui êtes-vous?</label>
               <select onChange={(e)=>{handleChangeRegistration(e)}} name="role" id="role">
                 <option value="">--faites un choix--</option>
