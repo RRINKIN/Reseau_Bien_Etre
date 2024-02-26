@@ -4,7 +4,7 @@ import {useState} from 'react';
 import Cookies from 'universal-cookie';
 import removeCookie from './removeCookie';
 import PostCreateUser from '../api/postCreateUser';
-import { type } from 'os';
+import { redirect } from 'next/navigation'
 
 function EspacePrive() {
   // define states to collect inputed values
@@ -44,6 +44,9 @@ function EspacePrive() {
         }
         else{
             cookie.set('token' , res.token);
+            alert('Vous êtes maintenant connecté');
+            // redirection to home page
+            window.location.href = '/';
         }
       } 
     )

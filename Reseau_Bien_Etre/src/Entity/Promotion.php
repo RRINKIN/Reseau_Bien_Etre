@@ -6,6 +6,7 @@ use App\Repository\PromotionRepository;
 use ApiPlatform\Metadata\ApiResource;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource]
 #[ORM\Entity(repositoryClass: PromotionRepository::class)]
@@ -19,9 +20,11 @@ class Promotion
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $nom = null;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $documentPdf = null;
 

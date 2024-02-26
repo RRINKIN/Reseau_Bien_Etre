@@ -53,12 +53,15 @@ class Prestataire extends User
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $numTel = null;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $numTVA = null;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\OneToMany(mappedBy: 'prestataire', targetEntity: Stage::class)]
     private Collection $stages;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\OneToMany(mappedBy: 'prestataire', targetEntity: Promotion::class)]
     private Collection $promotions;
 

@@ -6,6 +6,7 @@ import Cookies from 'universal-cookie';
 function UserIsLogged() {
   const cookie = new Cookies(null, {path: '/'});
   const token = cookie.get('token');
+  console.log(token);
   if (token) {
     const base64Payload = token.split('.')[1];
     const decodedPayload = atob(base64Payload);

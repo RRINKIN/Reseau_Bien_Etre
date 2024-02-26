@@ -40,16 +40,23 @@ function Confirmation() {
   }
 
   return (
-    <section className='max-w-screen-lg mx-auto py-7 px-3 md:px-0'>
+    <section 
+      style={{ backgroundImage: "url(/images/Oups.webp)" }}
+      className="bg-cover bg-center"
+      >
         <div className="md:flex md:flex-row">
-          <div className="bg-[#c3bef0] md:w-1/2 h-auto rounded p-7 mb-7 md:ml-7">
+          <div className="bg-[#c3bef0] h-auto rounded p-7 md:ml-7 my-28 ">
             <h2>Votre inscription est {message}</h2>
             <p>Erreur: {errorMessage}</p>
             <div className="mt-4">
               {action === 'Resend confirmation mail' ? (
-                <button className="px-2 py-2 bg-gray-100 text-violet-700 fill-violet-700 rounded hover:text-white hover:fill-white hover:bg-gradient-to-r from-violet-900 to-indigo-400 duration-500">
+                <Link 
+                href="http://localhost:8000/registration/resend" 
+                onClick={handleAction} 
+                className="px-2 py-2 bg-gray-100 text-violet-700 fill-violet-700 rounded hover:text-white hover:fill-white hover:bg-gradient-to-r from-violet-900 to-indigo-400 duration-500"
+                >
                   {action}
-                </button>
+                </Link>
               ) : (
                 <Link 
                 href="/auth" 

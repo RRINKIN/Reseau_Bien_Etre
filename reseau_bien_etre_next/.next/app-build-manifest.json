@@ -30,6 +30,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/auth/confirmation/page.js"
+    ],
+    "/auth/fichePrestataire/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/auth/fichePrestataire/page.js"
     ]
   }
 }

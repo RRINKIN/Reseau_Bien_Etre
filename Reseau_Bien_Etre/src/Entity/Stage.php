@@ -6,6 +6,7 @@ use App\Repository\StageRepository;
 use ApiPlatform\Metadata\ApiResource;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource]
 #[ORM\Entity(repositoryClass: StageRepository::class)]
@@ -16,15 +17,19 @@ class Stage
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $nom = null;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $tarif = null;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $infoComplementaire = null;
 

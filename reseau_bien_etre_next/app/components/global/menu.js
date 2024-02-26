@@ -8,6 +8,7 @@ import Categories from './categories';
 import UserIsLogged from '../../auth/userIsLogged';
 import { useEffect, useState } from 'react';
 import Cookies from 'universal-cookie';
+import ActionButton from './actionButton'
 
 function Menu() {
     const pathname = usePathname();
@@ -26,6 +27,12 @@ function Menu() {
             setLogButton(logButtonCheck);
         }
     })
+
+    const [showActionButton, setShowActionButton] = useState("");
+    useEffect(() => {
+        const ActionButtonCheck = UserIsLogged() ? <ActionButton /> : "";
+        setShowActionButton(ActionButtonCheck);
+      }, [UserIsLogged]);
 
     return (
     <nav className='pl-2 md:pl-0'>
@@ -50,8 +57,13 @@ function Menu() {
                 <p className='border md:border-0'></p>
             </li>
             <li className="mx-4 py-4">
-                {logButton}
+                {showActionButton}
             </li>
+            <ul>
+                <li className="mx-4 py-4 group">
+                    {logButton}
+                </li>
+            </ul>
         </ul>    
     </nav>    
     )}

@@ -58,7 +58,6 @@ class RegistrationController extends AbstractController
         if (null === $userid) {
             return new JsonResponse(['error' => true , 'errorKey' => 'userid_missing' , 'message' => 'User id is messing']);
         }
-        
         $user = $em->getRepository(User::class)->find($userid);
         if( !$user){
         }
