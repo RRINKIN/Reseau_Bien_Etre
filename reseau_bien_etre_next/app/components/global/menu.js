@@ -28,6 +28,7 @@ function Menu() {
         }
     })
 
+    // manage profil button when logged
     const [showActionButton, setShowActionButton] = useState("");
     useEffect(() => {
         const ActionButtonCheck = UserIsLogged() ? <ActionButton /> : "";
@@ -56,14 +57,12 @@ function Menu() {
                 <Link href="/contact" className={pathname === "/contact" ? "text-violet-900" : "text-white"}>Contact</Link>
                 <p className='border md:border-0'></p>
             </li>
-            <li className="mx-4 py-4">
+            <li className={`${showActionButton ? 'mx-4 py-4' : ''}`}>
                 {showActionButton}
             </li>
-            <ul>
-                <li className="mx-4 py-4 group">
-                    {logButton}
-                </li>
-            </ul>
+            <li className="mx-4 py-4 group">
+                {logButton}
+            </li>
         </ul>    
     </nav>    
     )}

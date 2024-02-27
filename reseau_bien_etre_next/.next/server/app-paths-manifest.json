@@ -3,6 +3,5 @@
   "/auth/confirmation/page": "app/auth/confirmation/page.js",
   "/prestataires/[prestataireId]/page": "app/prestataires/[prestataireId]/page.js",
   "/auth/fichePrestataire/page": "app/auth/fichePrestataire/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
   "/auth/page": "app/auth/page.js"
 }

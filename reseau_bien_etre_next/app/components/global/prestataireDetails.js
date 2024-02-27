@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { GetPrestataireId } from '../../api/getPrestataireId';
 import Image from 'next/image';
 import Link from 'next/link';
+import Promotions from './promotions'
+import UserIsLogged from '../../auth/userIsLogged';
 
 function PrestataireInfo({prestataireId}) {
     const [prestataireInfo, setPrestataireInfo] = useState();
@@ -20,6 +22,20 @@ function PrestataireInfo({prestataireId}) {
       // function used when component unmount
       return () => {};
     },[])
+
+    // Display promotions when logged
+    {/*const [showPromotions, setShowPromotions] = useState('Connectez-vous pour voir les promotions');
+    useEffect(() => {
+        const PromotionIsVisible = UserIsLogged() ? <Promotions prestataireInfo={prestataireInfo}/> : 'Connectez-vous pour voir les promotions';
+        setShowPromotions(PromotionIsVisible);
+      }, [UserIsLogged]);
+    console.log(showPromotions);*/}
+    const [showPromotions, setShowPromotions] = useState(false);
+        useEffect(() => {
+            const PromotionIsVisible = UserIsLogged() ? true : false;
+            setShowPromotions(PromotionIsVisible);
+          }, [UserIsLogged]);
+        console.log(showPromotions);
 
     return (
       <div>
@@ -68,16 +84,9 @@ function PrestataireInfo({prestataireId}) {
               ))}
             </div>      
           </div>
-        </div>    
-        <div className='py-2'>
-          {prestataireInfo && prestataireInfo.stages.map((promotions, index) => (
-            <div key={index}>
-                <p>Promotions#{index+1}</p>
-                <div className='border-dotted border py-2 border-t-black'></div>
-                <p>Déscription: {promotions.description}</p>
-                <p>Document: {promotions.documentPdf}</p>
-            </div>
-          ))}
+        </div>
+        <div className={`${showPromotions ? 'py-5' : 'hidden'}`}>
+            <Promotions prestataireInfo={prestataireInfo}/>
         </div>
         <div className='py-5'>
           {prestataireInfo && prestataireInfo.stages.map((stages, index) => (
