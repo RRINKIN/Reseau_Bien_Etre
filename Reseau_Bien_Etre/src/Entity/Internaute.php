@@ -7,17 +7,25 @@ use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ApiResource]
+#[ApiResource(
+    // defines read (GET) context on class level. (what properties will be returned in the API)
+    normalizationContext: ['groups' => ['read:internauteInfo']],
+    denormalizationContext: ['groups' => ['read:internauteInfo']],
+)]
 #[ORM\Entity(repositoryClass: InternauteRepository::class)]
 class Internaute extends User
 {
+    #[Groups(['read:internauteInfo'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $nom = null;
 
+    #[Groups(['read:internauteInfo'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $prenom = null;
 
+    #[Groups(['read:internauteInfo'])]
     #[ORM\Column]
     private ?bool $newsletter = false;
 

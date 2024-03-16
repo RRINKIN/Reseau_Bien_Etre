@@ -320,6 +320,9 @@
       <parameter key="json" type="collection">
         <parameter>application/merge-patch+json</parameter>
       </parameter>
+      <parameter key="jsonapi" type="collection">
+        <parameter>application/vnd.api+json</parameter>
+      </parameter>
     </parameter>
     <parameter key="api_platform.error_formats" type="collection">
       <parameter key="jsonld" type="collection">
@@ -619,6 +622,9 @@
     <service id="App\EventListener\UserMailRegistrationListener" class="App\EventListener\UserMailRegistrationListener" autowire="true" autoconfigure="true">
       <tag name="kernel.event_subscriber"/>
       <argument type="service" id="App\Security\EmailVerifier"/>
+    </service>
+    <service id="App\EventSubscriber\JwtSubscriber" class="App\EventSubscriber\JwtSubscriber" autowire="true" autoconfigure="true">
+      <tag name="kernel.event_subscriber"/>
     </service>
     <service id="App\Repository\AbusRepository" class="App\Repository\AbusRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
@@ -2972,6 +2978,14 @@
           <argument>sendMail</argument>
         </argument>
         <argument>31</argument>
+      </call>
+      <call method="addListener">
+        <argument>lexik_jwt_authentication.on_jwt_created</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="App\EventSubscriber\JwtSubscriber"/>
+          <argument>onLexikJwtAuthenticationOnJwtCreated</argument>
+        </argument>
+        <argument>0</argument>
       </call>
       <call method="addListener">
         <argument>kernel.controller_arguments</argument>
@@ -8505,6 +8519,8 @@
     <service id=".abstract.instanceof.App\DataFixtures\StageFixtures" class="App\DataFixtures\StageFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\EventDispatcher\EventSubscriberInterface.0.App\EventListener\UserMailRegistrationListener" class="App\EventListener\UserMailRegistrationListener" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\EventListener\UserMailRegistrationListener" class="App\EventListener\UserMailRegistrationListener" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\EventDispatcher\EventSubscriberInterface.0.App\EventSubscriber\JwtSubscriber" class="App\EventSubscriber\JwtSubscriber" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\EventSubscriber\JwtSubscriber" class="App\EventSubscriber\JwtSubscriber" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\AbusRepository" class="App\Repository\AbusRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\AbusRepository" class="App\Repository\AbusRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\BlocRepository" class="App\Repository\BlocRepository" autowire="true" abstract="true"/>

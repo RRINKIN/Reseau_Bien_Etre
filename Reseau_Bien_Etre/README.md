@@ -3,6 +3,7 @@ composer 2
 symfony cli
 mysql server 
 php 8.2.0
+Node.js
 
 ## install dependencies
 composer install
@@ -19,7 +20,14 @@ php bin/console doctrine:database:create
 ## install certificate TLS
 symfony server:ca:install
 ## start server without TLS
-Next.js doesn't support HTTPS requests in .dev mode. As a consequence, server must be started without TLS using command: symfony server:start --no-tls
+## Start server PHP
+Next.js doesn't support HTTPS requests in .dev mode. As a consequence, server must be started without TLS using command: symfony server:start --no-tls --port=8000
+
+## Start next.js server
+npm run dev
+
+## Access website
+Please use localhost port 3000
 
 ## API
 https://localhost:8000/api

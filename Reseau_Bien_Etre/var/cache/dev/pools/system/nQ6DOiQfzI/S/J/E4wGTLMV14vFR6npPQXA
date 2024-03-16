@@ -674,6 +674,9 @@ return [PHP_INT_MAX, static fn () => \Symfony\Component\VarExporter\Internal\Hyd
                     'json' => [
                         'application/merge-patch+json',
                     ],
+                    'jsonapi' => [
+                        'application/vnd.api+json',
+                    ],
                 ],
                 10 => [
                     'jsonld' => [
@@ -785,12 +788,12 @@ return [PHP_INT_MAX, static fn () => \Symfony\Component\VarExporter\Internal\Hyd
                 10 => null,
             ],
             'acceptPatch' => [
-                2 => 'application/merge-patch+json',
+                2 => 'application/merge-patch+json, application/vnd.api+json',
                 4 => null,
-                'application/merge-patch+json',
-                'application/merge-patch+json',
-                8 => 'application/merge-patch+json',
-                10 => 'application/merge-patch+json',
+                'application/merge-patch+json, application/vnd.api+json',
+                'application/merge-patch+json, application/vnd.api+json',
+                8 => 'application/merge-patch+json, application/vnd.api+json',
+                10 => 'application/merge-patch+json, application/vnd.api+json',
             ],
             'host' => [
                 2 => null,

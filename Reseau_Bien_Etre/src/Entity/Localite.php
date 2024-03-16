@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource]
 #[ORM\Entity(repositoryClass: LocaliteRepository::class)]
@@ -17,6 +18,7 @@ class Localite
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['read:internauteInfo'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $localite = null;
 

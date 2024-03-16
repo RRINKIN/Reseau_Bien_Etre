@@ -44,9 +44,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     protected ?string $password = null;
 
+    #[Groups(['read:internauteInfo'])]
     #[ORM\Column(length: 255, nullable: true)]
     protected ?string $adresseNum = null;
 
+    #[Groups(['read:internauteInfo'])]
     #[ORM\Column(length: 255, nullable: true)]
     protected ?string $adresseRue = null;
 
@@ -63,11 +65,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     protected ?bool $inscritpionConfirmation = false;
 
-    #[Groups(['read:prestataireCards'])]
+    #[Groups(['read:prestataireCards', 'read:internauteInfo'])]
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Localite $localite = null;
 
-    #[Groups(['read:prestataireCards'])]
+    #[Groups(['read:prestataireCards', 'read:internauteInfo'])]
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?CodePostal $codePostal = null;
 

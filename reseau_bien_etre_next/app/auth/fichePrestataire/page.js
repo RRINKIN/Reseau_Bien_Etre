@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from "react";
-import PutPrestataireId from '../../api/putPrestataireId';
+import PatchPrestataireId from '../../api/patchPrestataireId';
 
 function FichePrestataire() {
   const [prestataireNom, setPrestatireNom] = useState('');
@@ -41,7 +41,7 @@ function FichePrestataire() {
 
   const handleFichePrestataire = (e) => {
     e.preventDefault();
-    const resPostCreateUser = PutPrestataireId(prestataireNom, prestataireSiteInternet, prestataireNumTel, prestataireNumTVA, prestataireAdresseNum, prestataireAdresseRue, prestataireLocalite);
+    const resPostCreateUser = PatchPrestataireId(prestataireNom, prestataireSiteInternet, prestataireNumTel, prestataireNumTVA, prestataireAdresseNum, prestataireAdresseRue, prestataireLocalite);
     resPostCreateUser.then(
       (res) => {
         console.log(res);
