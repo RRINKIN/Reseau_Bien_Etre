@@ -44,11 +44,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     protected ?string $password = null;
 
-    #[Groups(['read:internauteInfo'])]
+    #[Groups(['read:internauteInfo', 'read:prestataireCards'])]
     #[ORM\Column(length: 255, nullable: true)]
     protected ?string $adresseNum = null;
 
-    #[Groups(['read:internauteInfo'])]
+    #[Groups(['read:internauteInfo', 'read:prestataireCards'])]
     #[ORM\Column(length: 255, nullable: true)]
     protected ?string $adresseRue = null;
 

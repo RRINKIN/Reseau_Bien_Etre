@@ -1,38 +1,71 @@
 'use client'
 import { useState, useEffect } from "react";
-import PatchPrestataireId from '../../api/patchPrestataireId';
+import { GetPrestataireId } from "../../api/getPrestataireId";
+import { patchPrestataireId } from '../../api/patchPrestataireId';
+import getPayloadData from "../../auth/getPayloadData";
 
 function FichePrestataire() {
-  const [prestataireNom, setPrestatireNom] = useState('');
-  const [prestataireSiteInternet, setPrestataireSiteInternet] = useState('');
-  const [prestataireNumTel, setPrestataireNumTel] = useState('');
-  const [prestataireNumTVA, setPrestataireNumTVA] = useState('');
-  const [prestataireAdresseNum, setPrestataireAdresseNum] = useState('');
-  const [prestataireAdresseRue, setPrestataireAdresseRue] = useState('');
-  const [prestataireLocalite, setPrestataireLocalite] = useState('');
+
+  // get the id of the prestataire
+  const payloadData = getPayloadData();
+
+  // get the information to complete the form
+  useEffect(() => {
+    GetPrestataireId(payloadData.id).then((response)=>{
+      console.log(response, 'response');
+      const prestataireData = {
+        "nom" : response.nom,
+        "siteInternet" : response.siteInternet,
+        "numTel" : response.numTel,
+        "numTVA" : response.numTVA,
+        "adresseNum" : response.adresseNum,
+        "adresseRue" : response.adresseRue,
+        "localite" : {"localite" : response.localite.localite},
+        "codePostal" : {"codePostal" : response.codePostal.codePostal },
+      };
+      setPrestataireState({...prestataireStates, ...prestataireData});
+    });
+    return() => {};
+  },[]);
+
+  const [prestataireStates, setPrestataireState] = useState(
+    {
+      "nom" : '',
+      "siteInternet" : '',
+      "numTel" : '',
+      "numTVA" : '',
+      "adresseNum" : '',
+      "adresseRue" : '',
+      "localite" : {"localite" : ''},
+      "codePostal" : {"codePostal" :''},
+    }
+  );
 
   const handleChangeFichePrestataire = (e) => {
     switch (e.target.name) {
-      case 'prestataireNom':
-        setPrestatireNom(e.target.value);
+      case 'nom':
+        setPrestataireState({...prestataireStates,nom:e.target.value});
         break;
-      case 'prestataireSiteInternet':
-        setPrestataireSiteInternet(e.target.value);
+      case 'siteInternet':
+        setPrestataireState({...prestataireStates,siteInternet:e.target.value});
         break;
-      case 'prestataireNumTel':
-        setPrestataireNumTel(e.target.value);
+      case 'numTel':
+        setPrestataireState({...prestataireStates,numTel:e.target.value});
         break;
-      case 'prestataireNumTVA':
-        setPrestataireNumTVA(e.target.value);
+      case 'numTVA':
+        setPrestataireState({...prestataireStates,numTVA:e.target.value});
       break;
-      case 'prestataireAdresseNum':
-        setPrestataireAdresseNum(e.target.value);
+      case 'adresseNum':
+        setPrestataireState({...prestataireStates,adresseNum:e.target.value});
       break;
-      case 'prestataireAdresseRue':
-        setPrestataireAdresseRue(e.target.value);
+      case 'adresseRue':
+        setPrestataireState({...prestataireStates,adresseRue:e.target.value});
       break;
-      case 'prestataireLocalite':
-        setPrestataireLocalite(e.target.value);
+      case 'localite':
+        setPrestataireState({...prestataireStates,localite:{"localite" : e.target.value}});
+      break;
+      case 'codePostal':
+        setPrestataireState({...prestataireStates,codePostal:{"codePostal" : e.target.value}});
       break;
       default:
         break;
@@ -41,7 +74,7 @@ function FichePrestataire() {
 
   const handleFichePrestataire = (e) => {
     e.preventDefault();
-    const resPostCreateUser = PatchPrestataireId(prestataireNom, prestataireSiteInternet, prestataireNumTel, prestataireNumTVA, prestataireAdresseNum, prestataireAdresseRue, prestataireLocalite);
+    const resPostCreateUser = patchPrestataireId(payloadData.id, prestataireStates);
     resPostCreateUser.then(
       (res) => {
         console.log(res);
@@ -52,26 +85,24 @@ function FichePrestataire() {
   return (
     <div className="flex justify-center items-center">
       <div className="bg-zinc-300 h-auto rounded p-7 m-7 md:ml-7 w-1/2">
-        <h2>fiche prestataire</h2>
+        <h2>Fiche prestataire</h2>
         <form className="flex flex-col">
-          <label htmlFor="prestataireNom">Nom</label>
-          <input onChange={(e)=>{handleChangeFichePrestataire(e)}} type="text" id="prestataireNom" name="prestataireNom" className="rounded px-4 outline-none"/>
-          <label htmlFor="prestataireSiteInternet">Site Internet</label>
-          <input onChange={(e)=>{handleChangeFichePrestataire(e)}} type="text" id="prestataireSiteInternet" name="prestataireSiteInternet" className="rounded px-4 outline-none"/>
-          <label htmlFor="prestataireNumTel">Téléphone</label>
-          <input onChange={(e)=>{handleChangeFichePrestataire(e)}} type="text" id="prestataireNumTel" name="prestataireNumTel" className="rounded px-4 outline-none"/>
-          <label htmlFor="prestataireNumTVA">TVA</label>
-          <input onChange={(e)=>{handleChangeFichePrestataire(e)}} type="text" id="prestataireNumTVA" name="prestataireNumTVA" className="rounded px-4 outline-none"/>
-          <label htmlFor="prestataireAdresseNum">Numéro</label>
-          <input onChange={(e)=>{handleChangeFichePrestataire(e)}} type="text" id="prestataireAdresseNum" name="prestataireAdresseNum" className="rounded px-4 outline-none"/>
-          <label htmlFor="prestataireAdresseRue">Rue</label>
-          <input onChange={(e)=>{handleChangeFichePrestataire(e)}} type="text" id="prestataireAdresseRue" name="prestataireAdresseRue" className="rounded px-4 outline-none"/>
-          <label htmlFor="prestataireLocalite">Localité</label>
-          <select onChange={(e)=>{handleChangeFichePrestataire(e)}} type="text" id="prestataireAdresseRue" name="prestataireAdresseRue" className="rounded px-4 outline-none">
-            <option value="">--faites un choix--</option>
-            <option value="ROLE_PRESTATAIRE">Je suis un prestataire de bien-être</option>
-            <option value="ROLE_INTERNAUTE">Je suis à la recherche de bien-être</option>
-          </select>
+          <label htmlFor="nom">Nom</label>
+          <input onChange={(e)=>{handleChangeFichePrestataire(e)}} type="text" id="nom" value={prestataireStates.nom ?? ''} name="nom" className="rounded px-4 outline-none"/>
+          <label htmlFor="siteInternet">Site Internet</label>
+          <input onChange={(e)=>{handleChangeFichePrestataire(e)}} type="text" id="siteInternet" value={prestataireStates.siteInternet ?? ''} name="siteInternet" className="rounded px-4 outline-none"/>
+          <label htmlFor="numTel">Téléphone</label>
+          <input onChange={(e)=>{handleChangeFichePrestataire(e)}} type="text" id="numTel" value={prestataireStates.numTel ?? ''} name="numTel" className="rounded px-4 outline-none"/>
+          <label htmlFor="numTVA">TVA</label>
+          <input onChange={(e)=>{handleChangeFichePrestataire(e)}} type="text" id="numTVA" value={prestataireStates.numTVA ?? ''} name="numTVA" className="rounded px-4 outline-none"/>
+          <label htmlFor="adresseNum">Numéro</label>
+          <input onChange={(e)=>{handleChangeFichePrestataire(e)}} type="text" id="adresseNum" value={prestataireStates.adresseNum ?? ''} name="adresseNum" className="rounded px-4 outline-none"/>
+          <label htmlFor="adresseRue">Rue</label>
+          <input onChange={(e)=>{handleChangeFichePrestataire(e)}} type="text" id="adresseRue" value={prestataireStates.adresseRue ?? ''} name="adresseRue" className="rounded px-4 outline-none"/>
+          <label htmlFor="localite">Localité</label>
+          <input onChange={(e)=>{handleChangeFichePrestataire(e)}} type="text" id="localite" value={prestataireStates.localite.localite ?? ''} name="localite" className="rounded px-4 outline-none"/>
+          <label htmlFor="codePostal">Code Postal</label>
+          <input onChange={(e)=>{handleChangeFichePrestataire(e)}} type="text" id="codePostal" value={prestataireStates.codePostal.codePostal ?? ''} name="codePostal" className="rounded px-4 outline-none"/>
           <button 
           type="submit"
           className="text-center h-7 mt-7 px-4 outline-none hover:bg-violet-400 bg-zinc-500 md:w-1/3 rounded text-white flex flex-row items-center"

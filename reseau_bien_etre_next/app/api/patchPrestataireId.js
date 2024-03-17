@@ -1,23 +1,21 @@
 // function to update Prestataire Information
-async function PatchPrestataireId(nom, siteInternet, numTel, numTVA, stages, promotions, images, commentaires, image_Logo, proposer, email, roles, password, dresseNum,adresseRue, localite, codePostal, commune) {
+export async function patchPrestataireId(id, prestataireStates) {
     try{
         const res = await fetch(
-            `http://localhost:8000/api/prestataires/{id}`,
+            `http://localhost:8000/api/prestataires/${id}`,
             {
                 method:'PATCH',
-                headers: {'Content-Type': 'application/ld+json'},
-                body: JSON.stringify({
-                    "nom": nom,
-                    "siteInternet": siteInternet,
-                    "numTel": numTel,
-                })
+                // PATCH doesn't support 'application/ld+json' content-type.
+                headers: {'Content-Type': 'application/merge-patch+json'},
+                body: JSON.stringify(
+                    prestataireStates
+                )
             }
         );
         const result = await res.json();
-        console.log(result);
         if (result.status) {
             if (result.status === 500) {
-                alert("Cet e-mail existe déjà ;-)");   
+                alert("Oups. Vos données n'ont pas pu être mises à jour.");   
             }
             throw new Error('Failed to fetch data: ' + result.status);
           }
@@ -26,4 +24,3 @@ async function PatchPrestataireId(nom, siteInternet, numTel, numTVA, stages, pro
         console.error("Error:", error);
     }
 } 
-export default PatchPrestataireId

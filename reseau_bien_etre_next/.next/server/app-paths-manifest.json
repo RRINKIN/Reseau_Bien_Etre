@@ -1,6 +1,9 @@
 {
+  "/not-found": "app/not-found.js",
   "/auth/page": "app/auth/page.js",
   "/page": "app/page.js",
+  "/apropos/page": "app/apropos/page.js",
+  "/auth/ficheInternaute/page": "app/auth/ficheInternaute/page.js",
   "/auth/fichePrestataire/page": "app/auth/fichePrestataire/page.js",
-  "/auth/ficheInternaute/page": "app/auth/ficheInternaute/page.js"
+  "/favicon.ico/route": "app/favicon.ico/route.js"
 }

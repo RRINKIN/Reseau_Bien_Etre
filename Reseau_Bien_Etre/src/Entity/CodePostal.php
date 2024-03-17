@@ -18,7 +18,7 @@ class CodePostal
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Groups(['read:internauteInfo'])]
+    #[Groups(['read:internauteInfo', 'read:prestataireCards'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $codePostal = null;
 

@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
-    // defines read (GET) context on class level. (what properties will be returned in the API)
+    // Structure the Read and Write of the group from the API
     normalizationContext: ['groups' => ['read:internauteInfo']],
     denormalizationContext: ['groups' => ['read:internauteInfo']],
 )]

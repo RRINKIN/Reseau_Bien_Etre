@@ -8,6 +8,7 @@ use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Patch;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -24,8 +25,9 @@ use ApiPlatform\Metadata\Link;
     operations: [ new GetCollection(normalizationContext:['groups' => ['read:prestataireCards']], ) ]
 )]
 #[ApiResource(
-    // defines read (GET) context on class level. (what properties will be returned in the API)
+    // Groups defined for read and write in the API
     normalizationContext: ['groups' => ['read:prestataireCards']],
+    denormalizationContext: ['groups' => ['read:prestataireCards']],
     // limit the export of the items in the Json returned by the API
     paginationItemsPerPage: 9,
     order: ['id' => 'DESC'],
@@ -35,6 +37,7 @@ use ApiPlatform\Metadata\Link;
         new Delete(),
         new GetCollection(),
         new Post(),
+        new Patch(),
     ]
 )]
 #[ApiFilter(SearchFilter::class, properties: ['nom' => 'partial', 'proposer.nom' => 'partial', 'localite.localite' => 'partial', 'commune.commune' => 'partial', 'codePostal.codePostal' => 'partial'])]

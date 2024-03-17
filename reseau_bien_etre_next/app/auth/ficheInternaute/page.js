@@ -13,7 +13,6 @@ function FicheInternaute() {
   // get the information to complete the form
   useEffect(() => {
     getInternauteId(payloadData.id).then((response)=>{
-      console.log(response);
       const internauteData = {
         "nom" : response.nom,
         "prenom" : response.prenom,
