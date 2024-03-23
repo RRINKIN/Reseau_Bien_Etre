@@ -1,7 +1,8 @@
 {
+  "/not-found": "app/not-found.js",
   "/page": "app/page.js",
-  "/service/[productId]/page": "app/service/[productId]/page.js",
-  "/apropos/page": "app/apropos/page.js",
-  "/contact/page": "app/contact/page.js",
-  "/prestataires/[prestataireId]/page": "app/prestataires/[prestataireId]/page.js"
+  "/prestataires/[prestataireId]/page": "app/prestataires/[prestataireId]/page.js",
+  "/auth/page": "app/auth/page.js",
+  "/cgv/page": "app/cgv/page.js",
+  "/confidentiality/page": "app/confidentiality/page.js"
 }

@@ -18,7 +18,7 @@ function Footer() {
                     <li ><a href="/" >Accueil</a></li>
                     <li ><a href="/apropos" >A Propos</a></li>
                     <li ><a href="/contact" >Contact</a></li>
-                    <li ><a href="/login" >Se connecter</a></li>
+                    <li ><a href="/auth" >Se connecter</a></li>
                 </ul>
                 <span className='fill-white p-2'>
                     <a href="https://be.linkedin.com/in/rrinkin" >
@@ -29,7 +29,7 @@ function Footer() {
                 <li ><a href="/legal" >Mentions légales</a></li>
                 <li ><a href="/plan" >Plan du site</a></li>
                 <li ><a href="/cgv" >CGV</a></li>
-                <li ><a href="/confidentialite" >Confidentialité</a></li>
+                <li ><a href="/confidentiality" >Confidentialité</a></li>
             </ul>
 
         </div>
