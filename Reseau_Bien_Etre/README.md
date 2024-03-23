@@ -37,3 +37,6 @@ https://localhost:8000/api
 ## JWT
 The website uses JWT for authentication.
 JWT can be read using this website: https://jwt.io/
+
+## SVG and Icons
+SVG and Icons all come from <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->

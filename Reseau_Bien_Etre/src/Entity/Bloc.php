@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ApiResource]
+//Not used yet #[ApiResource]
 #[ORM\Entity(repositoryClass: BlocRepository::class)]
 class Bloc
 {

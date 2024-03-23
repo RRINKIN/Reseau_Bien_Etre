@@ -4,10 +4,7 @@ namespace App\Entity;
 use App\Repository\PrestataireRepository;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\Put;
-use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Patch;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -33,14 +30,11 @@ use ApiPlatform\Metadata\Link;
     order: ['id' => 'DESC'],
     operations: [
         new Get(),
-        new Put(),
-        new Delete(),
         new GetCollection(),
-        new Post(),
         new Patch(),
     ]
 )]
-#[ApiFilter(SearchFilter::class, properties: ['nom' => 'partial', 'proposer.nom' => 'partial', 'localite.localite' => 'partial', 'commune.commune' => 'partial', 'codePostal.codePostal' => 'partial'])]
+#[ApiFilter(SearchFilter::class, properties: ['nom' => 'partial', 'proposer.nom' => 'partial', 'localite.localite' => 'partial', 'commune.commune' => 'partial', 'codePostal.codePostal' => 'partial', 'proposer.id' => 'partial'])]
 #[ORM\Entity(repositoryClass: PrestataireRepository::class)]
 class Prestataire extends User
 {
@@ -71,6 +65,7 @@ class Prestataire extends User
     #[ORM\OneToMany(mappedBy: 'prestataire', targetEntity: Images::class)]
     private Collection $images;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\OneToMany(mappedBy: 'prestataire', targetEntity: Commentaire::class)]
     private Collection $commentaires;
 

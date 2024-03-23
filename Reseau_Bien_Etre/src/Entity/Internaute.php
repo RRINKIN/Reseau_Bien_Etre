@@ -9,11 +9,24 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+// used to define the capabilities of the API
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Patch;
+
 #[ApiResource(
     // Structure the Read and Write of the group from the API
     normalizationContext: ['groups' => ['read:internauteInfo']],
     denormalizationContext: ['groups' => ['read:internauteInfo']],
+    operations: [
+        new Get(),
+        new GetCollection(),
+        new Post(),
+        new Patch(),
+    ]
 )]
+
 #[ORM\Entity(repositoryClass: InternauteRepository::class)]
 class Internaute extends User
 {

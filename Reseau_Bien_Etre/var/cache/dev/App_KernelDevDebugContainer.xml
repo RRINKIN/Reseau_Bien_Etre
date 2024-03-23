@@ -8480,6 +8480,7 @@
         <argument key="localite.localite">partial</argument>
         <argument key="commune.commune">partial</argument>
         <argument key="codePostal.codePostal">partial</argument>
+        <argument key="proposer.id">partial</argument>
       </argument>
       <argument type="service" id="api_platform.api.identifiers_extractor" on-invalid="ignore"/>
       <argument type="service" id="serializer.name_converter.metadata_aware" on-invalid="ignore"/>

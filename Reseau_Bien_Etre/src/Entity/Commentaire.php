@@ -3,13 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\CommentaireRepository;
-use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ApiResource]
+//Not used yet #[ApiResource]
 #[ORM\Entity(repositoryClass: CommentaireRepository::class)]
 class Commentaire
 {
@@ -18,12 +18,15 @@ class Commentaire
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $titre = null;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $contenu = null;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\Column(nullable: true)]
     private ?int $cote = null;
 

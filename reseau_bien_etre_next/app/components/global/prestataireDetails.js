@@ -2,9 +2,12 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { GetPrestataireId } from '../../api/getPrestataireId';
+import GetPrestataireSimilar from '../../api/getPrestataireSimilar';
 import Image from 'next/image';
 import Link from 'next/link';
-import Promotions from './promotions'
+import Promotions from './promotions';
+import Stages from './stages';
+import Commentaires from './commentaires';
 import UserIsLogged from '../../auth/userIsLogged';
 
 function PrestataireInfo({prestataireId}) {
@@ -24,18 +27,39 @@ function PrestataireInfo({prestataireId}) {
     },[])
 
     // Display promotions when logged
-    {/*const [showPromotions, setShowPromotions] = useState('Connectez-vous pour voir les promotions');
-    useEffect(() => {
-        const PromotionIsVisible = UserIsLogged() ? <Promotions prestataireInfo={prestataireInfo}/> : 'Connectez-vous pour voir les promotions';
-        setShowPromotions(PromotionIsVisible);
-      }, [UserIsLogged]);
-    console.log(showPromotions);*/}
     const [showPromotions, setShowPromotions] = useState(false);
         useEffect(() => {
             const PromotionIsVisible = UserIsLogged() ? true : false;
             setShowPromotions(PromotionIsVisible);
           }, [UserIsLogged]);
-        console.log(showPromotions);
+
+    // Get the list of similar prestataires
+    const [prestataireList, setPrestataireList] = useState('');
+    useEffect(() => {
+      // get promise
+      //const dataList = GetPrestataireSimilar(localite, categoryId);
+      const dataList = GetPrestataireSimilar("Louisiana", "319");
+      // what to do with the promise
+      dataList.then (
+        res => {const listCategory = res['hydra:member'].map((x) => (
+          <div key={x.id} className='capitalize bg-white shadow-lg rounded-lg mr-4'>
+            <Link href={`/prestataires/${x.id}`}>
+              <Image
+                src={`/images/coiffeur.jpg`}
+                width="150"
+                height="100"
+                alt={x.nom}
+                className="rounded-lg"
+              />
+              <p className='capitalize text-center max-w-[150px] px-1'>{x.nom}</p>
+            </Link>
+          </div>
+        ));
+        setPrestataireList(listCategory);
+        }
+      );
+    },[setPrestataireList])
+    console.log(prestataireList);
 
     return (
       <div>
@@ -85,19 +109,24 @@ function PrestataireInfo({prestataireId}) {
             </div>      
           </div>
         </div>
+        {/* The promotions are only display if logged in */}
+        <div className={`${showPromotions ? 'hidden' : 'pt-5'}`}>
+          <p>Envie de promo? </p>
+          <p><Link className='text-violet-400' href={`/auth`}>Connectez-vous</Link> pour voir les promotions.</p>
+        </div>
         <div className={`${showPromotions ? 'py-5' : 'hidden'}`}>
             <Promotions prestataireInfo={prestataireInfo}/>
         </div>
         <div className='py-5'>
-          {prestataireInfo && prestataireInfo.stages.map((stages, index) => (
-            <div key={index}>
-                <p>Stage#{index+1}</p>
-                <div className='border-dotted border py-2 border-t-black'></div>
-                <p>Déscription: {stages.description}</p>
-                <p>Prix: {stages.tarif}€</p>
-                <p>Détails: {stages.infoComplementaire}</p>
-            </div>
-          ))}
+          <Stages prestataireInfo={prestataireInfo}/>
+        </div>
+        <div className='py-5'>
+          <Commentaires prestataireInfo={prestataireInfo}/>
+        </div>
+        <p>Vous pourriez aussi aimer</p>
+        <div className='border-dotted border py-2 border-t-black'></div>
+        <div className='py-5 flex flex-row'>
+          {prestataireList}
         </div>
       </div>
     )

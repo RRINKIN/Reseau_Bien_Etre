@@ -8,7 +8,20 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ApiResource]
+// used to define the capabilities of the API
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Patch;
+
+#[ApiResource(
+    operations: [
+        new Get(),
+        new GetCollection(),
+        new Post(),
+        new Patch(),
+    ]
+)]
 #[ORM\Entity(repositoryClass: PromotionRepository::class)]
 class Promotion
 {
@@ -28,15 +41,19 @@ class Promotion
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $documentPdf = null;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $debut = null;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $fin = null;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $affichageDe = null;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $affichageJusque = null;
 

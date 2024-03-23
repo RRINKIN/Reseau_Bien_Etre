@@ -4,6 +4,7 @@ import Logo from "./logo";
 import Menu from "./menu";
 import Burger from "./burger";
 import { useState } from 'react';
+import PrestataireSearchBar from '../homePage/prestataireSearchBar';
 
 // use to determine the path which is used below in the ternary function
 function HeaderMenu() {

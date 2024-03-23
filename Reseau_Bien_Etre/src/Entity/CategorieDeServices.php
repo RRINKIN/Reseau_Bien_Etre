@@ -13,8 +13,20 @@ use Doctrine\ORM\Mapping as ORM;
 // to be able to use groups serialization
 use Symfony\Component\Serializer\Annotation\Groups;
 
-//#[ApiResource]
-#[ApiResource]
+// used to define the capabilities of the API
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Patch;
+
+#[ApiResource(
+    operations: [
+        new Get(),
+        new GetCollection(),
+        new Post(),
+        new Patch(),
+    ]
+)]
 #[ApiFilter(BooleanFilter::class, properties: ['enAvant'])]
 #[ApiFilter(SearchFilter::class, properties: ['nom' => 'partial'])]
 #[ORM\Entity(repositoryClass: CategorieDeServicesRepository::class)]

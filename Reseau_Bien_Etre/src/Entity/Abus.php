@@ -7,7 +7,7 @@ use ApiPlatform\Metadata\ApiResource;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ApiResource]
+//Not used yet #[ApiResource]
 #[ORM\Entity(repositoryClass: AbusRepository::class)]
 class Abus
 {

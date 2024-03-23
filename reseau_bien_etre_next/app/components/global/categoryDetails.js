@@ -49,7 +49,7 @@ function CategoryInfo({categoryId}) {
 
     return (
       <div>
-        <div className='flex flex-row'>
+        <div className='md:flex md:flex-row'>
           {categoryInfo && (
           <Image 
             src={`/images/${categoryInfo.nom}.jpg`}
@@ -61,7 +61,7 @@ function CategoryInfo({categoryId}) {
           )}
           <div>
             <div className='text-2xl pb-7'>
-              <h3>Un petit moment: {categoryInfo && categoryInfo.nom} ?</h3>
+              <h3>Un petit moment {categoryInfo && categoryInfo.nom} ?</h3>
             </div>
             <div>
               {categoryInfo && categoryInfo.description}
@@ -70,7 +70,7 @@ function CategoryInfo({categoryId}) {
         </div>
         <div>
           <div className='h-px w-full bg-zinc-300 my-5'></div>
-          <h3 className='text-2xl py-7'>Vous pourriez aimez les prestataires suivants:</h3>
+          <h3 className='text-2xl py-7'>Vous pourriez aimer les prestataires suivants</h3>
           <ul className='flex flex-row flex-wrap gap-y-2 gap-x-5'>  
             {prestataireList}
           </ul>
