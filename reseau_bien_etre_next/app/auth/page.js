@@ -4,6 +4,7 @@
   import Cookies from 'universal-cookie';
   import removeCookie from './removeCookie';
   import PostCreateUser from '../api/postCreateUser';
+  import getPayloadData from './getPayloadData';
 
   function EspacePrive() {
     // define states to collect inputed values
@@ -52,7 +53,15 @@
           else{
               cookie.set('token' , res.token);
               alert('Vous êtes maintenant connecté');
-              window.location.href = '/'; // redirection to home page
+              // payload data
+              const payload = getPayloadData();
+              const isInternaute = payload.roles.includes('ROLE_INTER');
+              const isPrestataire = payload.roles.includes('ROLE_PREST');
+              if(isInternaute){
+                window.location.href = '/auth/ficheInternaute';
+              } else if(isPrestataire){
+                window.location.href = '/auth/fichePrestataire';
+              }
               setFailedLoginAttempts(0); // Reset failed attempts after successful login
           }
         } 

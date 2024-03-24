@@ -1,8 +1,8 @@
 {
-  "/auth/ficheInternaute/page": "app/auth/ficheInternaute/page.js",
-  "/page": "app/page.js",
   "/auth/page": "app/auth/page.js",
-  "/service/page": "app/service/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/contact/page": "app/contact/page.js"
+  "/auth/confirmation/page": "app/auth/confirmation/page.js",
+  "/page": "app/page.js",
+  "/auth/fichePrestataire/page": "app/auth/fichePrestataire/page.js",
+  "/auth/ficheInternaute/page": "app/auth/ficheInternaute/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js"
 }

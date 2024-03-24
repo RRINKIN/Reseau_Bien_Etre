@@ -17,10 +17,11 @@ class Images
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\Column(nullable: true)]
     private ?int $ordre = null;
     
-    #[Groups(['read:internauteInfo'])]
+    #[Groups(['read:internauteInfo', 'read:prestataireCards'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 

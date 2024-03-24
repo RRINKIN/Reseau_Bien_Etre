@@ -12,7 +12,6 @@ function FichePrestataire() {
   // get the information to complete the form
   useEffect(() => {
     GetPrestataireId(payloadData.id).then((response)=>{
-      console.log(response, 'response');
       const prestataireData = {
         "nom" : response.nom,
         "siteInternet" : response.siteInternet,
@@ -24,6 +23,19 @@ function FichePrestataire() {
         "codePostal" : {"codePostal" : response.codePostal.codePostal },
       };
       setPrestataireState({...prestataireStates, ...prestataireData});
+      if(response.image_Logo){
+        setUrlLogo('http://localhost:8000'+response.image_Logo.image);
+      }
+      if(response.images){
+        for (let index = 0; index < response.images.length; index++) {
+          const element = response.images[index];
+          if (element.ordre == 0) continue;
+          console.log(element, 'element');
+          if (element.ordre == 1) {
+            setUrlImage1('http://localhost:8000'+element.image);
+          }
+        }
+      }
     });
     return() => {};
   },[]);
@@ -81,9 +93,74 @@ function FichePrestataire() {
       }
     )
   }
+  
+  // setup state of the logo
+  const [urlLogo, setUrlLogo] = useState('http://localhost:8000/images/avatar.webp');
+
+  // manage logo upload
+  const uploadLogo = (e) => {
+    e.preventDefault();
+    const input = document.querySelector('#logo');
+    const data = new FormData();
+    data.append('file', input.files[0]);
+    fetch(`http://localhost:8000/api/imagePrestataire/${payloadData.id}/0`, {
+      method: 'POST',
+      body: data
+    }).then((response) => {
+      return response.json();
+    }).then((response) => {
+      setUrlLogo('http://localhost:8000'+response.uri);
+    });
+  }
+
+  // setup state of the logo
+  const [urlImage1, setUrlImage1] = useState('http://localhost:8000/images/avatar.webp');
+
+  // manage logo image
+  const uploadImage1 = (e) => {
+    e.preventDefault();
+    const input = document.querySelector('#image1');
+    const data = new FormData();
+    data.append('file', input.files[0]);
+    fetch(`http://localhost:8000/api/imagePrestataire/${payloadData.id}/1`, {
+      method: 'POST',
+      body: data
+    }).then((response) => {
+      return response.json();
+    }).then((response) => {
+      setUrlImage1('http://localhost:8000'+response.uri);
+    });
+  }
 
   return (
     <div className="flex justify-center items-center">
+      <div className="p-7 m-7 md:ml-7 w-1/2">
+          <img 
+              src={urlLogo} 
+              width="900" 
+              height="700" 
+              alt={prestataireStates.nom} 
+              className="rounded-lg w-1/2 mb-5" 
+          />
+          <form>
+            <label htmlFor="logo"></label>
+            <input type='file' id="logo" name="logo"/>
+            <button className="bg-zinc-100 text-black px-3 rounded border-black border" onClick={(e)=>{uploadLogo(e)}}>charger...</button>
+          </form>
+          
+          <img 
+              src={urlImage1} 
+              width="900" 
+              height="700" 
+              alt={prestataireStates.nom} 
+              className="rounded-lg w-1/2 mb-5" 
+          />
+          <form>
+            <label htmlFor="image1"></label>
+            <input type='file' id="image1" name="image1"/>
+            <button className="bg-zinc-100 text-black px-3 rounded border-black border" onClick={(e)=>{uploadImage1(e)}}>charger...</button>
+          </form>
+        </div>
       <div className="bg-zinc-300 h-auto rounded p-7 m-7 md:ml-7 w-1/2">
         <h2>Fiche prestataire</h2>
         <form className="flex flex-col">

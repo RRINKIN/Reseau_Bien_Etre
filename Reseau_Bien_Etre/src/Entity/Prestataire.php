@@ -62,6 +62,7 @@ class Prestataire extends User
     #[ORM\OneToMany(mappedBy: 'prestataire', targetEntity: Promotion::class)]
     private Collection $promotions;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\OneToMany(mappedBy: 'prestataire', targetEntity: Images::class)]
     private Collection $images;
 
@@ -69,6 +70,7 @@ class Prestataire extends User
     #[ORM\OneToMany(mappedBy: 'prestataire', targetEntity: Commentaire::class)]
     private Collection $commentaires;
 
+    #[Groups(['read:prestataireCards'])]
     #[ORM\OneToOne(inversedBy: 'prestataireLogo', cascade: ['persist', 'remove'])]
     private ?Images $image_Logo = null;
 
@@ -267,6 +269,7 @@ class Prestataire extends User
     public function setImageLogo(?Images $image_Logo): static
     {
         $this->image_Logo = $image_Logo;
+        $image_Logo->setPrestataire($this);
 
         return $this;
     }
