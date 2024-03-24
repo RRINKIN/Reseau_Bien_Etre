@@ -48,6 +48,7 @@ class Internaute extends User
     #[ORM\OneToMany(mappedBy: 'internaute', targetEntity: Abus::class)]
     private Collection $abuses;
 
+    #[Groups(['read:internauteInfo'])]
     #[ORM\OneToOne(mappedBy: 'internaute', cascade: ['persist', 'remove'])]
     private ?Images $images = null;
 

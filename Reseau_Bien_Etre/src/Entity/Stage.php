@@ -46,7 +46,7 @@ class Stage
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $infoComplementaire = null;
 
-    //#[Groups(['read:prestataireCards'])]
+    #[Groups(['read:prestataireCards'])]
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $debut = null;
 
@@ -116,7 +116,7 @@ class Stage
         return $this;
     }
 
-    public function getDebut(): ?string
+    public function getDebut(): ?\DateTimeInterface
     {
         return $this->debut;
     }

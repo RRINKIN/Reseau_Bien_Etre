@@ -88,7 +88,7 @@ function PrestataireCards() {
 
   return(
     <>
-      <div className="flex flex-row items-center justify-center md:w-2/3">
+      <div className="flex flex-row items-center justify-center md:w-2/3 relative">
         <div id="search-anchor">
           <PrestataireSearchBar onSearchChange={prestataireUrlToUse}/>
         </div>

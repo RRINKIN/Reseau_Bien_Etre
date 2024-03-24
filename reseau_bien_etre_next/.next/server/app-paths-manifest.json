@@ -1,7 +1,8 @@
 {
-  "/auth/page": "app/auth/page.js",
-  "/service/[productId]/page": "app/service/[productId]/page.js",
-  "/prestataires/[prestataireId]/page": "app/prestataires/[prestataireId]/page.js",
+  "/auth/ficheInternaute/page": "app/auth/ficheInternaute/page.js",
   "/page": "app/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js"
+  "/auth/page": "app/auth/page.js",
+  "/service/page": "app/service/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/contact/page": "app/contact/page.js"
 }

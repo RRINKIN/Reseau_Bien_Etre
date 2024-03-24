@@ -36,7 +36,6 @@ function PrestataireInfo({prestataireId}) {
 
     // Get the list of similar prestataires
     const [prestataireList, setPrestataireList] = useState('');
-    console.log(prestataireInfo);
     useEffect(() => {
       // get promise
       const dataList = GetPrestataireSimilar(prestataireInfo?.localite?.localite, prestataireInfo?.proposer?.id);

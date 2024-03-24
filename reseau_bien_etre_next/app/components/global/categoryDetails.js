@@ -45,7 +45,7 @@ function CategoryInfo({categoryId}) {
         }
       );
     },[setPrestataireList])
-    console.log(prestataireList);
+    //console.log(prestataireList);
 
     return (
       <div>

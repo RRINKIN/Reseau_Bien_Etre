@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ImagesRepository;
 use ApiPlatform\Metadata\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource]
 #[ORM\Entity(repositoryClass: ImagesRepository::class)]
@@ -12,12 +13,14 @@ class Images
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
+    #[Groups(['read:internauteInfo'])]
     #[ORM\Column]
     private ?int $id = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $ordre = null;
-
+    
+    #[Groups(['read:internauteInfo'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
