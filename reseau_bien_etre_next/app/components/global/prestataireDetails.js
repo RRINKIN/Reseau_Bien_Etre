@@ -36,10 +36,10 @@ function PrestataireInfo({prestataireId}) {
 
     // Get the list of similar prestataires
     const [prestataireList, setPrestataireList] = useState('');
+    console.log(prestataireInfo);
     useEffect(() => {
       // get promise
-      //const dataList = GetPrestataireSimilar(localite, categoryId);
-      const dataList = GetPrestataireSimilar("Louisiana", "319");
+      const dataList = GetPrestataireSimilar(prestataireInfo?.localite?.localite, prestataireInfo?.proposer?.id);
       // what to do with the promise
       dataList.then (
         res => {const listCategory = res['hydra:member'].map((x) => (
@@ -59,7 +59,7 @@ function PrestataireInfo({prestataireId}) {
         setPrestataireList(listCategory);
         }
       );
-    },[setPrestataireList])
+    },[setPrestataireList, prestataireInfo])
 
     return (
       <div>
