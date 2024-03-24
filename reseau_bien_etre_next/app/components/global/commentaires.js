@@ -11,7 +11,7 @@ function Commentaires({prestataireInfo}) {
                 <div className="flex flex-row">
                 {[...Array(commentaires.cote)].map((_, i) => (
                     <svg
-                        key={i}
+                        key={`filled-star-${commentaires.id}-${i}`}
                         className="fill-violet-900 w-5 h-5"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 576 512"
@@ -23,6 +23,7 @@ function Commentaires({prestataireInfo}) {
                 {/* Display empty stars for remaining stars */}
                 {[...Array(9 - (commentaires.cote))].map((_, i) => (
                     <svg 
+                    key={`filled-star-${commentaires.id}-${i}`}
                         className="fill-violet-900 w-5 h-5"
                         xmlns="http://www.w3.org/2000/svg" 
                         viewBox="0 0 576 512">

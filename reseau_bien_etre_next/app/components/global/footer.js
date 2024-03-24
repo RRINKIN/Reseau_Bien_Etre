@@ -26,7 +26,6 @@ function Footer() {
                 </span>
             </div>
             <ul className='col-span-1 md:col-span-2'>
-                <li ><a href="/legal" >Mentions légales</a></li>
                 <li ><a href="/plan" >Plan du site</a></li>
                 <li ><a href="/cgv" >CGV</a></li>
                 <li ><a href="/confidentiality" >Confidentialité</a></li>

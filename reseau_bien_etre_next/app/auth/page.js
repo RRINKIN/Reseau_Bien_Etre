@@ -50,6 +50,7 @@ function EspacePrive() {
         }
       } 
     )
+    console.log(nb_essai_infructueux, 'nb_essai_infructueux');
   };
 
   // registration handler
@@ -127,9 +128,6 @@ function EspacePrive() {
                 Envoyer
               </button>
             </form>
-            {/*<div>
-              <readCookie />
-            </div>*/}
           </div>
           <div className="bg-zinc-300 md:w-1/2 h-auto rounded p-7 mb-7 md:ml-7">
             <h2>M'inscrire</h2>

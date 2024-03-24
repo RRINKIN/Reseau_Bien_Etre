@@ -9,6 +9,7 @@ import Promotions from './promotions';
 import Stages from './stages';
 import Commentaires from './commentaires';
 import UserIsLogged from '../../auth/userIsLogged';
+import Map from '../map/map';
 
 function PrestataireInfo({prestataireId}) {
     const [prestataireInfo, setPrestataireInfo] = useState();
@@ -59,7 +60,6 @@ function PrestataireInfo({prestataireId}) {
         }
       );
     },[setPrestataireList])
-    console.log(prestataireList);
 
     return (
       <div>
@@ -128,6 +128,11 @@ function PrestataireInfo({prestataireId}) {
         <div className='py-5 flex flex-row'>
           {prestataireList}
         </div>
+        <p>Où me trouver?</p>
+        <div className='border-dotted border py-2 border-t-black'></div>
+        <div>
+          <Map />
+        </div>
       </div>
     )
     
@@ -139,6 +144,5 @@ function PrestataireInfo({prestataireId}) {
       
       return `${year}-${month}-${day}`;
       }
-
 }
 export default PrestataireInfo;

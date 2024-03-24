@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { getInternauteId } from "../../api/getInternauteId";
 import { patchInternauteId } from "../../api/patchInternauteId";
 import getPayloadData from "../../auth/getPayloadData";
+import Image from 'next/image';
 
 function FicheInternaute() {
 
@@ -87,6 +88,20 @@ function FicheInternaute() {
 
   return (
     <div className="flex justify-center items-center">
+      <div className="p-7 m-7 md:ml-7 w-1/2">
+        <Image 
+            src={internauteStates.images} 
+            width="900" 
+            height="700" 
+            alt={internauteStates.nom + internauteStates.prenom} 
+            className="rounded-lg w-1/2 mb-5" 
+          />
+        <p>Nom: {internauteStates.nom}</p>
+        <p>Prenom: {internauteStates.prenom}</p>
+        <p>Adresse: {internauteStates.adresseRue}, {internauteStates.adresseNum} - {internauteStates.codePostal.codePostal} {internauteStates.localite.localite}</p>
+        <p>Prestataires favoris: </p>
+
+      </div>
       <div className="bg-zinc-300 h-auto rounded p-7 m-7 md:ml-7 w-1/2">
         <h2>Fiche internaute</h2>
         <form className="flex flex-col">

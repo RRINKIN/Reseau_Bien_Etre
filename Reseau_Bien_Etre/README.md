@@ -31,6 +31,10 @@ Next.JS server can be started using the command: npm run dev
 ## Access website
 Please use localhost port:3000
 
+## for Map
+npm install leaflet react-leaflet
+npm install leaflet-defaulticon-compatibility
+
 ## API
 https://localhost:8000/api
 
