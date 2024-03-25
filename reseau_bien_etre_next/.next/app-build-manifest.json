@@ -50,6 +50,12 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/auth/fichePrestataire/page.js"
+    ],
+    "/prestataires/[prestataireId]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/prestataires/[prestataireId]/page.css",
+      "static/chunks/app/prestataires/[prestataireId]/page.js"
     ]
   }
 }

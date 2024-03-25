@@ -113,7 +113,7 @@ function FichePrestataire() {
     });
   }
 
-  // setup state of the logo
+  // setup state of the images
   const [urlImage1, setUrlImage1] = useState('http://localhost:8000/images/avatar.webp');
 
   // manage logo image
@@ -133,35 +133,8 @@ function FichePrestataire() {
   }
 
   return (
-    <div className="flex justify-center items-center">
-      <div className="p-7 m-7 md:ml-7 w-1/2">
-          <img 
-              src={urlLogo} 
-              width="900" 
-              height="700" 
-              alt={prestataireStates.nom} 
-              className="rounded-lg w-1/2 mb-5" 
-          />
-          <form>
-            <label htmlFor="logo"></label>
-            <input type='file' id="logo" name="logo"/>
-            <button className="bg-zinc-100 text-black px-3 rounded border-black border" onClick={(e)=>{uploadLogo(e)}}>charger...</button>
-          </form>
-          
-          <img 
-              src={urlImage1} 
-              width="900" 
-              height="700" 
-              alt={prestataireStates.nom} 
-              className="rounded-lg w-1/2 mb-5" 
-          />
-          <form>
-            <label htmlFor="image1"></label>
-            <input type='file' id="image1" name="image1"/>
-            <button className="bg-zinc-100 text-black px-3 rounded border-black border" onClick={(e)=>{uploadImage1(e)}}>charger...</button>
-          </form>
-        </div>
-      <div className="bg-zinc-300 h-auto rounded p-7 m-7 md:ml-7 w-1/2">
+    <div className="flex flex-col md:flex-row md:justify-center md:items-center">
+      <div className="bg-zinc-300 h-auto rounded p-7 m-7 md:ml-7 md:w-1/2">
         <h2>Fiche prestataire</h2>
         <form className="flex flex-col">
           <label htmlFor="nom">Nom</label>
@@ -196,6 +169,36 @@ function FichePrestataire() {
             Envoyer
           </button>
         </form>
+      </div>
+      <div className="flex flex-col">
+        <div className="p-7 m-7 md:ml-7">
+            <img 
+                src={urlLogo} 
+                width="200" 
+                height="200" 
+                alt={prestataireStates.nom} 
+                className="rounded-lg mb-5" 
+            />
+            <form>
+              <label htmlFor="logo"></label>
+              <input type='file' id="logo" name="logo"/>
+              <button className="bg-zinc-100 text-black px-3 rounded border-black border" onClick={(e)=>{uploadLogo(e)}}>charger...</button>
+            </form>
+        </div>
+      <div className="p-7 m-7 md:ml-7">
+          <img 
+              src={urlImage1} 
+              width="200" 
+              height="200" 
+              alt={prestataireStates.nom} 
+              className="rounded-lg mb-5" 
+          />
+          <form>
+            <label htmlFor="image1"></label>
+            <input type='file' id="image1" name="image1"/>
+            <button className="bg-zinc-100 text-black px-3 rounded border-black border" onClick={(e)=>{uploadImage1(e)}}>charger...</button>
+          </form>
+        </div>
       </div>
     </div>
   );

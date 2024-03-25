@@ -13,6 +13,7 @@ import Map from '../map/map';
 
 function PrestataireInfo({prestataireId}) {
     const [prestataireInfo, setPrestataireInfo] = useState();
+    const [urlLogo, setUrlLogo] = useState('http://localhost:8000/images/avatar.webp'); // state of the logo
 
     useEffect(() => {
       // get promise
@@ -20,7 +21,8 @@ function PrestataireInfo({prestataireId}) {
       // what to do with the promise
       data.then (
         res => {
-          setPrestataireInfo(res);
+          setPrestataireInfo(res); // update prestataire info
+          setUrlLogo('http://localhost:8000'+res.image_Logo.image); // update partenaire logo
         }
       );
       // function used when component unmount
@@ -59,7 +61,7 @@ function PrestataireInfo({prestataireId}) {
         }
       );
     },[setPrestataireList, prestataireInfo])
-
+  
     return (
       <div>
         <div className='md:flex md:flex-row'>
@@ -73,16 +75,29 @@ function PrestataireInfo({prestataireId}) {
           />
           )}
           <div>
-            <div className='text-2xl pb-5'>
-              <p className='capitalize'>{prestataireInfo && prestataireInfo.nom}</p>
-              <div className='border-dotted border py-2 border-t-black'></div>
-              <p className='text-sm'>Inscrit depuis: {formatDate(prestataireInfo && prestataireInfo.inscription)}</p>
-              <Link href={`${prestataireInfo && prestataireInfo.siteInternet}`}>
-                <span className='text-sm'>Site internet: </span>
-                <span className='text-sm'>{prestataireInfo && prestataireInfo.siteInternet}</span>
-              </Link>
-              <p className='text-sm'>Téléphone: {prestataireInfo && prestataireInfo.numTel}</p>
-              <p className='text-sm'>TVA: {prestataireInfo && prestataireInfo.numTVA}</p>
+            <div className='flex flex-row'>
+              <div className='mr-5'>
+                {prestataireInfo && (
+                  <img 
+                      src={urlLogo} 
+                      width="150" 
+                      height="150" 
+                      alt="logo" 
+                      className="rounded-lg mb-5" 
+                  />
+                )}
+              </div>
+              <div className='text-2xl pb-5'>
+                <p className='capitalize'>{prestataireInfo && prestataireInfo.nom}</p>
+                <div className='border-dotted border py-2 border-t-black'></div>
+                <p className='text-sm'>Inscrit depuis: {formatDate(prestataireInfo && prestataireInfo.inscription)}</p>
+                <Link href={`${prestataireInfo && prestataireInfo.siteInternet}`}>
+                  <span className='text-sm'>Site internet: </span>
+                  <span className='text-sm'>{prestataireInfo && prestataireInfo.siteInternet}</span>
+                </Link>
+                <p className='text-sm'>Téléphone: {prestataireInfo && prestataireInfo.numTel}</p>
+                <p className='text-sm'>TVA: {prestataireInfo && prestataireInfo.numTVA}</p>
+              </div>
             </div>
             <div>
               {prestataireInfo && prestataireInfo.description}
