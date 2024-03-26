@@ -1,13 +1,20 @@
-Thank you for testing this website.
-This is a project called "reseau bien etre" made for the ISL.BE institute.
-Please find bellow, the information to deploy the website locally.
+#############################################################################
+#Thank you for testing this website.                                        #
+#This is a project called "reseau bien etre" made for the ISL.BE institute. #
+#Please find bellow, the information to deploy the website locally.         #
+#############################################################################
 
-## requirements
+## Requirements
 composer 2
 symfony cli
 mysql server 5.7
 php 8.2.0
 Node.js v20.10.0
+
+## Clone the github
+Go to https://github.com/RRINKIN/Reseau_Bien_Etre
+Click on <> Code
+Download the .zip file or clone the repository
 
 ## Architecture
 This sites has a backend in PHP using the symfony framework.

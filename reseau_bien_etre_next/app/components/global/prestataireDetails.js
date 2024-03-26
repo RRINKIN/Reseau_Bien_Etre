@@ -21,8 +21,11 @@ function PrestataireInfo({prestataireId}) {
       // what to do with the promise
       data.then (
         res => {
+          console.log(res);
           setPrestataireInfo(res); // update prestataire info
-          setUrlLogo('http://localhost:8000'+res.image_Logo.image); // update partenaire logo
+          if (res.image_Logo.image !== undefined){
+            setUrlLogo('http://localhost:8000'+res.image_Logo.image);
+          }
         }
       );
       // function used when component unmount
@@ -65,7 +68,7 @@ function PrestataireInfo({prestataireId}) {
     return (
       <div>
         <div className='md:flex md:flex-row'>
-          {prestataireInfo && (
+          {urlLogo && (
           <Image 
             src="/images/coiffeur.jpg" 
             width="900" 

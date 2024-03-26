@@ -7,18 +7,17 @@ import { useEffect, useState } from "react";
 export default function Map() {
 
   const localite = 'West Virginia';
-  const [coord, setCoord] = useState([0, 0]);
+  const [coord, setCoord] = useState([51.509865, -0.118092]);
   
   useEffect(() => {
     const coordinates = fetch(`https://nominatim.openstreetmap.org/search?q=${localite}&polygon=1&addressdetails=1`, {
       mode: "cors", // no-cors, *cors, same-origin
-      credentials: "same-origin", // include, *same-origin, omit
     })
     .then(response => {
       return response.json();
     })
     .then(response => {
-      setCoord([response[0].lat, response[0].lat]);
+      setCoord([response[0].lat, response[0].lon]);
     })
   }, []);
   const zoomLevel = 13;
