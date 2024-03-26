@@ -1,8 +1,8 @@
-#############################################################################
-#Thank you for testing this website.                                        #
-#This is a project called "reseau bien etre" made for the ISL.BE institute. #
-#Please find bellow, the information to deploy the website locally.         #
-#############################################################################
+###############################################################################
+Thank you for testing this website.                                        
+This is a project called "reseau bien etre" made for the ISL.BE institute. 
+Please find bellow, the information to deploy the website locally.         
+###############################################################################
 
 ## Requirements
 composer 2
