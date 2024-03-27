@@ -14,7 +14,6 @@ async function PostCreateUser(email, role, password, addresseNum, adresseRue, lo
             }
         );
         const result = await res.json();
-        console.log(result);
         if (result.status) {
             if (result.status === 500) {
                 alert("Cet e-mail existe déjà ;-)");   

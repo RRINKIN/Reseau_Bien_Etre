@@ -74,7 +74,6 @@
     const [regRole, setRegRole] = useState(['ROLE_USER']);
 
     // check password validity
-    console.log(regPassword);
     const regex = /^(?=.*[0-9])(?=.*[a-zA-Z]).{7,}$/;
     const isPasswordValid = regPassword.match(regex);
 
@@ -100,7 +99,6 @@
       const resPostCreateUser = PostCreateUser(regEmail, regRole, regPassword, '', '', '', '', '');
       resPostCreateUser.then(
         (res) => {
-          console.log(res);
         }
       )
     }

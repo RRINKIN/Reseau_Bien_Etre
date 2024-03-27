@@ -14,6 +14,7 @@ import Map from '../map/map';
 function PrestataireInfo({prestataireId}) {
     const [prestataireInfo, setPrestataireInfo] = useState();
     const [urlLogo, setUrlLogo] = useState('http://localhost:8000/images/avatar.webp'); // state of the logo
+    const [localite, setLocalite] = useState('');
 
     useEffect(() => {
       // get promise
@@ -21,11 +22,11 @@ function PrestataireInfo({prestataireId}) {
       // what to do with the promise
       data.then (
         res => {
-          console.log(res);
           setPrestataireInfo(res); // update prestataire info
-          if (res.image_Logo.image !== undefined){
-            setUrlLogo('http://localhost:8000'+res.image_Logo.image);
+          if (res.image_Logo && res.image_Logo.image){
+            setUrlLogo('http://localhost:8000' + res.image_Logo.image);
           }
+          setLocalite(res.localite.localite);
         }
       );
       // function used when component unmount
@@ -148,7 +149,7 @@ function PrestataireInfo({prestataireId}) {
         <p>Où me trouver?</p>
         <div className='border-dotted border py-2 border-t-black'></div>
         <div>
-          <Map />
+          <Map location={localite}/>
         </div>
       </div>
     )

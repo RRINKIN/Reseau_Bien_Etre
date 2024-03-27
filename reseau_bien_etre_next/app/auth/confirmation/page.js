@@ -13,11 +13,9 @@ function Confirmation() {
   useEffect(()=>{
     const location = window.location;
     const search = location.search;
-    console.log(search);
     fetch(confirmationUrl + search)
       .then(res=>res.json())
       .then(res=>{
-        console.log(res);
         if (res.error === true) {
           setMessage('non confirmée');
           setErrorMessage(res.message);

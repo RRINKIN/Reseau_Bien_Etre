@@ -30,7 +30,6 @@ function FichePrestataire() {
         for (let index = 0; index < response.images.length; index++) {
           const element = response.images[index];
           if (element.ordre == 0) continue;
-          console.log(element, 'element');
           if (element.ordre == 1) {
             setUrlImage1('http://localhost:8000'+element.image);
           }

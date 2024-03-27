@@ -1,7 +1,8 @@
-###############################################################################
+
 Thank you for testing this website.                                        
 This is a project called "reseau bien etre" made for the ISL.BE institute. 
-Please find bellow, the information to deploy the website locally.         
+Please find bellow, the information to deploy the website locally. 
+
 ###############################################################################
 
 ## Requirements
@@ -20,7 +21,7 @@ Download the .zip file or clone the repository
 This sites has a backend in PHP using the symfony framework.
 It also has a frontend in REACT based on NEXT.JS framework.
 
-## install dependencies
+## Install dependencies
 ### Backend
 Open a new terminal in the backend repository
 Run the following command :
